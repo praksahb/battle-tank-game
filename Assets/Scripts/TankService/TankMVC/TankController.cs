@@ -1,6 +1,5 @@
 using TankBattle.Extensions;
 using TankBattle.Tank.Bullets;
-using TankBattle.Tank.PlayerTank;
 using UnityEngine;
 
 namespace TankBattle.Tank
@@ -25,7 +24,6 @@ namespace TankBattle.Tank
             GetTankView = Object.Instantiate(tankPrefab, spawnPosition, Quaternion.identity);
             GetTankView.SetColorOnAllRenderers(GetTankModel.GetColor);
             isDead = false;
-
             ChargeSpeed = (GetTankModel.maxLaunchForce - GetTankModel.minLaunchForce) / GetTankModel.maxChargeTime;
         }
 
