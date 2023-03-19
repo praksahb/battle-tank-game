@@ -1,3 +1,4 @@
+using TankBattle.Tank.EnemyTank;
 using UnityEngine;
 
 namespace TankBattle.Tank.CreateTank
@@ -11,11 +12,15 @@ namespace TankBattle.Tank.CreateTank
         {
             TankTypes.TankScriptableObject tankScriptableObject = tankList.tanks[tankTypeIndex];
             tankModel = new TankModel(tankScriptableObject);
-            TankController tankController = new TankController(tankModel, tankScriptableObject.tankView, spawnPoint);
-            tankController.GetTankView.SetTankController(tankController);
-            tankController.GetTankView.SetMaxHealth(tankModel.GetSetHealth);
-            tankController.GetTankView.SetHealthUI();
-            return tankController;
+
+            {
+                TankController tankController = new TankController(tankModel, tankScriptableObject.tankView, spawnPoint);
+                tankController.GetTankView.SetTankController(tankController);
+                tankController.GetTankView.SetMaxHealth(tankModel.GetSetHealth);
+                tankController.GetTankView.SetHealthUI();
+                return tankController;
+            }
+
         }
     }
 }

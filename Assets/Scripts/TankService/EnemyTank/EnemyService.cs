@@ -8,6 +8,7 @@ namespace TankBattle.Tank.EnemyTank
 
         private int enemyTankIndex = 1;
         private TankController enemyTankController;
+        private EnemyStateController enemyStateController;
 
         void Start()
         {
