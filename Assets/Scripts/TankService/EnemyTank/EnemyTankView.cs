@@ -17,6 +17,10 @@ namespace TankBattle.Tank.EnemyTank
         public TankPatrollingState patrollingState;
         [SerializeField]
         public TankChasingState chasingState;
+        [SerializeField]
+        public TankAttackingState attackingState;
+
+        public EnemyStateController enemyStateController;
 
         public TankState GetCurrentState()
         {
@@ -25,6 +29,7 @@ namespace TankBattle.Tank.EnemyTank
 
         public void ChangeColor(Color32 color)
         {
+            // alpha value is 0 if not changed
             color.a = 255;
             Image image = StateImage.GetComponent<Image>();
             image.color = color;
@@ -42,7 +47,6 @@ namespace TankBattle.Tank.EnemyTank
 
         private void Awake()
         {
-            //image.enabled = true;
         }
 
         private void Start()

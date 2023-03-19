@@ -5,16 +5,36 @@ namespace TankBattle.Tank.EnemyTank
 {
     public class TankAttackingState : TankState
     {
-        // Start is called before the first frame update
-        void Start()
+
+        private float timeElapsed = 0f;
+
+        public override void OnEnterState()
         {
-        
+            base.OnEnterState();
+            Debug.Log("Entering State: " + enemyTankView.GetCurrentState());
+            enemyTankView.ChangeColor(color);
         }
 
-        // Update is called once per frame
-        void Update()
+        public override void OnExitState()
         {
-        
+            base.OnExitState();
+
+        }
+
+        private void Update()
+        {
+            timeElapsed += Time.deltaTime;
+
+            if(Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                enemyTankView.ChangeState(enemyTankView.patrollingState);
+            }
+
+            if(timeElapsed >= 1f)
+            {
+                timeElapsed = 0f;
+                enemyStateController.PerformFireFunction();
+            }
         }
     }
 }

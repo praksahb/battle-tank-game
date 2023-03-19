@@ -19,5 +19,5 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 64
-  maxDamage: 500
+  maxDamage: 50
   maxLifeInSeconds: 2

@@ -26,5 +26,10 @@ namespace TankBattle.Tank.PlayerTank
         {
             return tankController;
         }
+
+        public Transform GetPlayerTransform()
+        {
+            return tankController.GetTankView.transform;
+        }
     };
 }

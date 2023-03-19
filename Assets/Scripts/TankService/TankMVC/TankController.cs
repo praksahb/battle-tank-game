@@ -27,7 +27,8 @@ namespace TankBattle.Tank
             ChargeSpeed = (GetTankModel.maxLaunchForce - GetTankModel.minLaunchForce) / GetTankModel.maxChargeTime;
         }
 
-        //Movement-related logic
+        //Movement-related logic - only being used by player tank currently
+        // enemy tank is using navmesh agent
         //and jump if needed
         public void MoveRotate(Vector2 _moveDirection)
         {
@@ -41,7 +42,6 @@ namespace TankBattle.Tank
             {
                 rb = GetTankView.getRigidbody();
             }
-
             rb.MovePosition(rb.position + moveDirection * GetTankModel.Speed * Time.deltaTime);
         }
         private void Rotate(Vector3 rotateDirection)
@@ -94,7 +94,7 @@ namespace TankBattle.Tank
             IsFired = true;
             Transform fireTransform = GetTankView.GetFireTransform();
             Vector3 bulletSpeed = currentLaunchForce * fireTransform.forward;
-            
+
             CreateShellService.Instance.CreateBullet(fireTransform, bulletSpeed);
 
             GetTankView.PlayFiredSound();

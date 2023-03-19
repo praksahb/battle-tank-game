@@ -7,15 +7,13 @@ namespace TankBattle.Tank.EnemyTank
     {
         [SerializeField] private float radiusRange = 10f;
 
-        private NavMeshAgent agent;
-        private float timeElapsed=0;
 
         public override void OnEnterState()
         {
             base.OnEnterState();
-            if(agent)
+            if(enemyAgent)
             {
-                agent.isStopped = false;
+                enemyAgent.isStopped = false;
             }
             Debug.Log("Entering State: " + enemyTankView.GetCurrentState());
             enemyTankView.ChangeColor(color);
@@ -25,34 +23,32 @@ namespace TankBattle.Tank.EnemyTank
         {
             base.OnExitState();
             // custom logic
-            agent.isStopped = true;
+            //enemyAgent.isStopped = true;
+        }
+
+        private void Start()
+        {
+            //enemyAgent = enemyAgent;
+            enemyAgent.autoBraking = false;
         }
 
         private void Update()
         {
-            timeElapsed += Time.deltaTime;
-
             if(Input.GetKeyDown(KeyCode.Alpha1))
             {
                 enemyTankView.ChangeState(enemyTankView.chasingState);
             }
 
             // move Randomly
-            if (agent.remainingDistance <= agent.stoppingDistance)
+            if (enemyAgent.remainingDistance <= enemyAgent.stoppingDistance)
             {
                 Vector3 point;
-                if (RandomPoint(agent.transform.position, radiusRange, out point))
+                if (RandomPoint(enemyAgent.transform.position, radiusRange, out point))
                 {
                     Debug.DrawRay(point, Vector3.up, Color.blue, 1.0f);
-                    agent.SetDestination(point);
+                    enemyAgent.SetDestination(point);
                 }
             }
-        }
-
-        private void Start()
-        {
-            agent = GetComponent<NavMeshAgent>();
-            agent.autoBraking = false;
         }
 
         bool RandomPoint(Vector3 center, float range, out Vector3 result)
@@ -61,7 +57,7 @@ namespace TankBattle.Tank.EnemyTank
             {
                 Vector3 randomPoint = center + Random.insideUnitSphere * range; //random point in a sphere 
                 NavMeshHit hit;
-                if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.AllAreas))
+                if (NavMesh.SamplePosition(randomPoint, out hit, 5.0f, NavMesh.AllAreas))
                 {
                     result = hit.position;
                     return true;
