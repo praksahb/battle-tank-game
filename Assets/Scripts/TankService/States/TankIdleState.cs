@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace TankBattle.Tank.EnemyTank
 {
@@ -28,10 +25,5 @@ namespace TankBattle.Tank.EnemyTank
         {
         }
 
-        // Update is called once per frame
-        private void Update()
-        {
-        
-        }
     }
 }

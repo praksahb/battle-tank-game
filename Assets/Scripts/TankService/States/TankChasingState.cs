@@ -21,7 +21,12 @@ namespace TankBattle.Tank.EnemyTank
             base.OnEnterState();
             Debug.Log("Entering State: " + enemyTankView.GetCurrentState());
             enemyTankView.ChangeColor(differentColor);
+        }
 
+        public override void OnExitState()
+        {
+            base.OnExitState();
+            playerTransform = null;
         }
 
         private void Update()
@@ -35,9 +40,10 @@ namespace TankBattle.Tank.EnemyTank
                 enemyTankView.ChangeState(enemyTankView.attackingState);
             }
 
-
-            enemyAgent.stoppingDistance = 0.2f;
-            enemyAgent.SetDestination(playerTransform.position);
+            if(enemyAgent.remainingDistance > enemyAgent.stoppingDistance)
+            {
+                enemyAgent.SetDestination(playerTransform.position);
+            }
         }
     }
 }
