@@ -38,11 +38,7 @@ namespace TankBattle.Tank.Bullets
 
         private float CalculateDamage(Vector3 tankPosition, Vector3 impactPosition)
         {
-            // Slightly less accurate Distance
             float explosionDistance = (tankPosition - impactPosition).sqrMagnitude;
-            //Debug.Log($"Dist1: {explosionDistance}");
-            //float explosionDistance2 = Vector3.Distance(tankPosition, impactPosition);
-            //Debug.Log($"Dist2: {explosionDistance2}");
 
             float relativeDistance = (GetShellModel.ExplosionRadius - explosionDistance) / GetShellModel.ExplosionRadius;
 
