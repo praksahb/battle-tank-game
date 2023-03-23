@@ -1,3 +1,4 @@
+using System;
 using TankBattle.Extensions;
 using TankBattle.Tank.Bullets;
 using UnityEngine;
@@ -18,18 +19,18 @@ namespace TankBattle.Tank
         public float ChargeSpeed { get; }
         public bool IsFired { get; set; }
 
+        public event Action OnPlayerDeath;
+
         public TankController(TankModel tankModel, TankView tankPrefab, Vector3 spawnPosition)
         {
             GetTankModel = tankModel;
-            GetTankView = Object.Instantiate(tankPrefab, spawnPosition, Quaternion.identity);
+            GetTankView = UnityEngine.Object.Instantiate(tankPrefab, spawnPosition, Quaternion.identity);
             GetTankView.SetColorOnAllRenderers(GetTankModel.GetColor);
             isDead = false;
             ChargeSpeed = (GetTankModel.maxLaunchForce - GetTankModel.minLaunchForce) / GetTankModel.maxChargeTime;
         }
 
-        //Movement-related logic - only being used by player tank currently
-        // enemy tank is using navmesh agent
-        //and jump if needed
+        //Movement-related logic
         public void MoveRotate(Vector2 _moveDirection)
         {
             Vector3 directionVector = _moveDirection.switchYAndZValues();
@@ -83,7 +84,7 @@ namespace TankBattle.Tank
 
             if(GetTankModel.TankTypes == TankType.Player)
             {
-                DestroyEverything.Instance.RunCoroutine();
+                OnPlayerDeath?.Invoke();
             }
         }
 

@@ -1,22 +1,43 @@
 using System.Collections;
 using TankBattle.Tank;
 using TankBattle.Tank.EnemyTank;
+using TankBattle.Tank.PlayerTank;
 using UnityEngine;
 
 namespace TankBattle
 {
-    public class DestroyEverything : GenericSingleton<DestroyEverything>
+    public class DestroyEverything : MonoBehaviour
     {
         [SerializeField] private EnemyService enemyService;
         [SerializeField] private GameObject destroyObjectFloor;
         [SerializeField] private GameObject destroyObjectRest;
 
-
+        private TankController playerTankController;
         private TankController enemyTankController;
 
         private Coroutine coroutine;
-        private WaitForSeconds _wait;
+        private WaitForSeconds _waitSmall;
+        private WaitForSeconds _waitTwoSeconds;
         private int numOfEnemies;
+
+        private void Awake()
+        {
+            // early caching or something
+            _waitSmall = new WaitForSeconds(0.5f);
+            _waitTwoSeconds = new WaitForSeconds(2f);
+        }
+
+        private IEnumerator Start()
+        {
+            yield return _waitSmall;
+            playerTankController = PlayerService.Instance.GetTankController();
+            playerTankController.OnPlayerDeath += RunCoroutine;
+        }
+
+        private void OnDisable()
+        {
+            playerTankController.OnPlayerDeath -= RunCoroutine;
+        }
 
         public void RunCoroutine()
         {
@@ -24,26 +45,25 @@ namespace TankBattle
             {
                 StopCoroutine(coroutine);
             }
-            coroutine = StartCoroutine(deathRoutine());
+            coroutine = StartCoroutine(DeathRoutine());
         }
 
-
-        private IEnumerator deathRoutine()
+        private IEnumerator DeathRoutine()
         {
-            _wait = new WaitForSeconds(2f);
             numOfEnemies = enemyService.GetNumberOfEnemies();
-            yield return _wait;
+            yield return _waitTwoSeconds;
             for(int i = 0; i < numOfEnemies; i++)
             {
-                deathRoutineEnemy(i);
+                DeathRoutineEnemy(i);
+                yield return _waitSmall;
             }
-            yield return _wait;
+            yield return _waitTwoSeconds;
             DestroyFloor();
-            yield return _wait;
+            yield return _waitTwoSeconds;
             DestroyWorld();
         }
 
-        private void deathRoutineEnemy(int idx)
+        private void DeathRoutineEnemy(int idx)
         {
             enemyTankController = enemyService.GetEnemyTankControllerByIndex(idx);
             if(enemyTankController != null)
