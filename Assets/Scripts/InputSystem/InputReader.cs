@@ -49,6 +49,7 @@ namespace TankBattle.Tank.PlayerTank.InputSystem
         public void OnMove(InputAction.CallbackContext context)
         {
             // Sending direct vector2 value for movement displacement vector
+            
             MoveEvent?.Invoke(context.ReadValue<Vector2>());
         }
 
