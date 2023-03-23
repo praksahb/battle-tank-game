@@ -11,48 +11,55 @@ namespace TankBattle
         [SerializeField] private GameObject destroyObjectFloor;
         [SerializeField] private GameObject destroyObjectRest;
 
+
         private TankController enemyTankController;
 
-
-        // coroutines
         private Coroutine coroutine;
         private WaitForSeconds _wait;
+        private int numOfEnemies;
 
         public void RunCoroutine()
         {
-            StartCoroutine(deathRoutine());
+            if(coroutine != null)
+            {
+                StopCoroutine(coroutine);
+            }
+            coroutine = StartCoroutine(deathRoutine());
         }
+
 
         private IEnumerator deathRoutine()
         {
-            Debug.Log("Start Destroying");
-            _wait = new WaitForSeconds(1f);
-            enemyTankController = enemyService.GetEnemyTankController();
-
-            yield return _wait;
-            yield return StartCoroutine(deathRoutineEnemy());
             _wait = new WaitForSeconds(2f);
+            numOfEnemies = enemyService.GetNumberOfEnemies();
             yield return _wait;
-            yield return StartCoroutine(deathRoutineWorld());
+            for(int i = 0; i < numOfEnemies; i++)
+            {
+                deathRoutineEnemy(i);
+            }
+            yield return _wait;
+            DestroyFloor();
+            yield return _wait;
+            DestroyWorld();
         }
 
-        private IEnumerator deathRoutineEnemy()
+        private void deathRoutineEnemy(int idx)
         {
-            Debug.Log("Destroy Enemy");
-            float deathDamage = 200f;
-            enemyTankController.TakeDamage(deathDamage);
-            _wait = new WaitForSeconds(5f);
-            yield return null;
+            enemyTankController = enemyService.GetEnemyTankControllerByIndex(idx);
+            if(enemyTankController != null)
+            {
+                enemyTankController.TakeDamage(enemyTankController.GetTankModel.GetSetHealth);
+            }
         }
 
-        private IEnumerator deathRoutineWorld()
+        private void DestroyFloor()
         {
-            Debug.Log("Destroy Floor");
             Destroy(destroyObjectFloor);
-            _wait = new WaitForSeconds(2f);
-            yield return _wait;
+        }
+
+        private void DestroyWorld()
+        {
             Destroy(destroyObjectRest);
-            Debug.Log("Destroyed rest");
         }
     }
 }

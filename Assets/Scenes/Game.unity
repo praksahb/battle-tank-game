@@ -155,6 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 403814126}
+  numOfEnemies: 5
 --- !u!4 &63243037
 Transform:
   m_ObjectHideFlags: 0
