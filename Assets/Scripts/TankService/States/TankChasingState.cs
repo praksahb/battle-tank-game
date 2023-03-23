@@ -40,7 +40,7 @@ namespace TankBattle.Tank.EnemyTank
                 enemyTankView.ChangeState(enemyTankView.attackingState);
             }
 
-            if(enemyAgent.remainingDistance > enemyAgent.stoppingDistance)
+            if(playerTransform != null && enemyAgent.remainingDistance > enemyAgent.stoppingDistance)
             {
                 enemyAgent.SetDestination(playerTransform.position);
             }

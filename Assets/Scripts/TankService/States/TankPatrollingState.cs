@@ -25,11 +25,6 @@ namespace TankBattle.Tank.EnemyTank
             // custom logic
         }
 
-        private void Start()
-        {
-            //enemyAgent = enemyAgent;
-            enemyAgent.autoBraking = false;
-        }
 
         private void Update()
         {
