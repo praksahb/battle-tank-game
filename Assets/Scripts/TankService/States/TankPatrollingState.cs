@@ -23,7 +23,6 @@ namespace TankBattle.Tank.EnemyTank
         {
             base.OnExitState();
             // custom logic
-            //enemyAgent.isStopped = true;
         }
 
         private void Start()
