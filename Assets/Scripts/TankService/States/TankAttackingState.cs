@@ -33,6 +33,8 @@ namespace TankBattle.Tank.EnemyTank
             if(timeElapsed >= 1f)
             {
                 timeElapsed = 0f;
+                if(playerTransform)
+                    enemyAgent.transform.LookAt(playerTransform.position);
                 enemyStateController.PerformFireFunction();
             }
         }

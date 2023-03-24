@@ -9,13 +9,6 @@ namespace TankBattle.Tank.EnemyTank
         [SerializeField]
         private Color differentColor;
 
-        private Transform playerTransform;
-
-        private void OnEnable()
-        {
-            playerTransform = PlayerService.Instance.GetPlayerTransform();
-        }
-
         public override void OnEnterState()
         {
             base.OnEnterState();

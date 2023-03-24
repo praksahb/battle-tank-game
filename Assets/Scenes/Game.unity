@@ -1607,6 +1607,8 @@ MonoBehaviour:
   enemyService: {fileID: 63243036}
   destroyObjectFloor: {fileID: 2073836657}
   destroyObjectRest: {fileID: 634010363}
+  waitTimeSmall: 1
+  waitTimeLarge: 2.5
 --- !u!4 &1372807777
 Transform:
   m_ObjectHideFlags: 0
