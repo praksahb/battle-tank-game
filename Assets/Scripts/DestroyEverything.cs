@@ -14,7 +14,6 @@ namespace TankBattle
         [SerializeField] private float waitTimeSmall = 0.5f;
         [SerializeField] private float waitTimeLarge = 2f;
 
-        private TankController playerTankController;
         private TankController enemyTankController;
 
         private Coroutine coroutine;
@@ -26,18 +25,24 @@ namespace TankBattle
         {
             _waitSmall = new WaitForSeconds(waitTimeSmall);
             _waitLarge = new WaitForSeconds(waitTimeLarge);
+
         }
 
-        private IEnumerator Start()
+        private void OnEnable()
         {
-            yield return _waitSmall;
-            playerTankController = PlayerService.Instance.GetTankController();
-            playerTankController.OnPlayerDeath += RunCoroutine;
+            PlayerService.Instance.OnPlayerDeath += RunCoroutine;
+
         }
 
         private void OnDisable()
         {
-            playerTankController.OnPlayerDeath -= RunCoroutine;
+            PlayerService.Instance.OnPlayerDeath -= RunCoroutine;
+        }
+
+        private void OnDestroy()
+        {
+            _waitSmall = null;
+            _waitLarge = null;
         }
 
         public void RunCoroutine()

@@ -1,6 +1,7 @@
 using System;
 using TankBattle.Extensions;
 using TankBattle.Tank.Bullets;
+using TankBattle.Tank.PlayerTank;
 using UnityEngine;
 
 namespace TankBattle.Tank
@@ -19,7 +20,6 @@ namespace TankBattle.Tank
         public float ChargeSpeed { get; }
         public bool IsFired { get; set; }
 
-        public event Action OnPlayerDeath;
 
         public TankController(TankModel tankModel, TankView tankPrefab, Vector3 spawnPosition)
         {
@@ -84,7 +84,7 @@ namespace TankBattle.Tank
 
             if(GetTankModel.TankTypes == TankType.Player)
             {
-                OnPlayerDeath?.Invoke();
+                PlayerService.Instance.FirePlayerDeathEvent();
             }
         }
 
