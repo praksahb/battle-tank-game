@@ -19,7 +19,6 @@ namespace TankBattle.Tank.EnemyTank
         public override void OnExitState()
         {
             base.OnExitState();
-            playerTransform = null;
         }
 
         private void Update()

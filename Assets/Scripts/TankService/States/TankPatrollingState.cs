@@ -7,7 +7,6 @@ namespace TankBattle.Tank.EnemyTank
     {
         [SerializeField] private float radiusRange = 10f;
 
-
         public override void OnEnterState()
         {
             base.OnEnterState();
