@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -11,6 +12,8 @@ namespace TankBattle.Tank.PlayerTank
 
         private int playerTankIndex = 0;
         private TankController tankController;
+        public event Action OnPlayerDeath;
+
 
         private void Start()
         {
@@ -20,6 +23,11 @@ namespace TankBattle.Tank.PlayerTank
         public void CreateTank()
         {
             tankController = Tank.CreateTank.CreateTankService.Instance.CreateTank(spawnPoint.position, playerTankIndex);
+        }
+
+        public void FirePlayerDeathEvent()
+        {
+            OnPlayerDeath?.Invoke();
         }
 
         public TankController GetTankController()
