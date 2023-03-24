@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TankBattle.Tank.PlayerTank;
+using UnityEngine;
 using UnityEngine.AI;
 
 namespace TankBattle.Tank.EnemyTank
@@ -11,6 +12,7 @@ namespace TankBattle.Tank.EnemyTank
         protected EnemyTankView enemyTankView;
         protected EnemyStateController enemyStateController;
         protected NavMeshAgent enemyAgent;
+        protected Transform playerTransform; 
 
         [SerializeField] protected Color color;
 
@@ -23,6 +25,7 @@ namespace TankBattle.Tank.EnemyTank
 
         private void Start()
         {
+            playerTransform = PlayerService.Instance.GetPlayerTransform();
             enemyStateController = new EnemyStateController(tankView.GetTankController(), enemyTankView);
         }
 
