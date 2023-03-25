@@ -180,8 +180,8 @@ GameObject:
   m_Component:
   - component: {fileID: 161162015}
   - component: {fileID: 161162018}
-  - component: {fileID: 161162017}
   - component: {fileID: 161162016}
+  - component: {fileID: 161162017}
   m_Layer: 5
   m_Name: Jump
   m_TagString: Untagged
@@ -230,7 +230,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 161162014}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -241,16 +241,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_Texture: {fileID: 2800000, guid: e2078613efd9e410c8771cbd2717f4e7, type: 3}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
 --- !u!222 &161162018
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -276,7 +273,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &177647211
 RectTransform:
   m_ObjectHideFlags: 0
@@ -652,8 +649,8 @@ GameObject:
   m_Component:
   - component: {fileID: 681761333}
   - component: {fileID: 681761336}
-  - component: {fileID: 681761335}
   - component: {fileID: 681761334}
+  - component: {fileID: 681761335}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -703,7 +700,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 681761332}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -714,16 +711,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_Texture: {fileID: 2800000, guid: f2fd4d7aa99c94a67a6a137fe979a760, type: 3}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
 --- !u!222 &681761336
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1583,8 +1577,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletsFiredAchievements: {fileID: 11400000, guid: df9efc2b29a64054a9a179a64d9d61d3,
     type: 2}
+  enemiesKilledAchievements: {fileID: 11400000, guid: 670d3864724d2be4da98d1f3fd8ce371,
+    type: 2}
   achievementPanel: {fileID: 177647210}
-  achievementActive: 0
   achievementImage: {fileID: 2047205928}
   achievementHeading: {fileID: 1262398577}
   achievementText: {fileID: 370286972}

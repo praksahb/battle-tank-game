@@ -1,6 +1,4 @@
-﻿
-
-using System;
+﻿using System;
 
 namespace TankBattle.Services
 {
@@ -16,7 +14,10 @@ namespace TankBattle.Services
             OnBulletsFired?.Invoke();
         }
 
-        public event Action Event2;
-        public event Action Event3;
+        public event Action OnEnemyKilled;
+        public void InvokeOnEnemyKilled()
+        {
+            OnEnemyKilled?.Invoke();
+        }
     };
 }

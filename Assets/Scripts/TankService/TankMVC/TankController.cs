@@ -1,7 +1,7 @@
-using System;
 using TankBattle.Extensions;
 using TankBattle.Services;
 using TankBattle.Tank.Bullets;
+using TankBattle.Tank.EnemyTank;
 using TankBattle.Tank.PlayerTank;
 using UnityEngine;
 
@@ -9,8 +9,8 @@ namespace TankBattle.Tank
 {
     public class TankController
     {
-        public TankModel GetTankModel { get; }
-        public TankView GetTankView { get; }
+        public TankModel TankModel { get; }
+        public TankView TankView { get; }
 
         private Rigidbody rb;
         private bool isDead;
@@ -24,11 +24,11 @@ namespace TankBattle.Tank
 
         public TankController(TankModel tankModel, TankView tankPrefab, Vector3 spawnPosition)
         {
-            GetTankModel = tankModel;
-            GetTankView = UnityEngine.Object.Instantiate(tankPrefab, spawnPosition, Quaternion.identity);
-            GetTankView.SetColorOnAllRenderers(GetTankModel.GetColor);
+            TankModel = tankModel;
+            TankView = Object.Instantiate(tankPrefab, spawnPosition, Quaternion.identity);
+            TankView.SetColorOnAllRenderers(TankModel.Color);
             isDead = false;
-            ChargeSpeed = (GetTankModel.maxLaunchForce - GetTankModel.minLaunchForce) / GetTankModel.maxChargeTime;
+            ChargeSpeed = (TankModel.MaxLaunchForce - TankModel.MinLaunchForce) / TankModel.MaxChargeTime;
         }
 
         //Movement-related logic
@@ -42,18 +42,18 @@ namespace TankBattle.Tank
         {
             if (!rb)
             {
-                rb = GetTankView.getRigidbody();
+                rb = TankView.getRigidbody();
             }
-            rb.MovePosition(rb.position + moveDirection * GetTankModel.Speed * Time.deltaTime);
+            rb.MovePosition(rb.position + moveDirection * TankModel.Speed * Time.deltaTime);
         }
         private void Rotate(Vector3 rotateDirection)
         {
             Quaternion targetRotation = Quaternion.LookRotation(rotateDirection, Vector3.up);
             targetRotation = Quaternion.RotateTowards
             (
-                GetTankView.transform.localRotation,
+                TankView.transform.localRotation,
                 targetRotation,
-                GetTankModel.RotateSpeed * Time.fixedDeltaTime
+                TankModel.RotateSpeed * Time.fixedDeltaTime
             );
 
             rb.MoveRotation(targetRotation);
@@ -62,17 +62,17 @@ namespace TankBattle.Tank
         {
             if (!rb)
             {
-                rb = GetTankView.GetComponent<Rigidbody>();
+                rb = TankView.GetComponent<Rigidbody>();
             }
-            rb.AddForce(Vector3.up * GetTankModel.JumpForce * Time.deltaTime, ForceMode.Impulse);
+            rb.AddForce(Vector3.up * TankModel.JumpForce * Time.deltaTime, ForceMode.Impulse);
         }
 
         // health related logic
         public void TakeDamage(float amount)
         {
-            GetTankModel.GetSetHealth -= amount;
-            GetTankView.SetHealthUI();
-            if (GetTankModel.GetSetHealth <= 0f && !isDead)
+            TankModel.Health -= amount;
+            TankView.SetHealthUI();
+            if (TankModel.Health <= 0f && !isDead)
             {
                 OnDeath();
             }
@@ -81,33 +81,58 @@ namespace TankBattle.Tank
         private void OnDeath()
         {
             isDead = true;
-            GetTankView.InstantiateOnDeath();
+            TankView.InstantiateOnDeath();
 
-            if(GetTankModel.TankTypes == TankType.Player)
+            if(TankModel.TankTypes == TankType.Player)
             {
-                PlayerService.Instance.FirePlayerDeathEvent();
+                PlayerService.Instance.InvokePlayerDeathEvent();
+            }
+            else
+            {
+                EventService.Instance.InvokeOnEnemyKilled();
+                //EnemyService.Instance.ReduceEnemyList(TankView.GetTankController());
             }
         }
 
         // Shooting Related
+        public void SubscribeEvents()
+        {
+            EventService.Instance.OnBulletsFired += FiredBullet;
+            EventService.Instance.OnEnemyKilled += EnemyKilled;
+        }
+
+        public void UnsubscribeEvents()
+        {
+            EventService.Instance.OnBulletsFired -= FiredBullet;
+            EventService.Instance.OnEnemyKilled -= EnemyKilled;
+        }
+
+        private void EnemyKilled()
+        {
+            TankModel.EnemiesKilled++;
+            AchievementManager.Instance.CheckEnemyKillCount(TankModel.EnemiesKilled);
+        }
+
+        private void FiredBullet()
+        {
+            TankModel.BulletsFired++;
+            AchievementManager.Instance.CheckBulletsFiredCount(TankModel.BulletsFired);
+        }
 
         public void Fire()
         {
             IsFired = true;
-            Transform fireTransform = GetTankView.GetFireTransform();
+            Transform fireTransform = TankView.GetFireTransform();
             Vector3 bulletSpeed = currentLaunchForce * fireTransform.forward;
-
             CreateShellService.Instance.CreateBullet(fireTransform, bulletSpeed);
 
-            if(GetTankModel.TankTypes == TankType.Player)
+            if(TankModel.TankTypes == TankType.Player)
             {
                 EventService.Instance.InvokeOnBulletFiredEvent();
             }
 
-            GetTankView.PlayFiredSound();
-
-            // reset currentLaunchForce value
-            currentLaunchForce = GetTankModel.minLaunchForce;
+            TankView.PlayFiredSound();
+            currentLaunchForce = TankModel.MinLaunchForce;
         }
     }
 }

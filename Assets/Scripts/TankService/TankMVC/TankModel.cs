@@ -9,11 +9,13 @@ namespace TankBattle.Tank
         public float Speed { get; }
         public float RotateSpeed { get; }
         public float JumpForce { get; }
-        public float GetSetHealth { get; set; }
-        public Color GetColor { get; }
-        public float minLaunchForce { get; }
-        public float maxLaunchForce { get; }
-        public float maxChargeTime { get; }
+        public float Health { get; set; }
+        public Color Color { get; }
+        public float MinLaunchForce { get; }
+        public float MaxLaunchForce { get; }
+        public float MaxChargeTime { get; }
+        public int BulletsFired { get; set; }
+        public int EnemiesKilled { get; set; }
 
         public TankModel(TankTypes.TankScriptableObject tankScriptableObject)
         {
@@ -21,11 +23,13 @@ namespace TankBattle.Tank
             Speed = tankScriptableObject.speed;
             RotateSpeed = tankScriptableObject.rotateSpeed;
             JumpForce = tankScriptableObject.jumpValue;
-            GetSetHealth = tankScriptableObject.health;
-            GetColor = tankScriptableObject.tankColor;
-            minLaunchForce = tankScriptableObject.minLaunchForce;
-            maxLaunchForce = tankScriptableObject.maxLaunchForce;
-            maxChargeTime = tankScriptableObject.maxChargeTime;
+            Health = tankScriptableObject.health;
+            Color = tankScriptableObject.tankColor;
+            MinLaunchForce = tankScriptableObject.minLaunchForce;
+            MaxLaunchForce = tankScriptableObject.maxLaunchForce;
+            MaxChargeTime = tankScriptableObject.maxChargeTime;
+            BulletsFired = 0;
+            EnemiesKilled = 0;
         }
     }
 }

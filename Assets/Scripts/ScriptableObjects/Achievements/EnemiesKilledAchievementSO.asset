@@ -9,25 +9,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3551b6629778e7c45975bb5d478a02dc, type: 3}
-  m_Name: BulletsFiredAchievementSO
+  m_Script: {fileID: 11500000, guid: bc5955f1589f2484da1caf92b8d0cb14, type: 3}
+  m_Name: EnemiesKilledAchievementSO
   m_EditorClassIdentifier: 
   achievements:
-  - AchievementName: FireTen
-    AchievementInfo: 10 bullets fired
+  - AchievementName: First Kill
+    AchievementInfo: Destroyed 1 tank
     AchievementImage: {fileID: 731015404331544304, guid: 8e1182d7fedc67f49ab1e52e030f0c44,
       type: 3}
-    bulletsFiredAchievementType: 1
-    requirement: 10
-  - AchievementName: FireTwentyFive
-    AchievementInfo: 25 bullets fired
+    enemiesKilledAchievementType: 1
+    requirement: 1
+  - AchievementName: Third Kill
+    AchievementInfo: Destroyed 3 tanks
     AchievementImage: {fileID: 731015404331544304, guid: 8e1182d7fedc67f49ab1e52e030f0c44,
       type: 3}
-    bulletsFiredAchievementType: 2
-    requirement: 25
-  - AchievementName: FireFifty
-    AchievementInfo: 50 bullets fired
+    enemiesKilledAchievementType: 2
+    requirement: 3
+  - AchievementName: 5th Kill
+    AchievementInfo: Destroyed 5 tanks
     AchievementImage: {fileID: 731015404331544304, guid: 8e1182d7fedc67f49ab1e52e030f0c44,
       type: 3}
-    bulletsFiredAchievementType: 3
-    requirement: 50
+    enemiesKilledAchievementType: 3
+    requirement: 5

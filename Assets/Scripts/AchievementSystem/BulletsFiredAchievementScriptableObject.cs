@@ -15,9 +15,9 @@ namespace TankBattle.Services
             public enum BulletsFiredAchievementType
             {
                 None,
-                FireTen,
-                FireTwentyFive,
-                FireFifty,
+                ArmsSmuggler,
+                AmmunitionExpert,
+                OrdnanceFactory,
             }
 
             public string AchievementName;

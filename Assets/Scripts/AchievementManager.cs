@@ -7,62 +7,77 @@ using UnityEngine.UI;
 
 namespace TankBattle.Services
 {
-    public class AchievementManager : MonoBehaviour
+    public class AchievementManager : GenericSingleton<AchievementManager>
     {
         [SerializeField] private BulletsFiredAchievementScriptableObject bulletsFiredAchievements;
+        [SerializeField] private EnemiesKilledAchievementSO enemiesKilledAchievements;
 
         [SerializeField] private GameObject achievementPanel;
-        [SerializeField] private bool achievementActive = false;
 
         [SerializeField] private RawImage achievementImage;
         [SerializeField] private TextMeshProUGUI achievementHeading;
         [SerializeField] private TextMeshProUGUI achievementText;
         [SerializeField] private float displayTime = 3f;
 
-        private BulletsFiredAchievementScriptableObject.BulletsFiredAchievements achievementSO;
-        
-        private BulletsFiredAchievementScriptableObject.BulletsFiredAchievements.BulletsFiredAchievementType achievementsIndex = BulletsFiredAchievementScriptableObject.BulletsFiredAchievements.BulletsFiredAchievementType.FireTen;
+        private BulletsFiredAchievementScriptableObject.BulletsFiredAchievements bulletAchievementCurrent;
+        private EnemiesKilledAchievementSO.EnemiesKilledAchievements enemiesKilledAchivementCurrent;
 
-        private int bulletsFired = 0;
+        private int bulletAchievementsIndex = 0;
+        private int enemiesKilledAchievementsIndex = 0;
+
         private Coroutine coroutine;
         private WaitForSecondsRealtime _waitTimer;
 
-        private void Awake()
-        {
-            _waitTimer = new WaitForSecondsRealtime(displayTime);
-        }
         private void OnEnable()
         {
-            EventService.Instance.OnBulletsFired += IncrementBulletCount;
-            achievementSO = bulletsFiredAchievements.achievements[(int)achievementsIndex];
+            bulletAchievementCurrent = bulletsFiredAchievements.achievements[bulletAchievementsIndex];
+            enemiesKilledAchivementCurrent = enemiesKilledAchievements.achievements[enemiesKilledAchievementsIndex];
+            _waitTimer = new WaitForSecondsRealtime(displayTime);
         }
 
-        private void OnDisable()
+        public void CheckBulletsFiredCount(int bulletCount)
         {
-            EventService.Instance.OnBulletsFired -= IncrementBulletCount;
-        }
+            if(bulletCount == bulletAchievementCurrent.requirement)
+            {
+                achievementImage = bulletAchievementCurrent.AchievementImage;
+                achievementHeading.text = bulletAchievementCurrent.AchievementName;
+                achievementText.text = bulletAchievementCurrent.AchievementInfo;
 
-        private void IncrementBulletCount()
-        {
-            bulletsFired++;
-            Debug.Log($"Bullets Fired: {bulletsFired}");
-            Debug.Log(achievementSO);
-            if(bulletsFired == achievementSO.requirement)
-            {                
-                achievementImage = achievementSO.AchievementImage;
-                achievementHeading.text = achievementSO.AchievementName;
-                achievementText.text = achievementSO.AchievementInfo;
+                AchievementsDisplay();
 
-                //initialize next achievementSO
-                achievementsIndex++;
-                achievementSO = bulletsFiredAchievements.achievements[(int)achievementsIndex];
-
-                if (coroutine != null)
+                if(bulletAchievementsIndex < bulletsFiredAchievements.achievements.Length - 1)
                 {
-                    StopCoroutine(coroutine);
+                    bulletAchievementsIndex++;
+                    bulletAchievementCurrent = bulletsFiredAchievements.achievements[bulletAchievementsIndex];
                 }
-                coroutine = StartCoroutine(DisplayAchievements());
             }
+        }
+
+        public void CheckEnemyKillCount(int killCount)
+        {
+            if(killCount == enemiesKilledAchivementCurrent.requirement)
+            {
+                achievementImage = enemiesKilledAchivementCurrent.AchievementImage;
+                achievementHeading.text = enemiesKilledAchivementCurrent.AchievementName;
+                achievementText.text = enemiesKilledAchivementCurrent.AchievementInfo;
+
+                AchievementsDisplay();
+
+                if(enemiesKilledAchievementsIndex < enemiesKilledAchievements.achievements.Length - 1)
+                {
+                    enemiesKilledAchievementsIndex++;
+                    enemiesKilledAchivementCurrent = enemiesKilledAchievements.achievements[enemiesKilledAchievementsIndex];
+                }
+            }
+        }
+
+        private void AchievementsDisplay()
+        {
+            if (coroutine != null)
+            {
+                StopCoroutine(coroutine);
+            }
+            coroutine = StartCoroutine(DisplayAchievements());
         }
 
         private IEnumerator DisplayAchievements()

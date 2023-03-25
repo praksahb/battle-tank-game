@@ -26,7 +26,7 @@ namespace TankBattle.Tank.PlayerTank
             tankController = Tank.CreateTank.CreateTankService.Instance.CreateTank(spawnPoint.position, playerTankIndex);
         }
 
-        public void FirePlayerDeathEvent()
+        public void InvokePlayerDeathEvent()
         {
             OnPlayerDeath?.Invoke();
         }
@@ -38,7 +38,7 @@ namespace TankBattle.Tank.PlayerTank
 
         public Transform GetPlayerTransform()
         {
-            return tankController.GetTankView.transform;
+            return tankController.TankView.transform;
         }
     };
 }
