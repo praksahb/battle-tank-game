@@ -5,7 +5,6 @@ namespace TankBattle.Tank.EnemyTank
 {
     public class TankAttackingState : TankState
     {
-
         private float timeElapsed = 0f;
 
         public override void OnEnterState()

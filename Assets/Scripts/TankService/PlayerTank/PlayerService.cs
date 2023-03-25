@@ -12,6 +12,7 @@ namespace TankBattle.Tank.PlayerTank
 
         private int playerTankIndex = 0;
         private TankController tankController;
+
         public event Action OnPlayerDeath;
 
 

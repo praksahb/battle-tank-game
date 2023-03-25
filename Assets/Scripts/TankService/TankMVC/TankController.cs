@@ -1,5 +1,6 @@
 using System;
 using TankBattle.Extensions;
+using TankBattle.Services;
 using TankBattle.Tank.Bullets;
 using TankBattle.Tank.PlayerTank;
 using UnityEngine;
@@ -97,6 +98,11 @@ namespace TankBattle.Tank
             Vector3 bulletSpeed = currentLaunchForce * fireTransform.forward;
 
             CreateShellService.Instance.CreateBullet(fireTransform, bulletSpeed);
+
+            if(GetTankModel.TankTypes == TankType.Player)
+            {
+                EventService.Instance.InvokeOnBulletFiredEvent();
+            }
 
             GetTankView.PlayFiredSound();
 
