@@ -11,6 +11,7 @@ namespace TankBattle.Services
     {
         [SerializeField] private BulletsFiredAchievementScriptableObject bulletsFiredAchievements;
         [SerializeField] private EnemiesKilledAchievementSO enemiesKilledAchievements;
+        [SerializeField] private CollectibleAchievementsSO ballsCollectedAchievements;
 
         [SerializeField] private GameObject achievementPanel;
 
@@ -20,10 +21,12 @@ namespace TankBattle.Services
         [SerializeField] private float displayTime = 3f;
 
         private BulletsFiredAchievementScriptableObject.BulletsFiredAchievements bulletAchievementCurrent;
-        private EnemiesKilledAchievementSO.EnemiesKilledAchievements enemiesKilledAchivementCurrent;
+        private EnemiesKilledAchievementSO.EnemiesKilledAchievements enemiesKilledAchievementCurrent;
+        private CollectibleAchievementsSO.CollectiblesAchievements ballsCollectedAchievementCurrent;
 
         private int bulletAchievementsIndex = 0;
         private int enemiesKilledAchievementsIndex = 0;
+        private int ballsCollectedAchievementsIndex = 0;
 
         private Coroutine coroutine;
         private WaitForSecondsRealtime _waitTimer;
@@ -31,8 +34,37 @@ namespace TankBattle.Services
         private void OnEnable()
         {
             bulletAchievementCurrent = bulletsFiredAchievements.achievements[bulletAchievementsIndex];
-            enemiesKilledAchivementCurrent = enemiesKilledAchievements.achievements[enemiesKilledAchievementsIndex];
+            enemiesKilledAchievementCurrent = enemiesKilledAchievements.achievements[enemiesKilledAchievementsIndex];
+            ballsCollectedAchievementCurrent = ballsCollectedAchievements.achievements[ballsCollectedAchievementsIndex];
             _waitTimer = new WaitForSecondsRealtime(displayTime);
+        }
+
+        private void Start()
+        {
+            EventService.Instance.OnBallCollected += CheckBallsCollected;
+        }
+
+        private void OnDisable()
+        {
+            EventService.Instance.OnBallCollected -= CheckBallsCollected;
+        }
+
+        private void CheckBallsCollected(int ballsCollected)
+        {
+            if(ballsCollected == ballsCollectedAchievementCurrent.requirement)
+            {
+                achievementImage = ballsCollectedAchievementCurrent.AchievementImage;
+                achievementHeading.text = ballsCollectedAchievementCurrent.AchievementName;
+                achievementText.text = ballsCollectedAchievementCurrent.AchievementInfo;
+
+                AchievementsDisplay();
+
+                if(ballsCollectedAchievementsIndex < ballsCollectedAchievements.achievements.Length - 1)
+                {
+                    ballsCollectedAchievementsIndex++;
+                    ballsCollectedAchievementCurrent = ballsCollectedAchievements.achievements[ballsCollectedAchievementsIndex];
+                }
+            }
         }
 
         public void CheckBulletsFiredCount(int bulletCount)
@@ -55,18 +87,18 @@ namespace TankBattle.Services
 
         public void CheckEnemyKillCount(int killCount)
         {
-            if(killCount == enemiesKilledAchivementCurrent.requirement)
+            if(killCount == enemiesKilledAchievementCurrent.requirement)
             {
-                achievementImage = enemiesKilledAchivementCurrent.AchievementImage;
-                achievementHeading.text = enemiesKilledAchivementCurrent.AchievementName;
-                achievementText.text = enemiesKilledAchivementCurrent.AchievementInfo;
+                achievementImage = enemiesKilledAchievementCurrent.AchievementImage;
+                achievementHeading.text = enemiesKilledAchievementCurrent.AchievementName;
+                achievementText.text = enemiesKilledAchievementCurrent.AchievementInfo;
 
                 AchievementsDisplay();
 
                 if(enemiesKilledAchievementsIndex < enemiesKilledAchievements.achievements.Length - 1)
                 {
                     enemiesKilledAchievementsIndex++;
-                    enemiesKilledAchivementCurrent = enemiesKilledAchievements.achievements[enemiesKilledAchievementsIndex];
+                    enemiesKilledAchievementCurrent = enemiesKilledAchievements.achievements[enemiesKilledAchievementsIndex];
                 }
             }
         }

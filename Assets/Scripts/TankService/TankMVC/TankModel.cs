@@ -16,6 +16,7 @@ namespace TankBattle.Tank
         public float MaxChargeTime { get; }
         public int BulletsFired { get; set; }
         public int EnemiesKilled { get; set; }
+        public int BallsCollected { get; set; }
 
         public TankModel(TankTypes.TankScriptableObject tankScriptableObject)
         {
@@ -30,6 +31,7 @@ namespace TankBattle.Tank
             MaxChargeTime = tankScriptableObject.maxChargeTime;
             BulletsFired = 0;
             EnemiesKilled = 0;
+            BallsCollected = 0;
         }
     }
 }
