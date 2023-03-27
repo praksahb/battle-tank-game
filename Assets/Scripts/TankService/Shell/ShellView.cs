@@ -5,7 +5,8 @@ namespace TankBattle.Tank.Bullets
     [RequireComponent(typeof(Rigidbody))]
     public class ShellView : MonoBehaviour
     {
-        [SerializeField] private ParticleSystem explosionParticles;
+        private ParticleSystem explosionParticles;
+        private Coroutine coroutine;
 
         private ShellController shellController;
         private AudioSource explosionAudio;
@@ -17,9 +18,19 @@ namespace TankBattle.Tank.Bullets
             explosionAudio = GetComponent<AudioSource>();
         }
 
-        private void Start()
+        public void SetInactive()
         {
-            Destroy(gameObject, shellController.GetShellModel.MaxLifeTime);
+            gameObject.SetActive(false);
+        }
+
+        public void SetActive()
+        {
+            gameObject.SetActive(true);
+        }
+
+        public bool CheckIsActive()
+        {
+            return gameObject.activeInHierarchy;
         }
 
         public void SetShellController(ShellController _shellController)
@@ -27,9 +38,10 @@ namespace TankBattle.Tank.Bullets
             shellController = _shellController;
         }
 
-        public Rigidbody GetRigidbody()
+        public void SetExplosionParticle(ParticleSystem _explosionParticle)
         {
-            return rb;
+            explosionParticles = _explosionParticle;
+            explosionParticles.transform.position = transform.position;
         }
 
         public void AddVelocity(Vector3 velocityVector)
@@ -55,8 +67,9 @@ namespace TankBattle.Tank.Bullets
             explosionParticles.transform.parent = null;
             explosionParticles.Play();
             explosionAudio.Play();
-            Destroy(explosionParticles.gameObject, explosionParticles.main.duration);
-            Destroy(gameObject);
+            SetInactive();
+            BulletObjectPool.SharedInstance.PushToParticlePool(explosionParticles);
         }
+
     }
 }
