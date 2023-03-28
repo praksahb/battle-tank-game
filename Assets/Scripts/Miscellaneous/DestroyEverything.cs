@@ -74,7 +74,7 @@ namespace TankBattle
             enemyTankController = enemyService.GetEnemyTankControllerByIndex(idx);
             if(enemyTankController != null)
             {
-                enemyTankController.TakeDamage(enemyTankController.GetTankModel.GetSetHealth);
+                enemyTankController.TakeDamage(enemyTankController.TankModel.Health);
             }
         }
 

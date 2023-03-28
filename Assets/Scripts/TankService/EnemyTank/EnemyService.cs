@@ -1,9 +1,10 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace TankBattle.Tank.EnemyTank
 {
-    public class EnemyService : MonoBehaviour
+    public class EnemyService : GenericSingleton<EnemyService>
     {
         [SerializeField] private Transform spawnPoint;
         [SerializeField] private int numOfEnemies;
@@ -14,8 +15,9 @@ namespace TankBattle.Tank.EnemyTank
 
         private List<TankController> enemiesList;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             enemiesList = new List<TankController>(numOfEnemies);
         }
 
@@ -32,6 +34,13 @@ namespace TankBattle.Tank.EnemyTank
         public int GetNumberOfEnemies()
         {
             return enemiesList.Count;
+        }
+
+
+        // Bug - some enemies dont get killed in game after deathRoutine
+        public void ReduceEnemyList(TankController _enemyTankController)
+        {
+            enemiesList.Remove(_enemyTankController);
         }
 
         public TankController GetEnemyTankControllerByIndex(int index)

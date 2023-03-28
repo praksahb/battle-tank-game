@@ -24,7 +24,7 @@ namespace TankBattle.Tank.Bullets
 
                 targetRb.AddExplosionForce(CreateShellService.Instance.GetBulletModel.ExplosionForce, bulletPosition, CreateShellService.Instance.GetBulletModel.ExplosionRadius);
 
-                // need to create a tankHealth script or use it in GetTankModel
+                // need to create a tankHealth script or use it in TankModel
                 // take health value from current tank-gameObj - targetRb
                 TankView targetTankView = targetRb.GetComponent<TankView>();
                 TankController targetTank = targetTankView.GetTankController();

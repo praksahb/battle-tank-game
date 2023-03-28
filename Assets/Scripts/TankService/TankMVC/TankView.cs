@@ -51,16 +51,31 @@ namespace TankBattle.Tank
             renderersOnTank = GetComponentsInChildren<MeshRenderer>();
         }
 
+        private void Start()
+        {
+            if(tankController.TankModel.TankTypes == TankType.Player)
+            {
+                tankController.SubscribeEvents();
+            }
+        }
+
+        private void OnDisable()
+        {
+            if (tankController.TankModel.TankTypes == TankType.Player)
+            {
+                tankController.UnsubscribeEvents();
+            }
+        }
+
         private void Update()
         {
-            if(tankController.GetTankModel.TankTypes == TankType.Player)
+            if(tankController.TankModel.TankTypes == TankType.Player)
             {
                 TakeInputPress();
             }
         }
 
         // Getters and Setters
-
         public virtual void SetTankController(TankController _tankController)
         {
             tankController = _tankController;
@@ -94,8 +109,8 @@ namespace TankBattle.Tank
 
         public void SetHealthUI()
         {
-            healthSlider.value = tankController.GetTankModel.GetSetHealth;
-            fillImage.color = Color.Lerp(zeroHealthColor, fullHealthColor, tankController.GetTankModel.GetSetHealth / maxHealth);
+            healthSlider.value = tankController.TankModel.Health;
+            fillImage.color = Color.Lerp(zeroHealthColor, fullHealthColor, tankController.TankModel.Health / maxHealth);
         }
 
         public void InstantiateOnDeath()
@@ -103,7 +118,6 @@ namespace TankBattle.Tank
             explosionParticles = Instantiate(explosionPrefab, transform).GetComponent<ParticleSystem>();
             explosionAudio = explosionParticles.GetComponent<AudioSource>();
             OnDeathHandler();
-            
         }
 
         private void OnDeathHandler()
@@ -119,22 +133,21 @@ namespace TankBattle.Tank
         // Shooting related UI
         // has to be implemented using the new input system
         
-
         private void TakeInputPress()
         {
-            aimSlider.value = tankController.GetTankModel.minLaunchForce;
+            aimSlider.value = tankController.TankModel.MinLaunchForce;
 
-            if (tankController.CurrentLaunchForce >= tankController.GetTankModel.maxLaunchForce && !tankController.IsFired)
+            if (tankController.CurrentLaunchForce >= tankController.TankModel.MaxLaunchForce && !tankController.IsFired)
             {
                 // at max charge, not fired yet
-                tankController.CurrentLaunchForce = tankController.GetTankModel.maxLaunchForce;
+                tankController.CurrentLaunchForce = tankController.TankModel.MaxLaunchForce;
                 tankController.Fire();
             }
             else if (Input.GetButtonDown(fireButton))
             {
                 // when fire button is pressed for first time
                 tankController.IsFired = false;
-                tankController.CurrentLaunchForce = tankController.GetTankModel.minLaunchForce;
+                tankController.CurrentLaunchForce = tankController.TankModel.MinLaunchForce;
                 //play charging sound
                 shootingAudio.clip = chargingClip;
                 shootingAudio.Play();

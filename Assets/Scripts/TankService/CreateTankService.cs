@@ -15,9 +15,9 @@ namespace TankBattle.Tank.CreateTank
 
             {
                 TankController tankController = new TankController(tankModel, tankScriptableObject.tankView, spawnPoint);
-                tankController.GetTankView.SetTankController(tankController);
-                tankController.GetTankView.SetMaxHealth(tankModel.GetSetHealth);
-                tankController.GetTankView.SetHealthUI();
+                tankController.TankView.SetTankController(tankController);
+                tankController.TankView.SetMaxHealth(tankModel.Health);
+                tankController.TankView.SetHealthUI();
                 return tankController;
             }
 
