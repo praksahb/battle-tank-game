@@ -124,7 +124,9 @@ namespace TankBattle.Tank
             IsFired = true;
             Transform fireTransform = TankView.GetFireTransform();
             Vector3 bulletSpeed = currentLaunchForce * fireTransform.forward;
-            CreateShellService.Instance.CreateBullet(fireTransform, bulletSpeed);
+            
+            
+            CreateShellService.Instance.LaunchBullet(fireTransform, bulletSpeed);
 
             if(TankModel.TankTypes == TankType.Player)
             {

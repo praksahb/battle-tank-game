@@ -7,25 +7,23 @@ namespace TankBattle.Tank.Bullets
         public ShellModel GetShellModel { get; }
         public ShellView GetShellView { get; }
 
-        public ShellController(ShellModel _shellModel, ShellView shellViewPrefab, Transform spawnPoint)
+        public ShellController(Transform parentObj, ShellModel getShellModel, ShellView shellViewPrefab)
         {
-            GetShellModel = _shellModel;
-            GetShellView = Object.Instantiate(shellViewPrefab, spawnPoint.position, spawnPoint.rotation);
+            GetShellModel = getShellModel;
+            GetShellView = Object.Instantiate(shellViewPrefab, parentObj);
         }
 
         public void CheckHitColliders(Collider[] hitColliders, int numOfColliders, Vector3 bulletPosition)
         {
             for (int i = 0; i < numOfColliders; i++)
             {
-                Rigidbody targetRb = hitColliders[i].gameObject.GetComponent<Rigidbody>();
+                Rigidbody targetRb = hitColliders[i].attachedRigidbody;
 
                 // go to next collider
                 if (!targetRb) continue;
 
                 targetRb.AddExplosionForce(CreateShellService.Instance.GetBulletModel.ExplosionForce, bulletPosition, CreateShellService.Instance.GetBulletModel.ExplosionRadius);
 
-                // need to create a tankHealth script or use it in TankModel
-                // take health value from current tank-gameObj - targetRb
                 TankView targetTankView = targetRb.GetComponent<TankView>();
                 TankController targetTank = targetTankView.GetTankController();
                 if (targetTank == null) continue;

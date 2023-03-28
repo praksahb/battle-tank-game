@@ -10,6 +10,7 @@ namespace TankBattle.Services
         private TankController playerTankController;
         private void OnTriggerEnter(Collider other)
         {
+            
             TankView tankView = other.gameObject.GetComponent<TankView>();
             if (tankView != null)
             {
