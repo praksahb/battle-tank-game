@@ -1,31 +1,17 @@
-using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace TankBattle.Services
 {
-    [CreateAssetMenu(fileName = "EnemiesKilledAchievementSO", menuName = "ScriptableObjects/Achievements/EnemiesKilled")]
-    public class EnemiesKilledAchievementSO : ScriptableObject
+    [CreateAssetMenu(fileName = "EnemiesKilledAchievementSO", menuName = "ScriptableObjects/Achievements/EnemiesKilledAchievementSO")]
+    public class EnemiesKilledAchievementSO : BaseAchievementSO
     {
-
-        [Serializable]
-        public class EnemiesKilledAchievements
+        public enum EnemiesAchievementType
         {
-            public enum EnemiesKilledAchievementType
-            {
-                None,
-                Novice,
-                Beginner,
-                Expert
-            }
-
-            public string AchievementName;
-            public string AchievementInfo;
-            public RawImage AchievementImage;
-            public EnemiesKilledAchievementType enemiesKilledAchievementType;
-            public int requirement;
+            None,
+            OneKill,
+            ThreeKill,
+            FiveKill,
         }
-
-        public EnemiesKilledAchievements[] achievements;
+        public EnemiesAchievementType achievementType;
     }
 }

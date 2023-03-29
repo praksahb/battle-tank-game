@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7385769fa3ed174428dc929eafd159ef, type: 3}
+  m_Name: BulletsFiredAchievementSO
+  m_EditorClassIdentifier: 
+  bulletsFiredAchievementList:
+  - {fileID: 11400000, guid: 1d0288b3a1f913f4396137dd9718ea9e, type: 2}
+  - {fileID: 11400000, guid: eb977e842590ff243a4de433a9e1b94f, type: 2}
+  - {fileID: 11400000, guid: f1a96bf69b678c94fb9c65c7757e1e88, type: 2}

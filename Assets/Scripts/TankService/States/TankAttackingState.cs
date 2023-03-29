@@ -17,7 +17,6 @@ namespace TankBattle.Tank.EnemyTank
         public override void OnExitState()
         {
             base.OnExitState();
-
         }
 
         private void Update()

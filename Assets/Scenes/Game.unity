@@ -1608,7 +1608,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91474686f5a98584da843adbf0fb3ffc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletsFiredAchievements: {fileID: 11400000, guid: df9efc2b29a64054a9a179a64d9d61d3,
+  bulletsFiredAchievements: {fileID: 11400000, guid: 4abeefda92bd01146b29de1fdbac02b0,
     type: 2}
   enemiesKilledAchievements: {fileID: 11400000, guid: 670d3864724d2be4da98d1f3fd8ce371,
     type: 2}
