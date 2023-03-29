@@ -1608,12 +1608,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91474686f5a98584da843adbf0fb3ffc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletsFiredAchievementList: {fileID: 11400000, guid: 48c3562a1e9a6404e8cec213f97e32cb,
-    type: 2}
-  enemiesKilledAchievements: {fileID: 11400000, guid: dd664c116a7559f4db8ff29a9f473859,
-    type: 2}
-  ballsCollectedAchievements: {fileID: 11400000, guid: 52101d907f7914b45baaa998ce2dafae,
-    type: 2}
+  allAchievements: {fileID: 11400000, guid: 27748cee44cda3e4cabd214f68b54de3, type: 2}
   achievementPanel: {fileID: 177647210}
   achievementImage: {fileID: 2047205928}
   achievementHeading: {fileID: 1262398577}
@@ -1627,7 +1622,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1238559686}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 160.72443, y: 392.99152, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2109,7 +2104,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f5a66decff572a4a8d04a1e4224f174, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyService: {fileID: 63243036}
   destroyObjectFloor: {fileID: 2073836657}
   destroyObjectRest: {fileID: 634010363}
   waitTimeSmall: 1
@@ -2711,7 +2705,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2052177810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2802,7 +2796,7 @@ PrefabInstance:
     - target: {fileID: 1051678360763764630, guid: 112105a8b653be945b246de38590774b,
         type: 3}
       propertyPath: m_Name
-      value: Sphere
+      value: GoldBalls(2)
       objectReference: {fileID: 0}
     - target: {fileID: 7393483335259960029, guid: 112105a8b653be945b246de38590774b,
         type: 3}

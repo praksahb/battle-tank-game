@@ -8,7 +8,6 @@ namespace TankBattle
 {
     public class DestroyEverything : MonoBehaviour
     {
-        [SerializeField] private EnemyService enemyService;
         [SerializeField] private GameObject destroyObjectFloor;
         [SerializeField] private GameObject destroyObjectRest;
         [SerializeField] private float waitTimeSmall = 0.5f;
@@ -56,7 +55,7 @@ namespace TankBattle
 
         private IEnumerator DeathRoutine()
         {
-            numOfEnemies = enemyService.GetNumberOfEnemies();
+            numOfEnemies = EnemyService.Instance.GetNumberOfEnemies();
             yield return _waitLarge;
             for(int i = 0; i < numOfEnemies; i++)
             {
@@ -71,7 +70,7 @@ namespace TankBattle
 
         private void DeathRoutineEnemy(int idx)
         {
-            enemyTankController = enemyService.GetEnemyTankControllerByIndex(idx);
+            enemyTankController = EnemyService.Instance.GetEnemyTankControllerByIndex(idx);
             if(enemyTankController != null)
             {
                 enemyTankController.TakeDamage(enemyTankController.TankModel.Health);

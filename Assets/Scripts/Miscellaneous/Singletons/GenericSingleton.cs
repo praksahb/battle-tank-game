@@ -9,14 +9,26 @@ namespace TankBattle
 
         protected virtual void Awake()
         {
+            // 1.
             if (Instance == null)
             {
                 instance = (T)this;
+                DontDestroyOnLoad(this as T);
             }
             else
             {
                 Destroy(this);
             }
+
+            // 2.
+            //if (Instance != null && Instance != this)
+            //{
+            //    Destroy(this);
+            //}
+            //else
+            //{
+            //    instance = this as T;
+            //}
         }
     }
 }

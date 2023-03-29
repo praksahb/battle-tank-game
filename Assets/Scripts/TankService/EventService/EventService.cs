@@ -1,5 +1,4 @@
 ﻿using System;
-using TankBattle.Tank;
 
 namespace TankBattle.Services
 {
@@ -8,18 +7,18 @@ namespace TankBattle.Services
         public static EventService Instance { get; private set; } = new EventService();
         private EventService() { }
 
-        public event Action OnBulletsFired;
-        public event Action OnEnemyKilled;
+        public event Action<int> OnBulletsFired;
+        public event Action<int> OnEnemyKilled;
         public event Action<int> OnBallCollected;
 
-        public void InvokeOnBulletFiredEvent()
+        public void InvokeOnBulletFiredEvent(int count)
         {
-            OnBulletsFired?.Invoke();
+            OnBulletsFired?.Invoke(count);
         }
 
-        public void InvokeOnEnemyKilled()
+        public void InvokeOnEnemyKilled(int count)
         {
-            OnEnemyKilled?.Invoke();
+            OnEnemyKilled?.Invoke(count);
         }
 
         public void InvokeOnBallCollected(int count)

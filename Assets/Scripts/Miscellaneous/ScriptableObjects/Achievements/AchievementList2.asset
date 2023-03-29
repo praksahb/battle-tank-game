@@ -12,3 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 225435872e7dd8f46a2723492eea8b19, type: 3}
   m_Name: AchievementList2
   m_EditorClassIdentifier: 
+  achievements:
+    bulletsAchievementList:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    enemiesKilledAchievementList: []
+    ballsCollectedAchievementList: []

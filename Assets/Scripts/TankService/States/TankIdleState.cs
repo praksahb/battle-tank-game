@@ -20,10 +20,5 @@ namespace TankBattle.Tank.EnemyTank
             Debug.Log("Entering State: " + enemyTankView.GetCurrentState());
             enemyAgent.isStopped = false;
         }
-
-        private void Start()
-        {
-        }
-
     }
 }

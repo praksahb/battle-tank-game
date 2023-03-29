@@ -51,22 +51,6 @@ namespace TankBattle.Tank
             renderersOnTank = GetComponentsInChildren<MeshRenderer>();
         }
 
-        private void Start()
-        {
-            if(tankController.TankModel.TankTypes == TankType.Player)
-            {
-                tankController.SubscribeEvents();
-            }
-        }
-
-        private void OnDisable()
-        {
-            if (tankController.TankModel.TankTypes == TankType.Player)
-            {
-                tankController.UnsubscribeEvents();
-            }
-        }
-
         private void Update()
         {
             if(tankController.TankModel.TankTypes == TankType.Player)

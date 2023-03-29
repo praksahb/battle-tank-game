@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using TankBattle.Services;
+using TankBattle.Tank.EnemyTank;
 using UnityEngine;
 
 namespace TankBattle.Tank.PlayerTank
@@ -29,6 +31,23 @@ namespace TankBattle.Tank.PlayerTank
         public void InvokePlayerDeathEvent()
         {
             OnPlayerDeath?.Invoke();
+        }
+        public void IncrementBulletsFiredScore()
+        {
+            tankController.TankModel.BulletsFired++;
+            EventService.Instance.InvokeOnBulletFiredEvent(tankController.TankModel.BulletsFired);
+        }
+
+        public void IncrementEnemyKilledScore()
+        {
+            tankController.TankModel.EnemiesKilled++;
+            EventService.Instance.InvokeOnEnemyKilled(tankController.TankModel.EnemiesKilled);
+        }
+
+        public void IncrementBallsCollectedScore()
+        {
+            tankController.TankModel.BallsCollected++;
+            EventService.Instance.InvokeOnBallCollected(tankController.TankModel.BallsCollected);
         }
 
         public TankController GetTankController()

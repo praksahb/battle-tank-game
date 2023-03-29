@@ -45,10 +45,6 @@ namespace TankBattle.Tank.EnemyTank
             currentState.OnEnterState();
         }
 
-        private void Awake()
-        {
-        }
-
         private void Start()
         {
             ChangeState(startingState);
