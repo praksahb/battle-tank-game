@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b5c683531b58ec54f97ed138d3b83d39, type: 3}
-  m_Name: CollectiblesAchievementSO
+  m_Name: CollectiblesAchievementList
   m_EditorClassIdentifier: 
   ballsCollectedAchievementList:
   - {fileID: 11400000, guid: 0e0d0f7abaeb6af449bb135b7764d5da, type: 2}

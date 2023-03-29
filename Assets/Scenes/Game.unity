@@ -1608,11 +1608,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91474686f5a98584da843adbf0fb3ffc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletsFiredAchievements: {fileID: 11400000, guid: 4abeefda92bd01146b29de1fdbac02b0,
+  bulletsFiredAchievementList: {fileID: 11400000, guid: 48c3562a1e9a6404e8cec213f97e32cb,
     type: 2}
-  enemiesKilledAchievements: {fileID: 11400000, guid: 670d3864724d2be4da98d1f3fd8ce371,
+  enemiesKilledAchievements: {fileID: 11400000, guid: dd664c116a7559f4db8ff29a9f473859,
     type: 2}
-  ballsCollectedAchievements: {fileID: 11400000, guid: 8bb91386b3f158c47b3d9aae15df254c,
+  ballsCollectedAchievements: {fileID: 11400000, guid: 52101d907f7914b45baaa998ce2dafae,
     type: 2}
   achievementPanel: {fileID: 177647210}
   achievementImage: {fileID: 2047205928}
