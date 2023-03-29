@@ -7,9 +7,7 @@ namespace TankBattle.Services
 {
     public class AchievementManager : GenericSingleton<AchievementManager>
     {
-        [SerializeField] private BulletsFiredAchievementList bulletsFiredAchievementList;
-        [SerializeField] private EnemiesKilledAchievementList enemiesKilledAchievements;
-        [SerializeField] private BallsCollectedAchievementsList ballsCollectedAchievements;
+        [SerializeField] private AchievementTypes allAchievements;
 
         [SerializeField] private GameObject achievementPanel;
 
@@ -32,11 +30,11 @@ namespace TankBattle.Services
         protected override void Awake()
         {
             base.Awake();
-            bulletAchievementCurrent = bulletsFiredAchievementList.bulletsFiredAchievementList[bulletAchievementsIndex];
+            bulletAchievementCurrent = allAchievements.bulletsFiredAchievementList.bulletsFiredAchievementList[bulletAchievementsIndex];
 
-            enemiesKilledAchievementCurrent = enemiesKilledAchievements.enemiesKilledAchievementList[enemiesKilledAchievementsIndex];
+            enemiesKilledAchievementCurrent = allAchievements.enemiesKilledAchievementList.enemiesKilledAchievementList[enemiesKilledAchievementsIndex];
 
-            ballsCollectedAchievementCurrent = ballsCollectedAchievements.ballsCollectedAchievementList[ballsCollectedAchievementsIndex];
+            ballsCollectedAchievementCurrent = allAchievements.ballsCollectedAchievementsList.ballsCollectedAchievementList[ballsCollectedAchievementsIndex];
             _waitTimer = new WaitForSecondsRealtime(displayTime);
         }
 
@@ -60,10 +58,10 @@ namespace TankBattle.Services
 
                 AchievementsDisplay();
 
-                if(ballsCollectedAchievementsIndex < ballsCollectedAchievements.ballsCollectedAchievementList.Length - 1)
+                if(ballsCollectedAchievementsIndex < allAchievements.ballsCollectedAchievementsList.ballsCollectedAchievementList.Length - 1)
                 {
                     ballsCollectedAchievementsIndex++;
-                    ballsCollectedAchievementCurrent = ballsCollectedAchievements.ballsCollectedAchievementList[ballsCollectedAchievementsIndex];
+                    ballsCollectedAchievementCurrent = allAchievements.ballsCollectedAchievementsList.ballsCollectedAchievementList[ballsCollectedAchievementsIndex];
                 }
             }
         }
@@ -78,10 +76,10 @@ namespace TankBattle.Services
 
                 AchievementsDisplay();
 
-                if(bulletAchievementsIndex < bulletsFiredAchievementList.bulletsFiredAchievementList.Length - 1)
+                if(bulletAchievementsIndex < allAchievements.bulletsFiredAchievementList.bulletsFiredAchievementList.Length - 1)
                 {
                     bulletAchievementsIndex++;
-                    bulletAchievementCurrent = bulletsFiredAchievementList.bulletsFiredAchievementList[bulletAchievementsIndex];
+                    bulletAchievementCurrent = allAchievements.bulletsFiredAchievementList.bulletsFiredAchievementList[bulletAchievementsIndex];
                 }
             }
         }
@@ -96,10 +94,10 @@ namespace TankBattle.Services
 
                 AchievementsDisplay();
 
-                if(enemiesKilledAchievementsIndex < enemiesKilledAchievements.enemiesKilledAchievementList.Length - 1)
+                if(enemiesKilledAchievementsIndex < allAchievements.enemiesKilledAchievementList.enemiesKilledAchievementList.Length - 1)
                 {
                     enemiesKilledAchievementsIndex++;
-                    enemiesKilledAchievementCurrent = enemiesKilledAchievements.enemiesKilledAchievementList[enemiesKilledAchievementsIndex];
+                    enemiesKilledAchievementCurrent = allAchievements.enemiesKilledAchievementList.enemiesKilledAchievementList[enemiesKilledAchievementsIndex];
                 }
             }
         }

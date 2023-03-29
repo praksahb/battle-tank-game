@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9371a63e180a2b5439007147a269a2f8, type: 3}
-  m_Name: EnemiesKilledAchievementSO
+  m_Name: EnemiesKilledAchievementList
   m_EditorClassIdentifier: 
   enemiesKilledAchievementList:
   - {fileID: 11400000, guid: 670d3864724d2be4da98d1f3fd8ce371, type: 2}
