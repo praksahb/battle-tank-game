@@ -1,31 +1,17 @@
-﻿
-using System;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 namespace TankBattle.Services
 {
     [CreateAssetMenu(fileName = "CollectiblesAchievementSO", menuName = "ScriptableObjects/Achievements/BallsCollected")]
-    public class CollectibleAchievementsSO : ScriptableObject
+    public class CollectibleAchievementsSO : BaseAchievementSO
     {
-        [Serializable]
-        public class CollectiblesAchievements
+        public enum CollectibleAchievementType
         {
-             public enum  BallsCollectedAchievementType
-            {
-                None,
-                Ballvivaah,
-                BallaballWeekly,
-                BallHiBallHogaya
-            }
-
-            public string AchievementName;
-            public string AchievementInfo;
-            public RawImage AchievementImage;
-            public BallsCollectedAchievementType ballsCollectedAchievementType;
-            public int requirement;
+            None,
+            OneBall,
+            TwoBall,
+            ThreeBall,
         }
-
-        public CollectiblesAchievements[] achievements;
+        public CollectibleAchievementType achievementType;
     }
 }
