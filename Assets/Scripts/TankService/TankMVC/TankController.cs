@@ -87,37 +87,13 @@ namespace TankBattle.Tank
             {
                 PlayerService.Instance.InvokePlayerDeathEvent();
             }
-            else
+            else if(TankModel.TankTypes == TankType.Enemy)
             {
-                EventService.Instance.InvokeOnEnemyKilled();
-                //EnemyService.Instance.ReduceEnemyList(TankView.GetTankController());
+                PlayerService.Instance.IncrementEnemyKilledScore();
             }
         }
 
         // Shooting Related
-        public void SubscribeEvents()
-        {
-            EventService.Instance.OnBulletsFired += FiredBullet;
-            EventService.Instance.OnEnemyKilled += EnemyKilled;
-        }
-
-        public void UnsubscribeEvents()
-        {
-            EventService.Instance.OnBulletsFired -= FiredBullet;
-            EventService.Instance.OnEnemyKilled -= EnemyKilled;
-        }
-
-        private void EnemyKilled()
-        {
-            TankModel.EnemiesKilled++;
-            AchievementManager.Instance.CheckEnemyKillCount(TankModel.EnemiesKilled);
-        }
-
-        private void FiredBullet()
-        {
-            TankModel.BulletsFired++;
-            AchievementManager.Instance.CheckBulletsFiredCount(TankModel.BulletsFired);
-        }
 
         public void Fire()
         {
@@ -130,7 +106,7 @@ namespace TankBattle.Tank
 
             if(TankModel.TankTypes == TankType.Player)
             {
-                EventService.Instance.InvokeOnBulletFiredEvent();
+                PlayerService.Instance.IncrementBulletsFiredScore();
             }
 
             TankView.PlayFiredSound();

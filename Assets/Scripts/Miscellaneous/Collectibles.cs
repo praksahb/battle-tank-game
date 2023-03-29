@@ -1,4 +1,5 @@
 using TankBattle.Tank;
+using TankBattle.Tank.PlayerTank;
 using UnityEngine;
 
 namespace TankBattle.Services
@@ -10,19 +11,13 @@ namespace TankBattle.Services
         private TankController playerTankController;
         private void OnTriggerEnter(Collider other)
         {
-            
-            TankView tankView = other.gameObject.GetComponent<TankView>();
-            if (tankView != null)
-            {
-                playerTankController = tankView.GetTankController();
-
-                if(playerTankController.TankModel.TankTypes == TankType.Player)
+            playerTankController = other.gameObject.GetComponent<TankView>().GetTankController();
+                if(playerTankController != null && playerTankController.TankModel.TankTypes == TankType.Player)
                 {
-                    playerTankController.TankModel.BallsCollected++;
-                    EventService.Instance.InvokeOnBallCollected(playerTankController.TankModel.BallsCollected);
+                    PlayerService.Instance.IncrementBallsCollectedScore();
                     Destroy(gameObject);
                 }
-            }
+            
         }
     }
 }
