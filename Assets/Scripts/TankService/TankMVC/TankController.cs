@@ -86,7 +86,7 @@ namespace TankBattle.Tank
             {
                 PlayerService.Instance.InvokePlayerDeathEvent();
             }
-            else if(TankModel.TankTypes == TankType.Enemy)
+            else if(TankModel.TankTypes == TankType.Enemy && !PlayerService.Instance.GetTankController().isDead)
             {
                 PlayerService.Instance.IncrementEnemyKilledScore();
             }
