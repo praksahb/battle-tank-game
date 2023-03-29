@@ -41,11 +41,6 @@ namespace TankBattle.Services
             EventService.Instance.OnBallCollected += CheckBallsCollected;
         }
 
-        private void Start()
-        {
-
-        }
-
         private void OnDestroy()
         {
             EventService.Instance.OnBulletsFired -= CheckBulletsFiredCount;
@@ -73,7 +68,6 @@ namespace TankBattle.Services
 
         private void CheckEnemyKillCount(int killCount)
         {
-            Debug.Log($"Kill count: {killCount}");
             if (killCount == enemiesKilledAchievementCurrent.requirement)
             {
                 achievementImage = enemiesKilledAchievementCurrent.AchievementImage;

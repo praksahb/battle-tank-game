@@ -21,7 +21,6 @@ namespace TankBattle.Tank
         public float ChargeSpeed { get; }
         public bool IsFired { get; set; }
 
-
         public TankController(TankModel tankModel, TankView tankPrefab, Vector3 spawnPosition)
         {
             TankModel = tankModel;
