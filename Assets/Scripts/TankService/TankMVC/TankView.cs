@@ -17,7 +17,6 @@ using UnityEngine.UI;
 namespace TankBattle.Tank
 {
     [RequireComponent(typeof(Rigidbody))]
-
     public class TankView : MonoBehaviour
     {
         // health related
@@ -79,7 +78,7 @@ namespace TankBattle.Tank
                 renderersOnTank[i].material.color = color;
             }
         }
-        public Rigidbody getRigidbody()
+        public Rigidbody GetRigidbody()
         {
             return rb;
         }

@@ -39,7 +39,7 @@ namespace TankBattle.Tank
         {
             if (!rb)
             {
-                rb = TankView.getRigidbody();
+                rb = TankView.GetRigidbody();
             }
             rb.MovePosition(rb.position + moveDirection * TankModel.Speed * Time.deltaTime);
         }
@@ -52,7 +52,10 @@ namespace TankBattle.Tank
                 targetRotation,
                 TankModel.RotateSpeed * Time.fixedDeltaTime
             );
-
+            if (!rb)
+            {
+                rb = TankView.GetRigidbody();
+            }
             rb.MoveRotation(targetRotation);
         }
         public void Jump()
@@ -96,17 +99,21 @@ namespace TankBattle.Tank
         {
             IsFired = true;
             Transform fireTransform = TankView.GetFireTransform();
-            Vector3 bulletSpeed = currentLaunchForce * fireTransform.forward;
-            
-            CreateShellService.Instance.LaunchBullet(fireTransform, bulletSpeed, TankModel.TankTypes);
-
-            if(TankModel.TankTypes == TankType.Player)
+            if(fireTransform != null)
             {
-                PlayerService.Instance.IncrementBulletsFiredScore();
-            }
+                Vector3 bulletSpeed = currentLaunchForce * fireTransform.forward;
+            
+                CreateShellService.Instance.LaunchBullet(fireTransform, bulletSpeed, TankModel.TankTypes);
 
-            TankView.PlayFiredSound();
-            currentLaunchForce = TankModel.MinLaunchForce;
+                if(TankModel.TankTypes == TankType.Player)
+                {
+                    PlayerService.Instance.IncrementBulletsFiredScore();
+                }
+
+                TankView.PlayFiredSound();
+                currentLaunchForce = TankModel.MinLaunchForce;
+            }
+            Debug.LogError("Fire transform is null");
         }
     }
 }
