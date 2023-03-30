@@ -2785,7 +2785,7 @@ MonoBehaviour:
   bulletPool: {fileID: 2138126620}
   explosionParticles: {fileID: 4821839617617163099, guid: 06058da03c92cd94fb0be5610107a086,
     type: 3}
-  amountToPool: 50
+  amountToPool: 3
 --- !u!1001 &7824266886635456565
 PrefabInstance:
   m_ObjectHideFlags: 0
