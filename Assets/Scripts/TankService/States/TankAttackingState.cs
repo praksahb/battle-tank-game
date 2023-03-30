@@ -5,6 +5,7 @@ namespace TankBattle.Tank.EnemyTank
 {
     public class TankAttackingState : TankState
     {
+        [SerializeField] private float fireCooldownTimer = 1f;
         private float timeElapsed = 0f;
 
         public override void OnEnterState()
@@ -28,7 +29,7 @@ namespace TankBattle.Tank.EnemyTank
                 enemyTankView.ChangeState(enemyTankView.patrollingState);
             }
 
-            if(timeElapsed >= 1f)
+            if(timeElapsed >= fireCooldownTimer)
             {
                 timeElapsed = 0f;
                 if(playerTransform)

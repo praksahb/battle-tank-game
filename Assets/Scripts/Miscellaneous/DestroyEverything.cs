@@ -15,7 +15,7 @@ namespace TankBattle
 
         private TankController enemyTankController;
 
-        private Coroutine coroutine;
+        private Coroutine DestroyEverythingCoroutine;
         private WaitForSeconds _waitSmall;
         private WaitForSeconds _waitLarge;
         private int numOfEnemies;
@@ -46,11 +46,11 @@ namespace TankBattle
 
         public void RunCoroutine()
         {
-            if(coroutine != null)
+            if(DestroyEverythingCoroutine != null)
             {
-                StopCoroutine(coroutine);
+                StopCoroutine(DestroyEverythingCoroutine);
             }
-            coroutine = StartCoroutine(DeathRoutine());
+            DestroyEverythingCoroutine = StartCoroutine(DeathRoutine());
         }
 
         private IEnumerator DeathRoutine()

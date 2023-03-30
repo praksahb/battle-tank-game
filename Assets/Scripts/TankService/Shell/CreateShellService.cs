@@ -8,24 +8,32 @@ namespace TankBattle.Tank.Bullets
         [SerializeField] private ShellScriptableObject shellScriptableObject;
         
         private ParticleSystem explosionParticles;
+        public ShellModel GetBulletModel { get; private set; }
+        private ObjectPool objectPooler;
 
-        public ShellModel GetBulletModel { get; set; }
+        private void Start()
+        {
+            objectPooler = ObjectPool.SharedInstance;
+        }
 
         // instantiate bullet 
         public ShellController CreateShell(Transform parentTransform)
         {
-            GetBulletModel = new ShellModel(shellScriptableObject); 
+            GetBulletModel = new ShellModel(shellScriptableObject);
             ShellController bulletShell = new ShellController(parentTransform, GetBulletModel, shellScriptableObject.shellView);
             bulletShell.GetShellView.SetShellController(bulletShell);
+            bulletShell.GetShellView.SetMaxTankColliders(GetBulletModel.MaxTanksBulletCanDamage);
             return bulletShell;
         }
 
-        public void LaunchBullet(Transform fireTransform, Vector3 velocityVector)
+        public void LaunchBullet(Transform fireTransform, Vector3 velocityVector, TankType tankType)
         {
-            ShellController bullet = BulletObjectPool.SharedInstance.GetBullet();
+            ShellController bullet = objectPooler.GetBullet();
+            bullet.GetShellModel.SentBy = tankType;
+            bullet.GetShellView.SetBulletFromValue(bullet.GetShellModel.SentBy);
             if(bullet != null)
             {
-                explosionParticles = BulletObjectPool.SharedInstance.GetExplosionParticle();
+                explosionParticles = objectPooler.GetExplosionParticle();
 
                 if(explosionParticles != null)
                 {
