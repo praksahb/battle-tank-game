@@ -10,13 +10,14 @@ namespace TankBattle.Tank.Bullets
             ExplosionForce = bulletShell.explosionForce;
             ExplosionRadius = bulletShell.explosionRadius;
             MaxDamage = bulletShell.maxDamage;
-            MaxLifeTime = bulletShell.maxLifeInSeconds;
+            MaxTanksBulletCanDamage = bulletShell.maxTanksBulletCanDamage;
         }
 
         public LayerMask LayerMask { get; }
         public float ExplosionRadius { get; }
         public float ExplosionForce { get; }
         public float MaxDamage { get; }
-        public float MaxLifeTime { get; }
+        public int MaxTanksBulletCanDamage { get; }
+        public TankType SentBy { get; set; }
     }
 }

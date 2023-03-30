@@ -460,6 +460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 0.0037219524, g: 1, b: 0, a: 0}
+  fireCooldownTimer: 1.5
 --- !u!195 &1918316268596209399
 NavMeshAgent:
   m_ObjectHideFlags: 0

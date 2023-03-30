@@ -27,7 +27,14 @@ namespace TankBattle.Services
         private Coroutine displayAchievementsCoroutine;
         private WaitForSecondsRealtime displayWaitTimer;
 
-        private void Awake()
+        private void OnEnable()
+        {
+            EventService.Instance.OnBulletsFired += CheckBulletsFiredCount;
+            EventService.Instance.OnEnemyKilled += CheckEnemyKillCount;
+            EventService.Instance.OnBallCollected += CheckBallsCollected;
+        }
+
+        private void Start()
         {
             bulletAchievementCurrent = allAchievements.bulletsFiredAchievementList.bulletsFiredAchievementList[bulletAchievementsIndex];
 
@@ -35,13 +42,9 @@ namespace TankBattle.Services
 
             ballsCollectedAchievementCurrent = allAchievements.ballsCollectedAchievementsList.ballsCollectedAchievementList[ballsCollectedAchievementsIndex];
             displayWaitTimer = new WaitForSecondsRealtime(displayTime);
-
-            EventService.Instance.OnBulletsFired += CheckBulletsFiredCount;
-            EventService.Instance.OnEnemyKilled += CheckEnemyKillCount;
-            EventService.Instance.OnBallCollected += CheckBallsCollected;
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             EventService.Instance.OnBulletsFired -= CheckBulletsFiredCount;
             EventService.Instance.OnEnemyKilled -= CheckEnemyKillCount;

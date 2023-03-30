@@ -20,4 +20,4 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   maxDamage: 50
-  maxLifeInSeconds: 2
+  maxTanksBulletCanDamage: 10

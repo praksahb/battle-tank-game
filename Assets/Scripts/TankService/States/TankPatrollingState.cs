@@ -50,7 +50,7 @@ namespace TankBattle.Tank.EnemyTank
             {
                 Vector3 randomPoint = center + Random.insideUnitSphere * range; //random point in a sphere 
                 NavMeshHit hit;
-                if (NavMesh.SamplePosition(randomPoint, out hit, 5.0f, NavMesh.AllAreas))
+                if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.AllAreas))
                 {
                     result = hit.position;
                     return true;

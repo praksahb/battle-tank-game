@@ -29,7 +29,6 @@ namespace TankBattle.Tank.Bullets
                 if (targetTank == null) continue;
 
                 float damage = CalculateDamage(targetTankView.transform.position, bulletPosition);
-                //Debug.Log($"Damage: {damage}");
                 targetTank.TakeDamage(damage);
             }
         }

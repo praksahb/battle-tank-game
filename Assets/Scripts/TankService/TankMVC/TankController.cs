@@ -1,7 +1,5 @@
 using TankBattle.Extensions;
-using TankBattle.Services;
 using TankBattle.Tank.Bullets;
-using TankBattle.Tank.EnemyTank;
 using TankBattle.Tank.PlayerTank;
 using UnityEngine;
 
@@ -100,8 +98,7 @@ namespace TankBattle.Tank
             Transform fireTransform = TankView.GetFireTransform();
             Vector3 bulletSpeed = currentLaunchForce * fireTransform.forward;
             
-            
-            CreateShellService.Instance.LaunchBullet(fireTransform, bulletSpeed);
+            CreateShellService.Instance.LaunchBullet(fireTransform, bulletSpeed, TankModel.TankTypes);
 
             if(TankModel.TankTypes == TankType.Player)
             {
