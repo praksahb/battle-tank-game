@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 namespace TankBattle.Services
 {
+    // Achievement System 
     public class AchievementManager : MonoBehaviour
     {
         [SerializeField] private AchievementTypes allAchievements;
 
         [SerializeField] private GameObject achievementPanel;
-
         [SerializeField] private RawImage achievementImage;
         [SerializeField] private TextMeshProUGUI achievementHeading;
         [SerializeField] private TextMeshProUGUI achievementText;

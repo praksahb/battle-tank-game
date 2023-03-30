@@ -11,7 +11,7 @@ namespace TankBattle.Tank.Bullets
         [SerializeField] private ObjectPool bulletPool;
         [SerializeField] private ParticleSystem explosionParticles;
 
-        void Awake()
+        private void Awake()
         {
             SharedInstance = this;
         }
@@ -67,7 +67,6 @@ namespace TankBattle.Tank.Bullets
             {
                 return poolParticleSystem.Pop();
             }
-
             ParticleSystem explosionParticle = Instantiate(explosionParticles, transform);
             return explosionParticle;
         }
