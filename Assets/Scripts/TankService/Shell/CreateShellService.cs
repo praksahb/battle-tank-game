@@ -23,7 +23,7 @@ namespace TankBattle.Tank.Bullets
             ShellController bulletShell = new ShellController(parentTransform, GetBulletModel, shellScriptableObject.shellView);
             bulletShell.GetShellView.SetShellController(bulletShell);
             bulletShell.GetShellView.SetMaxTankColliders(GetBulletModel.MaxTanksBulletCanDamage);
-            return bulletShell;
+            return bulletShell; 
         }
 
         public void LaunchBullet(Transform fireTransform, Vector3 velocityVector, TankType tankType)
@@ -31,10 +31,10 @@ namespace TankBattle.Tank.Bullets
             ShellController bullet = objectPooler.GetBullet();
             bullet.GetShellModel.SentBy = tankType;
             bullet.GetShellView.SetBulletFromValue(bullet.GetShellModel.SentBy);
+            //bullet.GetShellView.SetActive();
             if(bullet != null)
             {
                 explosionParticles = objectPooler.GetExplosionParticle();
-
                 if(explosionParticles != null)
                 {
                     bullet.GetShellView.SetExplosionParticle(explosionParticles);
@@ -44,6 +44,14 @@ namespace TankBattle.Tank.Bullets
                     bullet.GetShellView.SetActive();
                     bullet.GetShellView.AddVelocity(velocityVector);
                 }
+                else
+                {
+                    Debug.Log("Chek1");
+                }
+            }
+            else
+            {
+                Debug.Log($"Bullet: {bullet}");
             }
         }
 

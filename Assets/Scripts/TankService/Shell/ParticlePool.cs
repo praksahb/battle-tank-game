@@ -1,17 +1,18 @@
-﻿
-using TankBattle.Services;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace TankBattle
+namespace TankBattle.Services
 {
     // generic object pool implementation
     public class ParticlePool : MonoBehaviour
     {
+        public ParticleSystem _particleSystem;
+        public int poolSize;
+
         private GenericPooling<ParticleSystem> particlePool;
 
         private void Start()
         {
-            particlePool = new GenericPooling<ParticleSystem>();
+            particlePool = new GenericPooling<ParticleSystem>(poolSize, _particleSystem, transform);
         }
     }
 }

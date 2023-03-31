@@ -6,7 +6,6 @@ namespace TankBattle.Tank.Bullets
     public class ShellView : MonoBehaviour
     {
         private ParticleSystem explosionParticles;
-        private Coroutine coroutine;
 
         private ShellController shellController;
         private AudioSource explosionAudio;
@@ -45,7 +44,6 @@ namespace TankBattle.Tank.Bullets
             return gameObject.activeInHierarchy;
         }
 
-
         public void SetShellController(ShellController _shellController)
         {
             shellController = _shellController;
@@ -78,6 +76,7 @@ namespace TankBattle.Tank.Bullets
 
             shellController.CheckHitColliders(hitColliders, numOfColliders, transform.position);
             DestroyBullet();
+            explosionParticles = null;
         }
 
         private void DestroyBullet()
@@ -85,8 +84,8 @@ namespace TankBattle.Tank.Bullets
             explosionParticles.transform.parent = null;
             explosionParticles.Play();
             explosionAudio.Play();
-            ObjectPool.SharedInstance.PushBulletBack(shellController);
             ObjectPool.SharedInstance.PushToParticlePool(explosionParticles);
+            ObjectPool.SharedInstance.PushBulletBack(shellController);
         }
 
     }

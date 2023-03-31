@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,18 +5,30 @@ namespace TankBattle.Services
 {
     public class GenericPooling<T> where T : Component
     {
-        [SerializeField] protected T item;
+        private T item;
         private List<T> poolList;
 
-        public GenericPooling()
+        public GenericPooling(int poolLength, T item, Transform parentTransform)
         {
-            poolList = new List<T>();
+            this.item = item;
+            initializePool(poolLength, parentTransform);
         }
 
-        public virtual T NewItem()
+        private void initializePool(int poolLength, Transform parent)
         {
-            GameObject go = new GameObject();
-            T newItem = go.AddComponent<T>();
+            poolList = new List<T>();
+            for (int i = 0; i < poolLength; i++)
+            {
+                T newItem = NewItem();
+                newItem.transform.parent = parent;
+                poolList.Add(newItem);
+            }
+        }
+
+        protected virtual T NewItem()
+        {
+
+            T newItem = Object.Instantiate(item);
             poolList.Add(newItem);
             return newItem;
         }
