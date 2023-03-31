@@ -22,7 +22,6 @@ namespace TankBattle.Services
         private Vector3 moveVelocity;
         // The position the camera is moving towards
         private Vector3 desiredPosition;
-        private int index = 0;
 
          protected override void Awake()
         {

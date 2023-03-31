@@ -1658,7 +1658,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 1865922710}
-  cc: {fileID: 1771596988}
 --- !u!4 &1253987491
 Transform:
   m_ObjectHideFlags: 0
@@ -2800,10 +2799,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8affad0476b3a3247b71f1c620df5613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPool: {fileID: 2138126620}
+  bulletPool: {fileID: 0}
   explosionParticles: {fileID: 4821839617617163099, guid: 06058da03c92cd94fb0be5610107a086,
     type: 3}
-  amountToPool: 3
+  amountToPool: 5
 --- !u!1001 &7824266886635456565
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -9,14 +9,13 @@ namespace TankBattle.Tank.Bullets
     {
         public static ObjectPool SharedInstance;
 
-        [SerializeField] private ObjectPool bulletPool;
         [SerializeField] private ParticleSystem explosionParticles;
+
         public int amountToPool;
 
         private List<ShellController> pooledBullets;
-        private Stack<ParticleSystem> poolParticleSystem;
 
-        //private GenericPooling<ParticleSystem> poolParticleSystem;
+        private GenericPooling<ParticleSystem> poolParticleSystem;
 
         private void Awake()
         {
@@ -26,9 +25,8 @@ namespace TankBattle.Tank.Bullets
         private void Start()
         {
             LoadBulletsPool();
-            LoadParticlesPool();
 
-            //poolParticleSystem = new GenericPooling<ParticleSystem>(amountToPool, explosionParticles, transform);
+            poolParticleSystem = new GenericPooling<ParticleSystem>(amountToPool, explosionParticles, transform);
         }
 
         private void LoadBulletsPool()
@@ -39,16 +37,6 @@ namespace TankBattle.Tank.Bullets
                 ShellController bullet = CreateBullet();
                 bullet.GetShellView.SetInactive();
                 pooledBullets.Add(bullet);
-            }
-        }
-
-        private void LoadParticlesPool()
-        {
-            poolParticleSystem = new Stack<ParticleSystem>();
-            for (int i = 0; i < amountToPool; i++)
-            {
-                ParticleSystem explosionParticle = Instantiate(explosionParticles, transform);
-                poolParticleSystem.Push(explosionParticle);
             }
         }
 
@@ -74,15 +62,7 @@ namespace TankBattle.Tank.Bullets
 
         public ParticleSystem GetExplosionParticle()
         {
-            if (poolParticleSystem.Count > 0)
-            {
-                return poolParticleSystem.Pop();
-            }
-            ParticleSystem explosionParticle = Instantiate(explosionParticles, transform);
-            return explosionParticle;
-
-
-            //return poolParticleSystem.GetItem();
+            return poolParticleSystem.GetItem();
         }
 
         public void PushBulletBack(ShellController shellController)
@@ -93,14 +73,10 @@ namespace TankBattle.Tank.Bullets
 
           async public void PushToParticlePool(ParticleSystem explosionParticle)
         {
-           // goes back to bulletPool empty game object
             explosionParticle.transform.parent = transform;
-            // wait for explosion particle to stop playing
-            // then push back to stack
             await Task.Delay((int)(explosionParticle.main.duration * 1000));
-            poolParticleSystem.Push(explosionParticle);
+            poolParticleSystem.FreeItem(explosionParticle);
 
-            //poolParticleSystem.FreeItem(explosionParticle);
         }
     }
 }

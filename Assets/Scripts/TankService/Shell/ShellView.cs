@@ -9,14 +9,14 @@ namespace TankBattle.Tank.Bullets
 
         private ShellController shellController;
         private AudioSource explosionAudio;
-        private Rigidbody rb;
+        private Rigidbody rigidBody;
 
         private int maxTankColliders;
         private TankType bulletFrom;
 
         private void Awake()
         {
-            rb = GetComponent<Rigidbody>();
+            rigidBody = GetComponent<Rigidbody>();
             explosionAudio = GetComponent<AudioSource>();
         }
 
@@ -62,7 +62,7 @@ namespace TankBattle.Tank.Bullets
 
         public void AddVelocity(Vector3 velocityVector)
         {
-            rb.velocity = velocityVector;
+            rigidBody.velocity = velocityVector;
         }
 
         // main function -
