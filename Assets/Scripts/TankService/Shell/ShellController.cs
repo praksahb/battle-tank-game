@@ -19,17 +19,22 @@ namespace TankBattle.Tank.Bullets
             {
                 Rigidbody targetRb = hitColliders[i].attachedRigidbody;
 
-                // go to next collider
-                if (!targetRb) continue;
+                // hit if rigidbody is present
+                if (targetRb)
+                {
+                    targetRb.AddExplosionForce(CreateShellService.Instance.GetBulletModel.ExplosionForce, bulletPosition, CreateShellService.Instance.GetBulletModel.ExplosionRadius);
 
-                targetRb.AddExplosionForce(CreateShellService.Instance.GetBulletModel.ExplosionForce, bulletPosition, CreateShellService.Instance.GetBulletModel.ExplosionRadius);
-
-                TankView targetTankView = targetRb.GetComponent<TankView>();
-                TankController targetTank = targetTankView.GetTankController();
-                if (targetTank == null) continue;
-
-                float damage = CalculateDamage(targetTankView.transform.position, bulletPosition);
-                targetTank.TakeDamage(damage);
+                    TankView targetTankView = targetRb.GetComponent<TankView>();
+                    if(targetTankView)
+                    {
+                        TankController targetTank = targetTankView.GetTankController();
+                        if (targetTank != null)
+                        {
+                            float damage = CalculateDamage(targetTankView.transform.position, bulletPosition);
+                            targetTank.TakeDamage(damage);
+                        }
+                    }
+                }
             }
         }
 
