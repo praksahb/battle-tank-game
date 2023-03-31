@@ -112,8 +112,10 @@ namespace TankBattle.Tank
 
                 TankView.PlayFiredSound();
                 currentLaunchForce = TankModel.MinLaunchForce;
+            } else
+            {
+                Debug.LogError("Fire transform is null");
             }
-            Debug.LogError("Fire transform is null");
         }
     }
 }

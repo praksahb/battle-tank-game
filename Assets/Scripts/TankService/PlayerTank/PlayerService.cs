@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using TankBattle.Services;
-using TankBattle.Tank.EnemyTank;
 using UnityEngine;
 
 namespace TankBattle.Tank.PlayerTank
@@ -21,6 +19,8 @@ namespace TankBattle.Tank.PlayerTank
         private void Start()
         {
             CreateTank();
+            CameraController.Instance.AddTransformToTarget(tankController.TankView.transform);
+
         }
 
         public void CreateTank()
