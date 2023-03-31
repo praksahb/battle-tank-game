@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TankBattle.Services;
 using UnityEngine;
 
 namespace TankBattle.Tank.EnemyTank
@@ -27,6 +28,7 @@ namespace TankBattle.Tank.EnemyTank
             {
                 enemyTankController = CreateTank.CreateTankService.Instance.CreateTank(spawnPoint.position, enemyTankIndex);
                 enemiesList.Add(enemyTankController);
+                CameraController.Instance.AddTransformToTarget(enemyTankController.TankView.transform);
                 enemyTankController = null;
             }
         }
