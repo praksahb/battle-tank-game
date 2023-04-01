@@ -55,10 +55,7 @@ namespace TankBattle.Services
 
         public void FreeItem(T item)
         {
-            if(poolList.Count < poolLength)
                 poolList.Push(item);
-
-            Object.Destroy(item);
         }
     }
 }

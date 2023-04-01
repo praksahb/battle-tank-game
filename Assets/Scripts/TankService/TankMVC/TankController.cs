@@ -103,7 +103,7 @@ namespace TankBattle.Tank
             {
                 Vector3 bulletSpeed = currentLaunchForce * fireTransform.forward;
             
-                CreateShellService.Instance.LaunchBullet(fireTransform, bulletSpeed, TankModel.TankTypes);
+                ShellService.Instance.LaunchBullet(fireTransform, bulletSpeed, TankModel.TankTypes);
 
                 if(TankModel.TankTypes == TankType.Player)
                 {

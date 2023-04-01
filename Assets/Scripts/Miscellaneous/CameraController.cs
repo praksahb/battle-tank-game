@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TankBattle.Services
 {
-    public class CameraController : GenericSingleton<CameraController>
+    public class CameraController : GenericMonoSingleton<CameraController>
     {
         // Approximate time for the camera to refocus.
         [SerializeField] private float dampTime = 0.2f;
