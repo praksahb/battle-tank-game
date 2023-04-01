@@ -876,6 +876,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967263
       objectReference: {fileID: 0}
+    - target: {fileID: 1112817516674612, guid: 0aac6aef14f064c3fb626270cff2683b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1126215695211554, guid: 0aac6aef14f064c3fb626270cff2683b, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967263
@@ -1017,6 +1021,10 @@ PrefabInstance:
       value: 4294967263
       objectReference: {fileID: 0}
     - target: {fileID: 1303396459364388, guid: 0aac6aef14f064c3fb626270cff2683b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1303396459364388, guid: 0aac6aef14f064c3fb626270cff2683b, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967263
       objectReference: {fileID: 0}
@@ -1027,6 +1035,10 @@ PrefabInstance:
     - target: {fileID: 1312344720711240, guid: 0aac6aef14f064c3fb626270cff2683b, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967263
+      objectReference: {fileID: 0}
+    - target: {fileID: 1332043670740300, guid: 0aac6aef14f064c3fb626270cff2683b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1337681927412742, guid: 0aac6aef14f064c3fb626270cff2683b, type: 3}
       propertyPath: m_NavMeshLayer
@@ -2106,6 +2118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroyObjectFloor: {fileID: 2073836657}
   destroyObjectRest: {fileID: 634010363}
+  lightSource: {fileID: 1712029313}
   waitTimeSmall: 1
   waitTimeLarge: 2.5
 --- !u!4 &1372807777
@@ -2409,6 +2422,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1712029313 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1332043670740300, guid: 0aac6aef14f064c3fb626270cff2683b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1158996493}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1771596986
 GameObject:
   m_ObjectHideFlags: 0
@@ -2799,10 +2818,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8affad0476b3a3247b71f1c620df5613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPool: {fileID: 0}
+  amountToPool: 5
   explosionParticles: {fileID: 4821839617617163099, guid: 06058da03c92cd94fb0be5610107a086,
     type: 3}
-  amountToPool: 5
 --- !u!1001 &7824266886635456565
 PrefabInstance:
   m_ObjectHideFlags: 0
