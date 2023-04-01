@@ -17,6 +17,7 @@ namespace TankBattle.Tank
         public int BulletsFired { get; set; }
         public int EnemiesKilled { get; set; }
         public int BallsCollected { get; set; }
+        public bool IsDead { get; set; }
 
         public TankModel(TankTypes.TankScriptableObject tankScriptableObject)
         {
@@ -32,6 +33,7 @@ namespace TankBattle.Tank
             BulletsFired = 0;
             EnemiesKilled = 0;
             BallsCollected = 0;
+            IsDead = false;
         }
     }
 }

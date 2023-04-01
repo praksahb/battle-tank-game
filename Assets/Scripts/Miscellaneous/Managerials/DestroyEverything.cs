@@ -59,7 +59,7 @@ namespace TankBattle
             yield return _waitLarge;
             for(int i = 0; i < numOfEnemies; i++)
             {
-                DeathRoutineEnemy(i);
+                DeathRoutineEnemy();
                 yield return _waitSmall;
             }
             yield return _waitLarge;
@@ -68,12 +68,12 @@ namespace TankBattle
             DestroyWorld();
         }
 
-        private void DeathRoutineEnemy(int idx)
+        private void DeathRoutineEnemy()
         {
-            enemyTankController = EnemyService.Instance.GetEnemyTankControllerByIndex(idx);
+            enemyTankController = EnemyService.Instance.GetAEnemyTankController();
             if(enemyTankController != null)
             {
-                enemyTankController.TakeDamage(enemyTankController.TankModel.Health);
+                enemyTankController.KillTank();
             }
         }
 

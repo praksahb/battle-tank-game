@@ -22,31 +22,14 @@ namespace TankBattle.Tank.Bullets
                 // hit if rigidbody is present
                 if (targetRb)
                 {
-                    targetRb.AddExplosionForce(ShellService.Instance.BulletModel.ExplosionForce, bulletPosition, ShellService.Instance.BulletModel.ExplosionRadius);
-
-                    TankView targetTankView = targetRb.GetComponent<TankView>();
-                    if(targetTankView)
+                    targetRb.AddExplosionForce(ShellModel.ExplosionForce, bulletPosition, ShellModel.ExplosionRadius);
+                    IDamageable damageable = targetRb.gameObject.GetComponent<IDamageable>();
+                    if (damageable != null)
                     {
-                        TankController targetTank = targetTankView.GetTankController();
-                        if (targetTank != null)
-                        {
-                            float damage = CalculateDamage(targetTankView.transform.position, bulletPosition);
-                            targetTank.TakeDamage(damage);
-                        }
+                        damageable.Damage(bulletPosition, ShellModel.ExplosionRadius, ShellModel.MaxDamage);
                     }
                 }
             }
-        }
-
-        private float CalculateDamage(Vector3 tankPosition, Vector3 impactPosition)
-        {
-            float explosionDistance = (tankPosition - impactPosition).sqrMagnitude;
-
-            float relativeDistance = (ShellModel.ExplosionRadius - explosionDistance) / ShellModel.ExplosionRadius;
-
-            float damage = relativeDistance * ShellModel.MaxDamage;
-            damage = Mathf.Max(damage, 0f);
-            return damage;
         }
     }
 }

@@ -1,5 +1,6 @@
 using TankBattle.Extensions;
 using TankBattle.Tank.Bullets;
+using TankBattle.Tank.EnemyTank;
 using TankBattle.Tank.PlayerTank;
 using UnityEngine;
 
@@ -11,7 +12,6 @@ namespace TankBattle.Tank
         public TankView TankView { get; }
 
         private Rigidbody rb;
-        private bool isDead;
 
         private float currentLaunchForce;
         public float CurrentLaunchForce { get => currentLaunchForce; set => currentLaunchForce = value; }
@@ -24,7 +24,6 @@ namespace TankBattle.Tank
             TankModel = tankModel;
             TankView = Object.Instantiate(tankPrefab, spawnPosition, Quaternion.identity);
             TankView.SetColorOnAllRenderers(TankModel.Color);
-            isDead = false;
             ChargeSpeed = (TankModel.MaxLaunchForce - TankModel.MinLaunchForce) / TankModel.MaxChargeTime;
         }
 
@@ -35,6 +34,7 @@ namespace TankBattle.Tank
             Move(directionVector);
             Rotate(directionVector);
         }
+        
         private void Move(Vector3 moveDirection)
         {
             if (!rb)
@@ -43,6 +43,7 @@ namespace TankBattle.Tank
             }
             rb.MovePosition(rb.position + moveDirection * TankModel.Speed * Time.deltaTime);
         }
+
         private void Rotate(Vector3 rotateDirection)
         {
             Quaternion targetRotation = Quaternion.LookRotation(rotateDirection, Vector3.up);
@@ -68,27 +69,50 @@ namespace TankBattle.Tank
         }
 
         // health related logic
-        public void TakeDamage(float amount)
+        public void KillTank()
         {
-            TankModel.Health -= amount;
+            ChangeHealth(TankModel.Health);
             TankView.SetHealthUI();
-            if (TankModel.Health <= 0f && !isDead)
+            OnDeath();
+        }
+
+        public void TakeDamage(Vector3 impactPosition, float _explosionRadius, float _MaxDamage)
+        {
+            float amount = CalculateDamage(impactPosition, _explosionRadius, _MaxDamage);
+            ChangeHealth(amount);
+            TankView.SetHealthUI();
+            if (TankModel.Health <= 0f && !TankModel.IsDead)
             {
                 OnDeath();
             }
         }
+        private float CalculateDamage(Vector3 impactPosition, float ShellModel_explosionRadius, float ShellModel_MaxDamage)
+        {
+            float explosionDistance = (TankView.transform.position - impactPosition).sqrMagnitude;
+
+            float relativeDistance = (ShellModel_explosionRadius - explosionDistance) / ShellModel_explosionRadius;
+
+            float damage = relativeDistance * ShellModel_MaxDamage;
+            damage = Mathf.Max(damage, 0f);
+            return damage;
+        }
+        private void ChangeHealth(float dec_val)
+        {
+            TankModel.Health -= dec_val;
+        }
 
         private void OnDeath()
         {
-            isDead = true;
+            TankModel.IsDead = true;
             TankView.InstantiateOnDeath();
 
             if(TankModel.TankTypes == TankType.Player)
             {
                 PlayerService.Instance.InvokePlayerDeathEvent();
             }
-            else if(TankModel.TankTypes == TankType.Enemy && !PlayerService.Instance.GetTankController().isDead)
+            else if(TankModel.TankTypes == TankType.Enemy && !PlayerService.Instance.GetTankController().TankModel.IsDead)
             {
+                EnemyService.Instance.ReduceEnemyList(this);
                 PlayerService.Instance.IncrementEnemyKilledScore();
             }
         }
