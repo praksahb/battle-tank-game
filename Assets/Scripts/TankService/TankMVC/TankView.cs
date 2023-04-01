@@ -109,7 +109,7 @@ namespace TankBattle.Tank
             explosionParticles.Play();
             explosionAudio.Play();
             Destroy(explosionParticles.gameObject, explosionParticles.main.duration);
-            //gameObject.SetActive(false);
+            //gameObject.Enable(false);
             Destroy(gameObject);
         }
 

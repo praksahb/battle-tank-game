@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace TankBattle.Tank.EnemyTank
 {
-    public class EnemyService : GenericSingleton<EnemyService>
+    public class EnemyService : GenericMonoSingleton<EnemyService>
     {
         [SerializeField] private Transform spawnPoint;
         [SerializeField] private int numOfEnemies;

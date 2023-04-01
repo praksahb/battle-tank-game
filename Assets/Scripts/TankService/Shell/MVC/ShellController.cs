@@ -4,13 +4,13 @@ namespace TankBattle.Tank.Bullets
 {
     public class ShellController
     {
-        public ShellModel GetShellModel { get; }
-        public ShellView GetShellView { get; }
+        public ShellModel ShellModel { get; }
+        public ShellView ShellView { get; }
 
-        public ShellController(Transform parentObj, ShellModel getShellModel, ShellView shellViewPrefab)
+        public ShellController(ShellModel getShellModel, ShellView shellViewPrefab)
         {
-            GetShellModel = getShellModel;
-            GetShellView = Object.Instantiate(shellViewPrefab, parentObj);
+            ShellModel = getShellModel;
+            ShellView = Object.Instantiate(shellViewPrefab);
         }
 
         public void CheckHitColliders(Collider[] hitColliders, int numOfColliders, Vector3 bulletPosition)
@@ -22,7 +22,7 @@ namespace TankBattle.Tank.Bullets
                 // hit if rigidbody is present
                 if (targetRb)
                 {
-                    targetRb.AddExplosionForce(CreateShellService.Instance.GetBulletModel.ExplosionForce, bulletPosition, CreateShellService.Instance.GetBulletModel.ExplosionRadius);
+                    targetRb.AddExplosionForce(ShellService.Instance.BulletModel.ExplosionForce, bulletPosition, ShellService.Instance.BulletModel.ExplosionRadius);
 
                     TankView targetTankView = targetRb.GetComponent<TankView>();
                     if(targetTankView)
@@ -42,9 +42,9 @@ namespace TankBattle.Tank.Bullets
         {
             float explosionDistance = (tankPosition - impactPosition).sqrMagnitude;
 
-            float relativeDistance = (GetShellModel.ExplosionRadius - explosionDistance) / GetShellModel.ExplosionRadius;
+            float relativeDistance = (ShellModel.ExplosionRadius - explosionDistance) / ShellModel.ExplosionRadius;
 
-            float damage = relativeDistance * GetShellModel.MaxDamage;
+            float damage = relativeDistance * ShellModel.MaxDamage;
             damage = Mathf.Max(damage, 0f);
             return damage;
         }

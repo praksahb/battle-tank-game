@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TankBattle.Services
 {
-    public class CameraController : GenericSingleton<CameraController>
+    public class CameraController : GenericMonoSingleton<CameraController>
     {
         // Approximate time for the camera to refocus.
         [SerializeField] private float dampTime = 0.2f;
@@ -22,7 +22,6 @@ namespace TankBattle.Services
         private Vector3 moveVelocity;
         // The position the camera is moving towards
         private Vector3 desiredPosition;
-        private int index = 0;
 
          protected override void Awake()
         {

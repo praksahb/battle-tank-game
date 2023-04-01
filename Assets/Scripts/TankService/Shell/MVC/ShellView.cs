@@ -9,14 +9,21 @@ namespace TankBattle.Tank.Bullets
 
         private ShellController shellController;
         private AudioSource explosionAudio;
-        private Rigidbody rb;
+        private Rigidbody rigidBody;
 
         private int maxTankColliders;
         private TankType bulletFrom;
 
+        private ShellServicePool bulletPool;
+
+        private void Start()
+        {
+            bulletPool = (ShellServicePool)ShellServicePool.Instance;
+        }
+
         private void Awake()
         {
-            rb = GetComponent<Rigidbody>();
+            rigidBody = GetComponent<Rigidbody>();
             explosionAudio = GetComponent<AudioSource>();
         }
 
@@ -29,17 +36,17 @@ namespace TankBattle.Tank.Bullets
             bulletFrom = tankType;
         }
 
-        public void SetInactive()
+        public void Disable()
         {
             gameObject.SetActive(false);
         }
 
-        public void SetActive()
+        public void Enable()
         {
             gameObject.SetActive(true);
         }
 
-        public bool CheckIsActive()
+        public bool CheckIsEnabled()
         {
             return gameObject.activeInHierarchy;
         }
@@ -62,7 +69,7 @@ namespace TankBattle.Tank.Bullets
 
         public void AddVelocity(Vector3 velocityVector)
         {
-            rb.velocity = velocityVector;
+            rigidBody.velocity = velocityVector;
         }
 
         // main function -
@@ -72,7 +79,7 @@ namespace TankBattle.Tank.Bullets
         {
             // maxTankColliders get value from shellModel when instantiating bullet/shell
             Collider[] hitColliders = new Collider[maxTankColliders];
-            int numOfColliders = Physics.OverlapSphereNonAlloc(transform.position, shellController.GetShellModel.ExplosionRadius, hitColliders, shellController.GetShellModel.LayerMask);
+            int numOfColliders = Physics.OverlapSphereNonAlloc(transform.position, shellController.ShellModel.ExplosionRadius, hitColliders, shellController.ShellModel.LayerMask);
 
             shellController.CheckHitColliders(hitColliders, numOfColliders, transform.position);
             DestroyBullet();
@@ -84,8 +91,8 @@ namespace TankBattle.Tank.Bullets
             explosionParticles.transform.parent = null;
             explosionParticles.Play();
             explosionAudio.Play();
-            ObjectPool.SharedInstance.PushToParticlePool(explosionParticles);
-            ObjectPool.SharedInstance.PushBulletBack(shellController);
+            bulletPool.PushBulletBack(shellController);
+            bulletPool.PushToParticlePool(explosionParticles);
         }
 
     }

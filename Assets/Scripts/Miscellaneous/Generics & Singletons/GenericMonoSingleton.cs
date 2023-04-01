@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace TankBattle
 {
-    public class GenericSingleton<T> : MonoBehaviour where T : GenericSingleton<T>
+    public class GenericMonoSingleton<T> : MonoBehaviour where T : GenericMonoSingleton<T>
     {
         private static T instance;
         public static T Instance { get { return instance; } }

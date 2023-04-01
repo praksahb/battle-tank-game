@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TankBattle.Tank.CreateTank
 {
-    public class CreateTankService : GenericSingleton<CreateTankService>
+    public class CreateTankService : GenericMonoSingleton<CreateTankService>
     {
         [SerializeField] private TankTypes.TankScriptableObjectList tankList;
         private TankModel tankModel;
