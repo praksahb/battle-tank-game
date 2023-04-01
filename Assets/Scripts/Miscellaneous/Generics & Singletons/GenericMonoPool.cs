@@ -46,11 +46,10 @@ namespace TankBattle
         {
             return null;
         }
-
-        public class PooledItem<T>
-        {
-            public T Item;
-            public bool IsUsed;
-        }
+    }
+    public class PooledItem<T>
+    {
+        public T Item;
+        public bool IsUsed;
     }
 }
