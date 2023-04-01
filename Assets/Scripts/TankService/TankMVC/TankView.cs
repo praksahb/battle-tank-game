@@ -17,7 +17,7 @@ using UnityEngine.UI;
 namespace TankBattle.Tank
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class TankView : MonoBehaviour
+    public class TankView : MonoBehaviour, IDamageable
     {
         // health related
         [SerializeField] private Slider healthSlider;
@@ -109,13 +109,17 @@ namespace TankBattle.Tank
             explosionParticles.Play();
             explosionAudio.Play();
             Destroy(explosionParticles.gameObject, explosionParticles.main.duration);
-            //gameObject.Enable(false);
             Destroy(gameObject);
+        }
+
+        public void Damage(Vector3 impactPosition, float _explosionRadius, float _MaxDamage)
+        {
+            tankController.TakeDamage(impactPosition, _explosionRadius, _MaxDamage);
         }
 
         // Shooting related UI
         // has to be implemented using the new input system
-        
+
         private void TakeInputPress()
         {
             aimSlider.value = tankController.TankModel.MinLaunchForce;

@@ -14,12 +14,12 @@ namespace TankBattle.Tank.EnemyTank
         private TankController enemyTankController;
         private EnemyStateController enemyStateController;
 
-        private List<TankController> enemiesList;
+        private Stack<TankController> enemiesList;
 
         protected override void Awake()
         {
             base.Awake();
-            enemiesList = new List<TankController>(numOfEnemies);
+            enemiesList = new Stack<TankController>(numOfEnemies);
         }
 
         void Start()
@@ -27,7 +27,7 @@ namespace TankBattle.Tank.EnemyTank
             for(int i = 0; i < numOfEnemies; i++)
             {
                 enemyTankController = CreateTank.CreateTankService.Instance.CreateTank(spawnPoint.position, enemyTankIndex);
-                enemiesList.Add(enemyTankController);
+                enemiesList.Push(enemyTankController);
                 CameraController.Instance.AddTransformToTarget(enemyTankController.TankView.transform);
                 enemyTankController = null;
             }
@@ -38,20 +38,32 @@ namespace TankBattle.Tank.EnemyTank
             return enemiesList.Count;
         }
 
-
-        // Bug - some enemies dont get killed in game after deathRoutine
+        // Should work with List as well. If using The Equals to check just use List.Remove
         public void ReduceEnemyList(TankController _enemyTankController)
         {
-            enemiesList.Remove(_enemyTankController);
+            Stack<TankController>  temp = new Stack<TankController>();
+            while(enemiesList.Count > 0)
+            {
+                TankController tc = enemiesList.Peek();
+                if(tc.Equals(_enemyTankController))
+                {
+                    // delete the value tc from DS
+                } 
+                else
+                {
+                    temp.Push(tc);
+                }
+                enemiesList.Pop();
+            }
+            while(temp.Count > 0)
+            {
+                enemiesList.Push(temp.Pop());
+            }
         }
 
-        public TankController GetEnemyTankControllerByIndex(int index)
+        public TankController GetAEnemyTankController()
         {
-            if(index < 0 || index >= enemiesList.Count)
-            {
-                return null;
-            }
-            return enemiesList[index];
+            return enemiesList.Pop();
         }
     }
 }
