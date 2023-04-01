@@ -3,6 +3,7 @@ using TankBattle.Tank;
 using TankBattle.Tank.EnemyTank;
 using TankBattle.Tank.PlayerTank;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 
 namespace TankBattle
 {
@@ -10,6 +11,7 @@ namespace TankBattle
     {
         [SerializeField] private GameObject destroyObjectFloor;
         [SerializeField] private GameObject destroyObjectRest;
+        [SerializeField] private GameObject lightSource;
         [SerializeField] private float waitTimeSmall = 0.5f;
         [SerializeField] private float waitTimeLarge = 2f;
 
@@ -56,16 +58,24 @@ namespace TankBattle
         private IEnumerator DeathRoutine()
         {
             numOfEnemies = EnemyService.Instance.GetNumberOfEnemies();
+
+            UnparentGameObjects();
             yield return _waitLarge;
-            for(int i = 0; i < numOfEnemies; i++)
+            for (int i = 0; i < numOfEnemies; i++)
             {
                 DeathRoutineEnemy();
                 yield return _waitSmall;
             }
             yield return _waitLarge;
-            DestroyFloor();
-            yield return _waitLarge;
             DestroyWorld();
+            yield return _waitLarge;
+            DestroyFloor();
+        }
+
+        private void UnparentGameObjects()
+        {
+            lightSource.transform.parent = null;
+            destroyObjectFloor.transform.parent = null;
         }
 
         private void DeathRoutineEnemy()
