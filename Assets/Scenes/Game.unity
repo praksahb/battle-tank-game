@@ -1625,7 +1625,7 @@ MonoBehaviour:
   achievementImage: {fileID: 2047205928}
   achievementHeading: {fileID: 1262398577}
   achievementText: {fileID: 370286972}
-  displayTime: 3
+  displayTime: 2
 --- !u!4 &1238559688
 Transform:
   m_ObjectHideFlags: 0

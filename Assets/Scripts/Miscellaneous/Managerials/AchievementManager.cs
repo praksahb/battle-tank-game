@@ -5,6 +5,13 @@ using UnityEngine.UI;
 
 namespace TankBattle.Services
 {
+    public enum AchievementType
+    {
+        None,
+        BulletFired,
+        EnemiesKilled,
+        BallsCollected,
+    }
     // Achievement System 
     public class AchievementManager : MonoBehaviour
     {
@@ -16,10 +23,7 @@ namespace TankBattle.Services
         [SerializeField] private TextMeshProUGUI achievementText;
         [SerializeField] private float displayTime = 3f;
 
-        private BulletsFiredAchievementSO bulletAchievementCurrent;
-        private EnemiesKilledAchievementSO enemiesKilledAchievementCurrent;
-        private CollectibleAchievementsSO ballsCollectedAchievementCurrent;
-
+        private BaseAchievementSO currentAchievement;
         private int bulletAchievementsIndex = 0;
         private int enemiesKilledAchievementsIndex = 0;
         private int ballsCollectedAchievementsIndex = 0;
@@ -29,83 +33,83 @@ namespace TankBattle.Services
 
         private void OnEnable()
         {
-            EventService.Instance.OnBulletsFired += CheckBulletsFiredCount;
-            EventService.Instance.OnEnemyKilled += CheckEnemyKillCount;
-            EventService.Instance.OnBallCollected += CheckBallsCollected;
-        }
-
-        private void Start()
-        {
-            bulletAchievementCurrent = allAchievements.bulletsFiredAchievementList.bulletsFiredAchievementList[bulletAchievementsIndex];
-
-            enemiesKilledAchievementCurrent = allAchievements.enemiesKilledAchievementList.enemiesKilledAchievementList[enemiesKilledAchievementsIndex];
-
-            ballsCollectedAchievementCurrent = allAchievements.ballsCollectedAchievementsList.ballsCollectedAchievementList[ballsCollectedAchievementsIndex];
+            EventService.Instance.OnAchievementEventTrigger += AchievementEventHandler;
             displayWaitTimer = new WaitForSecondsRealtime(displayTime);
         }
 
         private void OnDisable()
         {
-            EventService.Instance.OnBulletsFired -= CheckBulletsFiredCount;
-            EventService.Instance.OnEnemyKilled -= CheckEnemyKillCount;
-            EventService.Instance.OnBallCollected -= CheckBallsCollected;
+            EventService.Instance.OnAchievementEventTrigger -= AchievementEventHandler;
+            displayWaitTimer = null;
         }
 
-        private void CheckBulletsFiredCount(int bulletCount)
+        private void AchievementEventHandler(int value, AchievementType achievementType)
         {
-            if(bulletCount == bulletAchievementCurrent.requirement)
+            if (!currentAchievement || currentAchievement.type != achievementType)
             {
-                achievementImage = bulletAchievementCurrent.AchievementImage;
-                achievementHeading.text = bulletAchievementCurrent.AchievementName;
-                achievementText.text = bulletAchievementCurrent.AchievementInfo;
+                SetCurrentAchievement(achievementType);
+            }
+            if (value == currentAchievement.requirement)
+            {
+                achievementImage = currentAchievement.AchievementImage;
+                achievementHeading.text = currentAchievement.AchievementName;
+                achievementText.text = currentAchievement.AchievementInfo;
 
-                AchievementsDisplay();
-
-                if(bulletAchievementsIndex < allAchievements.bulletsFiredAchievementList.bulletsFiredAchievementList.Length - 1)
-                {
-                    bulletAchievementsIndex++;
-                    bulletAchievementCurrent = allAchievements.bulletsFiredAchievementList.bulletsFiredAchievementList[bulletAchievementsIndex];
-                }
+                DisplayAchievementsCoroutine();
+                IncrementAchievementIndexes(achievementType);
             }
         }
 
-        private void CheckEnemyKillCount(int killCount)
+        private void SetCurrentAchievement(AchievementType achievementType)
         {
-            if (killCount == enemiesKilledAchievementCurrent.requirement)
+            if(achievementType == AchievementType.BulletFired && 
+                bulletAchievementsIndex <= allAchievements.bulletsFiredAchievementList.bulletsFiredAchievementList.Length - 1)
             {
-                achievementImage = enemiesKilledAchievementCurrent.AchievementImage;
-                achievementHeading.text = enemiesKilledAchievementCurrent.AchievementName;
-                achievementText.text = enemiesKilledAchievementCurrent.AchievementInfo;
-
-                AchievementsDisplay();
-
-                if(enemiesKilledAchievementsIndex < allAchievements.enemiesKilledAchievementList.enemiesKilledAchievementList.Length - 1)
-                {
-                    enemiesKilledAchievementsIndex++;
-                    enemiesKilledAchievementCurrent = allAchievements.enemiesKilledAchievementList.enemiesKilledAchievementList[enemiesKilledAchievementsIndex];
-                }
+                currentAchievement = allAchievements.bulletsFiredAchievementList.bulletsFiredAchievementList[bulletAchievementsIndex];
+            }
+            if(achievementType == AchievementType.EnemiesKilled &&
+                enemiesKilledAchievementsIndex <= allAchievements.enemiesKilledAchievementList.enemiesKilledAchievementList.Length - 1)
+            {
+                currentAchievement = allAchievements.enemiesKilledAchievementList.enemiesKilledAchievementList[enemiesKilledAchievementsIndex];
+            }
+            if (achievementType == AchievementType.BallsCollected && 
+                ballsCollectedAchievementsIndex <= allAchievements.ballsCollectedAchievementsList.ballsCollectedAchievementList.Length - 1)
+            {
+                currentAchievement = allAchievements.ballsCollectedAchievementsList.ballsCollectedAchievementList[ballsCollectedAchievementsIndex];
             }
         }
 
-        private void CheckBallsCollected(int ballsCollected)
+        private void IncrementAchievementIndexes(AchievementType achievementType)
         {
-            if (ballsCollected == ballsCollectedAchievementCurrent.requirement)
+            if (achievementType == AchievementType.BulletFired)
             {
-                achievementImage = ballsCollectedAchievementCurrent.AchievementImage;
-                achievementHeading.text = ballsCollectedAchievementCurrent.AchievementName;
-                achievementText.text = ballsCollectedAchievementCurrent.AchievementInfo;
+                bulletAchievementsIndex++;
+            }
+            if (achievementType == AchievementType.EnemiesKilled)
+            {
+                enemiesKilledAchievementsIndex++;
+            }
+            if (achievementType == AchievementType.BallsCollected)
+            {
+                ballsCollectedAchievementsIndex++;
+            }
 
-                AchievementsDisplay();
-
-                if (ballsCollectedAchievementsIndex < allAchievements.ballsCollectedAchievementsList.ballsCollectedAchievementList.Length - 1)
-                {
-                    ballsCollectedAchievementsIndex++;
-                    ballsCollectedAchievementCurrent = allAchievements.ballsCollectedAchievementsList.ballsCollectedAchievementList[ballsCollectedAchievementsIndex];
-                }
+            //all achievements fulfilled
+            if (bulletAchievementsIndex >= allAchievements.bulletsFiredAchievementList.bulletsFiredAchievementList.Length &&
+                enemiesKilledAchievementsIndex >= allAchievements.enemiesKilledAchievementList.enemiesKilledAchievementList.Length &&
+                ballsCollectedAchievementsIndex >= allAchievements.ballsCollectedAchievementsList.ballsCollectedAchievementList.Length)
+            {
+                // disable the event
+                EventService.Instance.OnAchievementEventTrigger -= AchievementEventHandler;
+                currentAchievement = null;
+            } 
+            else
+            {
+                SetCurrentAchievement(achievementType);
             }
         }
 
-        private void AchievementsDisplay()
+        private void DisplayAchievementsCoroutine()
         {
             if (displayAchievementsCoroutine != null)
             {

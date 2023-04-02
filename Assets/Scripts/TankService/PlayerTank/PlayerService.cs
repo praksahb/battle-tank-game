@@ -35,19 +35,19 @@ namespace TankBattle.Tank.PlayerTank
         public void IncrementBulletsFiredScore()
         {
             tankController.TankModel.BulletsFired++;
-            EventService.Instance.InvokeOnBulletFiredEvent(tankController.TankModel.BulletsFired);
+            EventService.Instance.InvokeAchievementCallEvent(tankController.TankModel.BulletsFired, AchievementType.BulletFired);
         }
 
         public void IncrementEnemyKilledScore()
         {
             tankController.TankModel.EnemiesKilled++;
-            EventService.Instance.InvokeOnEnemyKilled(tankController.TankModel.EnemiesKilled);
+            EventService.Instance.InvokeAchievementCallEvent(tankController.TankModel.EnemiesKilled, AchievementType.EnemiesKilled);
         }
 
         public void IncrementBallsCollectedScore()
         {
             tankController.TankModel.BallsCollected++;
-            EventService.Instance.InvokeOnBallCollected(tankController.TankModel.BallsCollected);
+            EventService.Instance.InvokeAchievementCallEvent(tankController.TankModel.BallsCollected, AchievementType.BallsCollected);
         }
 
         public TankController GetTankController()

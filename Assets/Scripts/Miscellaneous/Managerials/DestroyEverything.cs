@@ -66,9 +66,9 @@ namespace TankBattle
                 DeathRoutineEnemy();
                 yield return _waitSmall;
             }
-            yield return _waitLarge;
+            yield return _waitSmall;
             DestroyWorld();
-            yield return _waitLarge;
+            yield return _waitSmall;
             DestroyFloor();
         }
 

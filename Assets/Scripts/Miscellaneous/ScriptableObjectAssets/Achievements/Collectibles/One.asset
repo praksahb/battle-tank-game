@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfb3a1b811c5b95499baa86bde60e97e, type: 3}
   m_Name: One
   m_EditorClassIdentifier: 
+  type: 3
   AchievementName: 1 Ball
   AchievementInfo: 1 Ball Collected
   AchievementImage: {fileID: 731015404331544304, guid: 8e1182d7fedc67f49ab1e52e030f0c44,
