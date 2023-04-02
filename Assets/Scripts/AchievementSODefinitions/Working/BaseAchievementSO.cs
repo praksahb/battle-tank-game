@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 namespace TankBattle.Services
 {
+    [System.Serializable]
     public class BaseAchievementSO : ScriptableObject
     {
             public string AchievementName;
