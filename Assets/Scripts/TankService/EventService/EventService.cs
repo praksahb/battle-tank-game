@@ -10,7 +10,7 @@ namespace TankBattle.Services
         public event Action<int, AchievementType> OnAchievementEventTrigger;
 
 
-        // Function name suggestion 
+        // Function / Event Action name suggestion 
         public void InvokeAchievementCallEvent(int count, AchievementType achievementType)
         {
             OnAchievementEventTrigger?.Invoke(count, achievementType);
