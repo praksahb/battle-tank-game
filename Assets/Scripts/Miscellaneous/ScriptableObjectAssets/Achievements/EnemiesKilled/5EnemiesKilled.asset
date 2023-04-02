@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc5955f1589f2484da1caf92b8d0cb14, type: 3}
   m_Name: 5EnemiesKilled
   m_EditorClassIdentifier: 
+  type: 2
   AchievementName: 5 Kills
   AchievementInfo: 5 Enemies Killed
   AchievementImage: {fileID: 731015404331544304, guid: 8e1182d7fedc67f49ab1e52e030f0c44,

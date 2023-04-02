@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3551b6629778e7c45975bb5d478a02dc, type: 3}
   m_Name: Ten
   m_EditorClassIdentifier: 
+  type: 1
   AchievementName: Ten Fired
   AchievementInfo: Fired 10 Bullets
   AchievementImage: {fileID: 731015404331544304, guid: 8e1182d7fedc67f49ab1e52e030f0c44,

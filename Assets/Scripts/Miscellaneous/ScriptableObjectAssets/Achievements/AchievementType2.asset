@@ -12,8 +12,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 225435872e7dd8f46a2723492eea8b19, type: 3}
   m_Name: AchievementType2
   m_EditorClassIdentifier: 
-  achievements:
-    bulletsAchievementList: []
-    enemiesKilledAchievementList: []
-    ballsCollectedAchievementList: []
-    ballsCollectedAchievemnts: []
+  bulletFiredAchievements:
+  - AchievementName: 
+    AchievementInfo: 
+    AchievementImage: {fileID: 0}
+    requirement: 0
+    ExtraValue: 0
+  - AchievementName: 
+    AchievementInfo: 
+    AchievementImage: {fileID: 0}
+    requirement: 0
+    ExtraValue: 0
+  - AchievementName: 
+    AchievementInfo: 
+    AchievementImage: {fileID: 0}
+    requirement: 0
+    ExtraValue: 0
+  enemiesKilledAchievements:
+  - enemiesKilledAchievements:
+      AchievementName: 
+      AchievementInfo: 
+      AchievementImage: {fileID: 0}
+      requirement: 0
+  - enemiesKilledAchievements:
+      AchievementName: 
+      AchievementInfo: 
+      AchievementImage: {fileID: 0}
+      requirement: 0
+  - enemiesKilledAchievements:
+      AchievementName: 
+      AchievementInfo: 
+      AchievementImage: {fileID: 0}
+      requirement: 0
+  ballsCollectedAchievemnts:
+  - collectionAchievements:
+      AchievementName: 
+      AchievementInfo: 
+      AchievementImage: {fileID: 0}
+      requirement: 0
+  - collectionAchievements:
+      AchievementName: 
+      AchievementInfo: 
+      AchievementImage: {fileID: 0}
+      requirement: 0
+  - collectionAchievements:
+      AchievementName: 
+      AchievementInfo: 
+      AchievementImage: {fileID: 0}
+      requirement: 0
