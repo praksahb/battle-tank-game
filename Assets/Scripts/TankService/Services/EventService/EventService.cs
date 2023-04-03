@@ -9,6 +9,12 @@ namespace TankBattle.Services
 
         public event Action<int, AchievementType> OnAchievementEventTrigger;
 
+        public event Action<float> OnHealthChange;
+
+        public void  InvokeHealthChangeEvent(float value)
+        {
+            OnHealthChange?.Invoke(value);
+        }
 
         // Function / Event Action name suggestion 
         public void InvokeAchievementCallEvent(int count, AchievementType achievementType)

@@ -594,6 +594,7 @@ GameObject:
   - component: {fileID: 7124874151064414977}
   - component: {fileID: 7124874151064414990}
   - component: {fileID: 6101734078180317526}
+  - component: {fileID: 1846004510276995565}
   m_Layer: 6
   m_Name: DefaultTankPrefab
   m_TagString: Untagged
@@ -670,6 +671,22 @@ MonoBehaviour:
     type: 3}
   chargingClip: {fileID: 8300000, guid: c17f124fcdc0f5446a72f793898bd74b, type: 3}
   fireClip: {fileID: 8300000, guid: 672a9941361ad494a99fba36759eca80, type: 3}
+--- !u!114 &1846004510276995565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7124874151064414987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90a914e7c8ef4924c940a3ac7a01a9e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthSlider: {fileID: 0}
+  fillImage: {fileID: 0}
+  fullHealthColor: {r: 0, g: 1, b: 0, a: 1}
+  zeroHealthColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &7124874151097006996
 GameObject:
   m_ObjectHideFlags: 0

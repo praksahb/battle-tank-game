@@ -19,11 +19,6 @@ namespace TankBattle.Tank
     [RequireComponent(typeof(Rigidbody))]
     public class TankView : MonoBehaviour, IDamageable
     {
-        // health related
-        [SerializeField] private Slider healthSlider;
-        [SerializeField] private Image fillImage;
-        [SerializeField] private Color fullHealthColor = Color.green;
-        [SerializeField] private Color zeroHealthColor = Color.red;
         [SerializeField] private GameObject explosionPrefab;
 
         // shooting related
@@ -67,10 +62,6 @@ namespace TankBattle.Tank
         {
             return tankController;
         }
-        public void SetMaxHealth(float _maxHealth)
-        {
-            maxHealth = _maxHealth;
-        }
         public void SetColorOnAllRenderers(Color color)
         {
             for (int i = 0; i < renderersOnTank.Length; i++)
@@ -86,14 +77,6 @@ namespace TankBattle.Tank
         public Transform GetFireTransform()
         {
             return fireTransform;
-        }
-
-        // Health UI related
-
-        public void SetHealthUI()
-        {
-            healthSlider.value = tankController.TankModel.Health;
-            fillImage.color = Color.Lerp(zeroHealthColor, fullHealthColor, tankController.TankModel.Health / maxHealth);
         }
 
         public void InstantiateOnDeath()

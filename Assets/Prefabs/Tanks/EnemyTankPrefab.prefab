@@ -307,6 +307,7 @@ GameObject:
   - component: {fileID: 1918316268596209403}
   - component: {fileID: 1918316268596209396}
   - component: {fileID: 1918316268596209397}
+  - component: {fileID: -6689995949945766356}
   - component: {fileID: 39230079987783134}
   - component: {fileID: 6690747058306581490}
   - component: {fileID: 4691724115690562307}
@@ -379,16 +380,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5185eb07723c86749b97a96f9752821d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthSlider: {fileID: 5615847879237652555}
-  fillImage: {fileID: 7911164801608992650}
-  fullHealthColor: {r: 0, g: 1, b: 0, a: 1}
-  zeroHealthColor: {r: 1, g: 0, b: 0, a: 1}
   explosionPrefab: {fileID: 151086, guid: ee49a9a8678ecf8468eb488e1ac8d42b, type: 3}
   fireTransform: {fileID: 813859513413290147}
   aimSlider: {fileID: 5351043105564031753}
   shootingAudio: {fileID: 6538315850217800010}
   chargingClip: {fileID: 8300000, guid: c17f124fcdc0f5446a72f793898bd74b, type: 3}
   fireClip: {fileID: 8300000, guid: 672a9941361ad494a99fba36759eca80, type: 3}
+--- !u!114 &-6689995949945766356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1918316268596209393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90a914e7c8ef4924c940a3ac7a01a9e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthSlider: {fileID: 5615847879237652555}
+  fillImage: {fileID: 7911164801608992650}
+  fullHealthColor: {r: 0.043704987, g: 1, b: 0, a: 1}
+  zeroHealthColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &39230079987783134
 MonoBehaviour:
   m_ObjectHideFlags: 0
