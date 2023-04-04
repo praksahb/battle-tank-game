@@ -9,11 +9,11 @@ namespace TankBattle.Tank.Bullets
         
         private ParticleSystem explosionParticles;
         public ShellModel BulletModel { get; private set; }
-        private ShellServicePool objectPooler;
+        private ShellServicePool objectPool;
 
         private void Start()
         {
-            objectPooler = (ShellServicePool)ShellServicePool.Instance;
+            objectPool = (ShellServicePool)ShellServicePool.Instance;
         }
 
         // instantiate bullet 
@@ -28,10 +28,10 @@ namespace TankBattle.Tank.Bullets
 
         public void LaunchBullet(Transform fireTransform, Vector3 velocityVector, TankType tankType)
         {
-            ShellController bullet = objectPooler.GetBullet();
+            ShellController bullet = objectPool.GetBullet();
             if(bullet != null)
             {
-                explosionParticles = objectPooler.GetExplosionParticle();
+                explosionParticles = objectPool.GetExplosionParticle();
                 if(explosionParticles != null)
                 {
                     BulletEdit(fireTransform, velocityVector, tankType, bullet);

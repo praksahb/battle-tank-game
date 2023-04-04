@@ -58,7 +58,6 @@ namespace TankBattle
         private IEnumerator DeathRoutine()
         {
             numOfEnemies = EnemyService.Instance.GetNumberOfEnemies();
-
             UnparentGameObjects();
             yield return _waitLarge;
             for (int i = 0; i < numOfEnemies; i++)

@@ -13,69 +13,23 @@ namespace TankBattle.Tank
         public TankModel TankModel { get; }
         public TankView TankView { get; }
 
-        private Rigidbody rb;
-
         private float currentLaunchForce;
         public float CurrentLaunchForce { get => currentLaunchForce; set => currentLaunchForce = value; }
 
         public float ChargeSpeed { get; }
         public bool IsFired { get; set; }
 
-        //temp value to store unique index for each tank - for differentiating in healthUI
-        private int randomIdStart = 1000;
 
         private PlayerService playerInstance = PlayerService.Instance;
 
         public TankController(TankModel tankModel, TankView tankPrefab, Vector3 spawnPosition)
         {
             TankModel = tankModel;
-            TankModel.SetTankIndex(randomIdStart++);
             TankView = Object.Instantiate(tankPrefab, spawnPosition, Quaternion.identity);
             TankView.SetColorOnAllRenderers(TankModel.Color);
             ChargeSpeed = (TankModel.MaxLaunchForce - TankModel.MinLaunchForce) / TankModel.MaxChargeTime;
             //IHealth health = TankView.gameObject.GetComponent<IHealth>();
             //health.SetHealth(tankModel.Health);
-        }
-
-        //Movement-related logic
-        public void MoveRotate(Vector2 _moveDirection)
-        {
-            Vector3 directionVector = _moveDirection.switchYAndZValues();
-            Move(directionVector);
-            Rotate(directionVector);
-        }
-        
-        private void Move(Vector3 moveDirection)
-        {
-            if (!rb)
-            {
-                rb = TankView.GetRigidbody();
-            }
-            rb.MovePosition(rb.position + moveDirection * TankModel.Speed * Time.deltaTime);
-        }
-
-        private void Rotate(Vector3 rotateDirection)
-        {
-            Quaternion targetRotation = Quaternion.LookRotation(rotateDirection, Vector3.up);
-            targetRotation = Quaternion.RotateTowards
-            (
-                TankView.transform.localRotation,
-                targetRotation,
-                TankModel.RotateSpeed * Time.fixedDeltaTime
-            );
-            if (!rb)
-            {
-                rb = TankView.GetRigidbody();
-            }
-            rb.MoveRotation(targetRotation);
-        }
-        public void Jump()
-        {
-            if (!rb)
-            {
-                rb = TankView.GetComponent<Rigidbody>();
-            }
-            rb.AddForce(Vector3.up * TankModel.JumpForce * Time.deltaTime, ForceMode.Impulse);
         }
 
         // health related logic
@@ -104,9 +58,9 @@ namespace TankBattle.Tank
             damage = Mathf.Max(damage, 0f);
             return damage;
         }
-        private void ChangeHealth(float dec_val)
+        private void ChangeHealth(float amountValue)
         {
-            TankModel.Health -= dec_val;
+            TankModel.Health -= amountValue;
             //EventService.Instance.InvokeHealthChangeEvent(TankModel.Health, TankModel.TankIndex);
             EventService.Instance.InvokeHealthChangeEvent();
         }
@@ -128,7 +82,6 @@ namespace TankBattle.Tank
         }
 
         // Shooting Related
-
         public void Fire()
         {
             IsFired = true;

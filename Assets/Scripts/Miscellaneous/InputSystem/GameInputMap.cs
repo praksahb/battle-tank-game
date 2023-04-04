@@ -19,7 +19,7 @@ public class @GameInputMap : IInputActionCollection, IDisposable
             ""id"": ""a896d947-62e0-405f-a242-a1c5e09b4ef8"",
             ""actions"": [
                 {
-                    ""name"": ""Move"",
+                    ""name"": ""PerformMove"",
                     ""type"": ""Value"",
                     ""id"": ""20f78408-92b1-460a-b49f-81fbed0478c3"",
                     ""expectedControlType"": ""Vector2"",
@@ -51,7 +51,7 @@ public class @GameInputMap : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Move"",
+                    ""action"": ""PerformMove"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -62,7 +62,7 @@ public class @GameInputMap : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Move"",
+                    ""action"": ""PerformMove"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -73,7 +73,7 @@ public class @GameInputMap : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Move"",
+                    ""action"": ""PerformMove"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -84,7 +84,7 @@ public class @GameInputMap : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Move"",
+                    ""action"": ""PerformMove"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -95,7 +95,7 @@ public class @GameInputMap : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Move"",
+                    ""action"": ""PerformMove"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -106,7 +106,7 @@ public class @GameInputMap : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Move"",
+                    ""action"": ""PerformMove"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -199,7 +199,7 @@ public class @GameInputMap : IInputActionCollection, IDisposable
 }");
         // Gameplay
         m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
-        m_Gameplay_Move = m_Gameplay.FindAction("Move", throwIfNotFound: true);
+        m_Gameplay_Move = m_Gameplay.FindAction("PerformMove", throwIfNotFound: true);
         m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
         m_Gameplay_Pause = m_Gameplay.FindAction("Pause", throwIfNotFound: true);
         // UI

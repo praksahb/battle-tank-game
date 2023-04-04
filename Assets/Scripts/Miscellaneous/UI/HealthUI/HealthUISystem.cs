@@ -1,4 +1,3 @@
-using System.Collections;
 using TankBattle.Services;
 using UnityEngine;
 using UnityEngine.UI;
@@ -35,7 +34,7 @@ namespace TankBattle.Tank.UI
             EventService.Instance.OnHealthChange -= SetHealthUI;
         }
 
-        public void SetHealth()
+        private void SetHealth()
         {
             maxHealth = tankController.TankModel.Health;
             SetHealthUI();

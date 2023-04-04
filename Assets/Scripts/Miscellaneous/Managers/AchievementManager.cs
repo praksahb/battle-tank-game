@@ -81,17 +81,27 @@ namespace TankBattle.Services
 
         private void IncrementAchievementIndexes(AchievementType achievementType)
         {
-            if (achievementType == AchievementType.BulletFired)
+            switch(achievementType)
             {
-                bulletAchievementsIndex++;
-            }
-            if (achievementType == AchievementType.EnemiesKilled)
-            {
-                enemiesKilledAchievementsIndex++;
-            }
-            if (achievementType == AchievementType.BallsCollected)
-            {
-                ballsCollectedAchievementsIndex++;
+                case AchievementType.BulletFired:
+                    {
+                        bulletAchievementsIndex++;
+                        break;
+                    }
+                case AchievementType.EnemiesKilled:
+                    {
+                        enemiesKilledAchievementsIndex++;
+                        break;
+                    }
+                case (AchievementType.BallsCollected):
+                    {
+                        ballsCollectedAchievementsIndex++;
+                        break;
+                    }
+                default:
+                    {
+                        break;
+                    }
             }
 
             //all achievements fulfilled
