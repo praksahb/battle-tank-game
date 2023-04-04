@@ -61,8 +61,7 @@ namespace TankBattle.Tank
         private void ChangeHealth(float amountValue)
         {
             TankModel.Health -= amountValue;
-            //EventService.Instance.InvokeHealthChangeEvent(TankModel.Health, TankModel.TankIndex);
-            EventService.Instance.InvokeHealthChangeEvent();
+            EventService.Instance.InvokeHealthChangeEvent(TankModel.Health, TankModel.TankIndex);
         }
 
         private void OnDeath()

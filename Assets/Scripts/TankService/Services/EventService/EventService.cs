@@ -10,11 +10,11 @@ namespace TankBattle.Services
 
         public event Action<int, AchievementType> OnAchievementEventTrigger;
 
-        public event Action OnHealthChange;
+        public event Action<float, int> OnHealthChange;
 
-        public void  InvokeHealthChangeEvent()
+        public void  InvokeHealthChangeEvent(float healthValue, int tankIndex)
         {
-            OnHealthChange?.Invoke();
+            OnHealthChange?.Invoke(healthValue, tankIndex);
         }
 
         // Function / Event Action name suggestion 

@@ -13,20 +13,20 @@ namespace TankBattle.Tank.UI
 
         private float maxHealth;
         private int tankIndex;
-        private TankController tankController;
+        //private TankController tankController;
 
         private void Start()
         {
-            GetTankController();
-            SetHealth();
+            SetIndexAndMaxHealth();
             EventService.Instance.OnHealthChange += SetHealthUI;
         }
 
-        private void GetTankController()
+        private void SetIndexAndMaxHealth()
         {
             TankView tankView = gameObject.GetComponent<TankView>();
-            tankController = tankView.GetTankController();
-            //tankIndex = tankController.TankModel.TankIndex;
+            TankController tankController = tankView.GetTankController();
+            SetHealth(tankController.TankModel.Health);
+            tankIndex = tankController.TankModel.TankIndex;
         }
 
         private void OnDestroy()
@@ -34,25 +34,25 @@ namespace TankBattle.Tank.UI
             EventService.Instance.OnHealthChange -= SetHealthUI;
         }
 
-        private void SetHealth()
+        private void SetHealth(float health)
         {
-            maxHealth = tankController.TankModel.Health;
-            SetHealthUI();
+            maxHealth = health;
+            SetHealthUI(maxHealth, tankIndex);
         }
 
-        //private void SetHealthUI(float value, int index)
+        private void SetHealthUI(float value, int index)
+        {
+            if (tankIndex == index)
+            {
+                healthSlider.value = value;
+                fillImage.color = Color.Lerp(zeroHealthColor, fullHealthColor, value / maxHealth);
+            }
+        }
+
+        //private void SetHealthUI()
         //{
-        //    if(tankIndex == index)
-        //    {
-        //        healthSlider.value = value;
-        //        fillImage.color = Color.Lerp(zeroHealthColor, fullHealthColor, value / maxHealth);
-        //    }
+        //    healthSlider.value = tankController.TankModel.Health;
+        //    fillImage.color = Color.Lerp(zeroHealthColor, fullHealthColor, tankController.TankModel.Health / maxHealth);
         //}
-
-        private void SetHealthUI()
-        {
-            healthSlider.value = tankController.TankModel.Health;
-            fillImage.color = Color.Lerp(zeroHealthColor, fullHealthColor, tankController.TankModel.Health / maxHealth);
-        }
     }
 }
