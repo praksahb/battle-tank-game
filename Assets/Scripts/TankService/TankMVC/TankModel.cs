@@ -5,12 +5,26 @@ namespace TankBattle.Tank
 {
     public class TankModel
     {
+        public event Action<float> HealthChanged;
+
         // read-only properties
         public TankType TankTypes { get; }
         public float Speed { get; }
         public float RotateSpeed { get; }
         public float JumpForce { get; }
-        public float Health { get; set; }
+        private float health;
+        public float Health 
+        { 
+            get
+            {
+                return health;
+            }
+            set
+            {
+                health = value;
+                HealthChanged?.Invoke(health);
+            }
+        }
         public Color Color { get; }
         public float MinLaunchForce { get; }
         public float MaxLaunchForce { get; }

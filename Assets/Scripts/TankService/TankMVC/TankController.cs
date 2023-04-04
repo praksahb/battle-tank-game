@@ -1,9 +1,6 @@
-using TankBattle.Extensions;
-using TankBattle.Services;
 using TankBattle.Tank.Bullets;
 using TankBattle.Tank.EnemyTank;
 using TankBattle.Tank.PlayerTank;
-using TankBattle.Tank.UI;
 using UnityEngine;
 
 namespace TankBattle.Tank
@@ -25,7 +22,7 @@ namespace TankBattle.Tank
         public TankController(TankModel tankModel, TankView tankPrefab, Vector3 spawnPosition)
         {
             TankModel = tankModel;
-            TankView = Object.Instantiate(tankPrefab, spawnPosition, Quaternion.identity);
+            TankView = UnityEngine.Object.Instantiate(tankPrefab, spawnPosition, Quaternion.identity);
             TankView.SetColorOnAllRenderers(TankModel.Color);
             ChargeSpeed = (TankModel.MaxLaunchForce - TankModel.MinLaunchForce) / TankModel.MaxChargeTime;
             //IHealth health = TankView.gameObject.GetComponent<IHealth>();
@@ -61,7 +58,8 @@ namespace TankBattle.Tank
         private void ChangeHealth(float amountValue)
         {
             TankModel.Health -= amountValue;
-            EventService.Instance.InvokeHealthChangeEvent(TankModel.Health, TankModel.TankIndex);
+ 
+            //EventService.Instance.InvokeHealthChangeEvent(TankModel.Health, TankModel.TankIndex);
         }
 
         private void OnDeath()

@@ -10,6 +10,8 @@ namespace TankBattle.Tank.UI
         [SerializeField] private Image fillImage;
         [SerializeField] private Color fullHealthColor = Color.green;
         [SerializeField] private Color zeroHealthColor = Color.red;
+        
+        private TankModel tankModel;
 
         private float maxHealth;
         private int tankIndex;
@@ -17,36 +19,43 @@ namespace TankBattle.Tank.UI
 
         private void Start()
         {
+            TankView tankView = gameObject.GetComponent<TankView>();
+            TankController tankController = tankView.GetTankController();
+            tankModel = tankController.TankModel;
             SetIndexAndMaxHealth();
-            EventService.Instance.OnHealthChange += SetHealthUI;
+            SubScribeToHealthUpdates();
+        }
+
+        private void SubScribeToHealthUpdates()
+        {
+            tankModel.HealthChanged += SetHealthUI;
+        }
+
+        private void UnSubScribeToHealthUpdates()
+        {
+            tankModel.HealthChanged -= SetHealthUI;
         }
 
         private void SetIndexAndMaxHealth()
         {
-            TankView tankView = gameObject.GetComponent<TankView>();
-            TankController tankController = tankView.GetTankController();
-            SetHealth(tankController.TankModel.Health);
-            tankIndex = tankController.TankModel.TankIndex;
+            SetHealth(tankModel.Health);
         }
 
         private void OnDestroy()
         {
-            EventService.Instance.OnHealthChange -= SetHealthUI;
+            UnSubScribeToHealthUpdates();
         }
 
         private void SetHealth(float health)
         {
             maxHealth = health;
-            SetHealthUI(maxHealth, tankIndex);
+            SetHealthUI(maxHealth);
         }
 
-        private void SetHealthUI(float value, int index)
+        private void SetHealthUI(float value)
         {
-            if (tankIndex == index)
-            {
                 healthSlider.value = value;
                 fillImage.color = Color.Lerp(zeroHealthColor, fullHealthColor, value / maxHealth);
-            }
         }
 
         //private void SetHealthUI()
