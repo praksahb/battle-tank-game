@@ -16,9 +16,10 @@ namespace TankBattle.Tank.UI
         private int tankIndex;
         private TankController tankController;
 
-        private void OnEnable()
+        private void Start()
         {
             GetTankController();
+            SetHealth();
             EventService.Instance.OnHealthChange += SetHealthUI;
         }
 
@@ -26,11 +27,10 @@ namespace TankBattle.Tank.UI
         {
             TankView tankView = gameObject.GetComponent<TankView>();
             tankController = tankView.GetTankController();
-            SetHealth();
             //tankIndex = tankController.TankModel.TankIndex;
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             EventService.Instance.OnHealthChange -= SetHealthUI;
         }
@@ -38,6 +38,7 @@ namespace TankBattle.Tank.UI
         public void SetHealth()
         {
             maxHealth = tankController.TankModel.Health;
+            SetHealthUI();
         }
 
         //private void SetHealthUI(float value, int index)

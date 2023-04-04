@@ -20,7 +20,6 @@ namespace TankBattle.Tank.PlayerTank
         {
             CreateTank();
             CameraController.Instance.AddTransformToTarget(tankController.TankView.transform);
-
         }
 
         public void CreateTank()
