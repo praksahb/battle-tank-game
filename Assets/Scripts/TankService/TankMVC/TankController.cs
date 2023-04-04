@@ -1,7 +1,9 @@
 using TankBattle.Extensions;
+using TankBattle.Services;
 using TankBattle.Tank.Bullets;
 using TankBattle.Tank.EnemyTank;
 using TankBattle.Tank.PlayerTank;
+using TankBattle.Tank.UI;
 using UnityEngine;
 
 namespace TankBattle.Tank
@@ -19,12 +21,20 @@ namespace TankBattle.Tank
         public float ChargeSpeed { get; }
         public bool IsFired { get; set; }
 
+        //temp value to store unique index for each tank - for differentiating in healthUI
+        private int randomIdStart = 1000;
+
+        private PlayerService playerInstance = PlayerService.Instance;
+
         public TankController(TankModel tankModel, TankView tankPrefab, Vector3 spawnPosition)
         {
             TankModel = tankModel;
+            TankModel.SetTankIndex(randomIdStart++);
             TankView = Object.Instantiate(tankPrefab, spawnPosition, Quaternion.identity);
             TankView.SetColorOnAllRenderers(TankModel.Color);
             ChargeSpeed = (TankModel.MaxLaunchForce - TankModel.MinLaunchForce) / TankModel.MaxChargeTime;
+            //IHealth health = TankView.gameObject.GetComponent<IHealth>();
+            //health.SetHealth(tankModel.Health);
         }
 
         //Movement-related logic
@@ -72,7 +82,6 @@ namespace TankBattle.Tank
         public void KillTank()
         {
             ChangeHealth(TankModel.Health);
-            TankView.SetHealthUI();
             OnDeath();
         }
 
@@ -80,7 +89,6 @@ namespace TankBattle.Tank
         {
             float amount = CalculateDamage(impactPosition, _explosionRadius, _MaxDamage);
             ChangeHealth(amount);
-            TankView.SetHealthUI();
             if (TankModel.Health <= 0f && !TankModel.IsDead)
             {
                 OnDeath();
@@ -99,6 +107,8 @@ namespace TankBattle.Tank
         private void ChangeHealth(float dec_val)
         {
             TankModel.Health -= dec_val;
+            //EventService.Instance.InvokeHealthChangeEvent(TankModel.Health, TankModel.TankIndex);
+            EventService.Instance.InvokeHealthChangeEvent();
         }
 
         private void OnDeath()
@@ -108,12 +118,12 @@ namespace TankBattle.Tank
 
             if(TankModel.TankTypes == TankType.Player)
             {
-                PlayerService.Instance.InvokePlayerDeathEvent();
+                playerInstance.InvokePlayerDeathEvent();
             }
-            else if(TankModel.TankTypes == TankType.Enemy && !PlayerService.Instance.GetTankController().TankModel.IsDead)
+            else if(TankModel.TankTypes == TankType.Enemy && !playerInstance.GetTankController().TankModel.IsDead)
             {
                 EnemyService.Instance.ReduceEnemyList(this);
-                PlayerService.Instance.IncrementEnemyKilledScore();
+                playerInstance.IncrementEnemyKilledScore();
             }
         }
 
@@ -131,7 +141,7 @@ namespace TankBattle.Tank
 
                 if(TankModel.TankTypes == TankType.Player)
                 {
-                    PlayerService.Instance.IncrementBulletsFiredScore();
+                    playerInstance.IncrementBulletsFiredScore();
                 }
 
                 TankView.PlayFiredSound();

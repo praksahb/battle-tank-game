@@ -22,7 +22,7 @@ namespace TankBattle.Tank.EnemyTank
             enemiesList = new Stack<TankController>(numOfEnemies);
         }
 
-        void Start()
+        private void Start()
         {
             for(int i = 0; i < numOfEnemies; i++)
             {

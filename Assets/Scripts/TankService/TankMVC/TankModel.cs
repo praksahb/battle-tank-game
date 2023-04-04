@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace TankBattle.Tank
@@ -19,6 +20,8 @@ namespace TankBattle.Tank
         public int BallsCollected { get; set; }
         public bool IsDead { get; set; }
 
+        public int TankIndex { get; private set; }
+
         public TankModel(TankTypes.TankScriptableObject tankScriptableObject)
         {
             TankTypes = tankScriptableObject.tankType;
@@ -34,6 +37,11 @@ namespace TankBattle.Tank
             EnemiesKilled = 0;
             BallsCollected = 0;
             IsDead = false;
+        }
+
+        public void SetTankIndex(int random_number)
+        {
+            TankIndex = random_number;
         }
     }
 }
