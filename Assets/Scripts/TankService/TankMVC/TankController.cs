@@ -25,8 +25,6 @@ namespace TankBattle.Tank
             TankView = UnityEngine.Object.Instantiate(tankPrefab, spawnPosition, Quaternion.identity);
             TankView.SetColorOnAllRenderers(TankModel.Color);
             ChargeSpeed = (TankModel.MaxLaunchForce - TankModel.MinLaunchForce) / TankModel.MaxChargeTime;
-            //IHealth health = TankView.gameObject.GetComponent<IHealth>();
-            //health.SetHealth(tankModel.Health);
         }
 
         // health related logic
@@ -58,8 +56,6 @@ namespace TankBattle.Tank
         private void ChangeHealth(float amountValue)
         {
             TankModel.Health -= amountValue;
- 
-            //EventService.Instance.InvokeHealthChangeEvent(TankModel.Health, TankModel.TankIndex);
         }
 
         private void OnDeath()
@@ -93,10 +89,10 @@ namespace TankBattle.Tank
                 {
                     playerInstance.IncrementBulletsFiredScore();
                 }
-
                 TankView.PlayFiredSound();
                 currentLaunchForce = TankModel.MinLaunchForce;
-            } else
+            }
+            else
             {
                 Debug.LogError("Fire transform is null");
             }
