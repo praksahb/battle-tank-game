@@ -8,7 +8,7 @@ namespace TankBattle.Tank.Bullets
         public ShellView shellView;
         public float explosionRadius;
         public float explosionForce;
-        public LayerMask layerMask;
+       // public LayerMask layerMask;
         public float maxDamage;
         public int maxTanksBulletCanDamage;
     }

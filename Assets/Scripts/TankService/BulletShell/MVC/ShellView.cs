@@ -79,7 +79,7 @@ namespace TankBattle.Tank.Bullets
         {
             // maxTankColliders get value from shellModel when instantiating bullet/shell
             Collider[] hitColliders = new Collider[maxTankColliders];
-            int numOfColliders = Physics.OverlapSphereNonAlloc(transform.position, shellController.ShellModel.ExplosionRadius, hitColliders, shellController.ShellModel.LayerMask);
+            int numOfColliders = Physics.OverlapSphereNonAlloc(transform.position, shellController.ShellModel.ExplosionRadius, hitColliders);
 
             shellController.CheckHitColliders(hitColliders, numOfColliders, transform.position);
             DestroyBullet();

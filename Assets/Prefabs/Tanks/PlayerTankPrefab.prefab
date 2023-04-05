@@ -436,7 +436,7 @@ GameObject:
   - component: {fileID: 7124874151030985435}
   - component: {fileID: 7124874151030985437}
   - component: {fileID: 7124874151030985434}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: TankTurret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -522,7 +522,7 @@ GameObject:
   - component: {fileID: 3302081843922525305}
   - component: {fileID: 7858838990188615242}
   - component: {fileID: -1605791453666858656}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: PlayerTankPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -587,10 +587,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5185eb07723c86749b97a96f9752821d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthSlider: {fileID: 6415082907387260541}
-  fillImage: {fileID: 1829554357044219625}
-  fullHealthColor: {r: 0, g: 1, b: 0, a: 1}
-  zeroHealthColor: {r: 1, g: 0, b: 0, a: 1}
   explosionPrefab: {fileID: 151086, guid: ee49a9a8678ecf8468eb488e1ac8d42b, type: 3}
   fireTransform: {fileID: 5068389142491375151}
   aimSlider: {fileID: 7782396720770503086}
@@ -733,7 +729,7 @@ GameObject:
   - component: {fileID: 7124874151097006999}
   - component: {fileID: 7124874151097007017}
   - component: {fileID: 7124874151097006998}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: TankTracksLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -815,7 +811,7 @@ GameObject:
   - component: {fileID: 7124874151200325783}
   - component: {fileID: 7124874151200325801}
   - component: {fileID: 7124874151200325782}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: TankTracksRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -897,7 +893,7 @@ GameObject:
   - component: {fileID: 7124874151972704162}
   - component: {fileID: 7124874151972704164}
   - component: {fileID: 7124874151972704165}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: TankChassis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -978,7 +974,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7124874152262864551}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: TankRenderers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1175,7 +1171,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5068389142491375151}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: FireTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
