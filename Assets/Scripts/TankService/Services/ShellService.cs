@@ -22,7 +22,7 @@ namespace TankBattle.Tank.Bullets
             BulletModel = new ShellModel(shellScriptableObject);
             ShellController bulletShell = new ShellController(BulletModel, shellScriptableObject.shellView);
             bulletShell.ShellView.SetShellController(bulletShell);
-            bulletShell.ShellView.SetMaxTankColliders(BulletModel.MaxTanksBulletCanDamage);
+            bulletShell.ShellView.SetMaxTankColliders(BulletModel.HitColliders);
             return bulletShell; 
         }
 

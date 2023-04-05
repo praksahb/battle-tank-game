@@ -10,6 +10,6 @@ namespace TankBattle.Tank.Bullets
         public float explosionForce;
        // public LayerMask layerMask;
         public float maxDamage;
-        public int maxTanksBulletCanDamage;
+        public int bulletHitColliders;
     }
 }
