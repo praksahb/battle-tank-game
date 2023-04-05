@@ -5,21 +5,38 @@ namespace TankBattle.Tank
 {
     public class TankModel
     {
+        public event Action HealthChanged;
+
         // read-only properties
         public TankType TankTypes { get; }
         public float Speed { get; }
         public float RotateSpeed { get; }
         public float JumpForce { get; }
-        public float Health { get; set; }
+        private float health;
+        public float Health 
+        { 
+            get
+            {
+                return health;
+            }
+            set
+            {
+                health = value;
+                HealthChanged?.Invoke();
+            }
+        }
         public Color Color { get; }
         public float MinLaunchForce { get; }
         public float MaxLaunchForce { get; }
         public float MaxChargeTime { get; }
+        
+        // public properties
         public int BulletsFired { get; set; }
         public int EnemiesKilled { get; set; }
         public int BallsCollected { get; set; }
         public bool IsDead { get; set; }
 
+        // public get; private set;
         public int TankIndex { get; private set; }
 
         public TankModel(TankTypes.TankScriptableObject tankScriptableObject)

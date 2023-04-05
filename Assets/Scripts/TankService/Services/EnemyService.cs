@@ -44,14 +44,14 @@ namespace TankBattle.Tank.EnemyTank
             Stack<TankController>  temp = new Stack<TankController>();
             while(enemiesList.Count > 0)
             {
-                TankController tc = enemiesList.Peek();
-                if(tc.Equals(_enemyTankController))
+                TankController tnakController = enemiesList.Peek();
+                if(tnakController.Equals(_enemyTankController))
                 {
-                    // delete the value tc from DS
+                    // delete the value tnakController from DS
                 } 
                 else
                 {
-                    temp.Push(tc);
+                    temp.Push(tnakController);
                 }
                 enemiesList.Pop();
             }
