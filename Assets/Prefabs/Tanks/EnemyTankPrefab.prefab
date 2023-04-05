@@ -419,8 +419,15 @@ MonoBehaviour:
   patrollingState: {fileID: 6690747058306581490}
   chasingState: {fileID: 4691724115690562307}
   attackingState: {fileID: 2653029133976352262}
-  viewRadius: 10.16
+  viewRadius: 26.05
   viewAngle: 92.4
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 128
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 256
+  visibleTargets: []
 --- !u!114 &6690747058306581490
 MonoBehaviour:
   m_ObjectHideFlags: 0
