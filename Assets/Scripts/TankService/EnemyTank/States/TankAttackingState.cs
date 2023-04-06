@@ -1,18 +1,19 @@
-
 using UnityEngine;
 
 namespace TankBattle.Tank.EnemyTank
 {
     public class TankAttackingState : TankState
     {
-        [SerializeField] private float fireCooldownTimer = 1f;
-        private float timeElapsed = 0f;
+        // GREEN
 
+        [SerializeField] private float fireCooldownTimer = 0.25f;
+        private float timeElapsed;
         public override void OnEnterState()
         {
             base.OnEnterState();
-            Debug.Log("Entering State: " + enemyTankView.GetCurrentState());
-            enemyTankView.ChangeColor(color);
+            Debug.Log("Entering State: " + enemyStateManager.GetCurrentState());
+            enemyStateManager.ChangeColor(color);
+            timeElapsed = fireCooldownTimer + 0.1f;
         }
 
         public override void OnExitState()
@@ -24,17 +25,23 @@ namespace TankBattle.Tank.EnemyTank
         {
             timeElapsed += Time.deltaTime;
 
-            if(Input.GetKeyDown(KeyCode.Alpha2))
+            if(playerTransform == null)
             {
-                enemyTankView.ChangeState(enemyTankView.patrollingState);
+                enemyStateManager.ChangeState(enemyStateManager.idleState);
+                return;
             }
-
-            if(timeElapsed >= fireCooldownTimer)
+            
+            if (timeElapsed > fireCooldownTimer)
             {
                 timeElapsed = 0f;
-                if(playerTransform)
+                if (playerTransform != null)
                     enemyAgent.transform.LookAt(playerTransform.position);
                 enemyStateController.PerformFireFunction();
+            }
+
+            if(enemyStateManager.LookForPlayer(playerTransform) == false)
+            {
+                enemyStateManager.ChangeState(enemyStateManager.patrollingState);
             }
         }
     }

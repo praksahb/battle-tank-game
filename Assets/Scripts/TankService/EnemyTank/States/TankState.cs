@@ -4,12 +4,12 @@ using UnityEngine.AI;
 
 namespace TankBattle.Tank.EnemyTank
 {
-    [RequireComponent(typeof(EnemyTankView))]
+    [RequireComponent(typeof(EnemyStateManager))]
     public class TankState : MonoBehaviour
     {
         private TankView tankView;
 
-        protected EnemyTankView enemyTankView;
+        protected EnemyStateManager enemyStateManager;
         protected EnemyStateController enemyStateController;
         protected NavMeshAgent enemyAgent;
         protected Transform playerTransform; 
@@ -19,16 +19,19 @@ namespace TankBattle.Tank.EnemyTank
         private void Awake()
         {
             tankView = GetComponent<TankView>();
-            enemyTankView = GetComponent<EnemyTankView>();
+            enemyStateManager = GetComponent<EnemyStateManager>();
             enemyAgent = GetComponent<NavMeshAgent>();
         }
 
         private void Start()
         {
-            playerTransform = PlayerService.Instance.GetPlayerTransform();
+            if(PlayerService.Instance.IsAlive())
+            {
+                playerTransform = PlayerService.Instance.GetPlayerTransform();
+            }
             TankController tankController = tankView.GetTankController();
             if(tankController != null)
-                enemyStateController = new EnemyStateController(tankController, enemyTankView);
+                enemyStateController = new EnemyStateController(tankController, enemyStateManager);
         }
 
         public virtual void OnEnterState()

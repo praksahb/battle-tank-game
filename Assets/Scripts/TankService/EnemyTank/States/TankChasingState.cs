@@ -1,19 +1,19 @@
-﻿using TankBattle.Tank.PlayerTank;
-using UnityEngine;
-using UnityEngine.AI;
+﻿using UnityEngine;
 
 namespace TankBattle.Tank.EnemyTank
 {
     public class TankChasingState : TankState
     {
+        //  RED
+
         [SerializeField]
         private Color differentColor;
 
         public override void OnEnterState()
         {
             base.OnEnterState();
-            Debug.Log("Entering State: " + enemyTankView.GetCurrentState());
-            enemyTankView.ChangeColor(differentColor);
+            Debug.Log("Entering State: " + enemyStateManager.GetCurrentState());
+            enemyStateManager.ChangeColor(differentColor);
         }
 
         public override void OnExitState()
@@ -23,18 +23,22 @@ namespace TankBattle.Tank.EnemyTank
 
         private void Update()
         {
-            if(Input.GetKeyDown(KeyCode.Alpha2))
+            if(playerTransform == null)
             {
-                enemyTankView.ChangeState(enemyTankView.patrollingState);
-            }
-            if (Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                enemyTankView.ChangeState(enemyTankView.attackingState);
+                enemyStateManager.ChangeState(enemyStateManager.idleState);
+                return;
             }
 
-            if(playerTransform != null && enemyAgent.remainingDistance > enemyAgent.stoppingDistance)
+            if (enemyStateManager.LookForPlayer(playerTransform))
             {
-                enemyAgent.SetDestination(playerTransform.position);
+                if (enemyAgent.remainingDistance > enemyAgent.stoppingDistance)
+                {
+                    enemyAgent.SetDestination(playerTransform.position);
+                }
+                else
+                {
+                    enemyStateManager.ChangeState(enemyStateManager.attackingState);
+                }
             }
         }
     }

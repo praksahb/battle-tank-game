@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8759693987557751928}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 7177628999427230926}
   - component: {fileID: 6415082907387260541}
   - component: {fileID: 7538133859829654639}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: HealthSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,7 +147,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5471666187967728616}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,7 +185,7 @@ GameObject:
   - component: {fileID: 2421314624157608258}
   - component: {fileID: 546034673171512493}
   - component: {fileID: 1829554357044219625}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 4967852662970109367}
   - component: {fileID: 1672516604670816209}
   - component: {fileID: 6393601309873700433}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -336,7 +336,7 @@ GameObject:
   - component: {fileID: 1608844980973418546}
   - component: {fileID: 5113826980177704577}
   - component: {fileID: 6667741800218916572}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: CanvasUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -587,10 +587,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5185eb07723c86749b97a96f9752821d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthSlider: {fileID: 6415082907387260541}
-  fillImage: {fileID: 1829554357044219625}
-  fullHealthColor: {r: 0, g: 1, b: 0, a: 1}
-  zeroHealthColor: {r: 1, g: 0, b: 0, a: 1}
   explosionPrefab: {fileID: 151086, guid: ee49a9a8678ecf8468eb488e1ac8d42b, type: 3}
   fireTransform: {fileID: 5068389142491375151}
   aimSlider: {fileID: 7782396720770503086}
@@ -1014,7 +1010,7 @@ GameObject:
   - component: {fileID: 8692661600954946572}
   - component: {fileID: 3447561941659216296}
   - component: {fileID: 415398698373056298}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1088,7 +1084,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4822691103436873238}
   - component: {fileID: 7782396720770503086}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: AimSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

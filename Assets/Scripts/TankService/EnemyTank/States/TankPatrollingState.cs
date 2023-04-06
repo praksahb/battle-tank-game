@@ -1,10 +1,13 @@
-﻿using UnityEngine;
+﻿using TankBattle.Tank.PlayerTank;
+using UnityEngine;
 using UnityEngine.AI;
 
 namespace TankBattle.Tank.EnemyTank
 {
     public class TankPatrollingState : TankState
     {
+        // BLUE
+
         [SerializeField] private float radiusRange = 10f;
 
         public override void OnEnterState()
@@ -14,8 +17,8 @@ namespace TankBattle.Tank.EnemyTank
             {
                 enemyAgent.isStopped = false;
             }
-            Debug.Log("Entering State: " + enemyTankView.GetCurrentState());
-            enemyTankView.ChangeColor(color);
+            Debug.Log("Entering State: " + enemyStateManager.GetCurrentState());
+            enemyStateManager.ChangeColor(color);
         }
 
         public override void OnExitState()
@@ -24,14 +27,13 @@ namespace TankBattle.Tank.EnemyTank
             // custom logic
         }
 
-
         private void Update()
         {
-            if(Input.GetKeyDown(KeyCode.Alpha1))
+            if(enemyStateManager.LookForPlayer(playerTransform))
             {
-                enemyTankView.ChangeState(enemyTankView.chasingState);
+                enemyStateManager.ChangeState(enemyStateManager.chasingState);
             }
-
+            else
             // move Randomly
             if (enemyAgent.remainingDistance <= enemyAgent.stoppingDistance)
             {
@@ -46,16 +48,16 @@ namespace TankBattle.Tank.EnemyTank
 
         bool RandomPoint(Vector3 center, float range, out Vector3 result)
         {
-            for (int i = 0; i < 30; i++)
-            {
+            //for (int i = 0; i < 30; i++)
+            //{
                 Vector3 randomPoint = center + Random.insideUnitSphere * range; //random point in a sphere 
                 NavMeshHit hit;
-                if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, NavMesh.AllAreas))
+                if (NavMesh.SamplePosition(randomPoint, out hit, 1.0f, enemyAgent.areaMask))
                 {
                     result = hit.position;
                     return true;
                 }
-            }
+            //}
             result = Vector3.zero;
             return false;
         }
