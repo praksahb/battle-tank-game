@@ -4,6 +4,8 @@ namespace TankBattle.Tank.EnemyTank
 {
     public class TankIdleState : TankState
     {
+        // Color
+
 
         public override void OnEnterState()
         {
@@ -17,7 +19,7 @@ namespace TankBattle.Tank.EnemyTank
         public override void OnExitState()
         {
             base.OnExitState();
-            Debug.Log("Entering State: " + enemyTankView.GetCurrentState());
+            Debug.Log("Entering State: " + enemyStateManager.GetCurrentState());
             enemyAgent.isStopped = false;
         }
     }

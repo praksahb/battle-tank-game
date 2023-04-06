@@ -1,19 +1,19 @@
-﻿using TankBattle.Tank.PlayerTank;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace TankBattle.Tank.EnemyTank
 {
     public class TankChasingState : TankState
     {
+        //  RED
+
         [SerializeField]
         private Color differentColor;
 
         public override void OnEnterState()
         {
             base.OnEnterState();
-            Debug.Log("Entering State: " + enemyTankView.GetCurrentState());
-            enemyTankView.ChangeColor(differentColor);
-
+            Debug.Log("Entering State: " + enemyStateManager.GetCurrentState());
+            enemyStateManager.ChangeColor(differentColor);
         }
 
         public override void OnExitState()
@@ -23,7 +23,13 @@ namespace TankBattle.Tank.EnemyTank
 
         private void Update()
         {
-            if (playerTransform != null && enemyTankView.LookForPlayer(playerTransform) != false)
+            if(playerTransform == null)
+            {
+                enemyStateManager.ChangeState(enemyStateManager.idleState);
+                return;
+            }
+
+            if (enemyStateManager.LookForPlayer(playerTransform))
             {
                 if (enemyAgent.remainingDistance > enemyAgent.stoppingDistance)
                 {
@@ -31,7 +37,7 @@ namespace TankBattle.Tank.EnemyTank
                 }
                 else
                 {
-                    enemyTankView.ChangeState(enemyTankView.attackingState);
+                    enemyStateManager.ChangeState(enemyStateManager.attackingState);
                 }
             }
         }

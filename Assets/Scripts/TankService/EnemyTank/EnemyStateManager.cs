@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace TankBattle.Tank.EnemyTank
 {
-    public class EnemyTankView : MonoBehaviour
+    public class EnemyStateManager : MonoBehaviour
     {
         // TANK STATE related
         [SerializeField] private Image StateImage;
@@ -38,7 +38,6 @@ namespace TankBattle.Tank.EnemyTank
 
         public void ChangeColor(Color32 color)
         {
-            // alpha value is 0 if not changed
             color.a = 255;
             Image image = StateImage.GetComponent<Image>();
             image.color = color;
@@ -53,27 +52,6 @@ namespace TankBattle.Tank.EnemyTank
             currentState = newState;
             currentState.OnEnterState();
         }
-
-        //private void FindVisibleTargets()
-        //{
-        //    Collider[] targetsinViewRadius = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
-
-        //    for (int i = 0; i < targetsinViewRadius.Length; i++)
-        //    {
-        //        // visibleTargets.Clear();
-        //        Transform target = targetsinViewRadius[i].transform;
-        //        Vector3 dirToTarget = (target.position - transform.position).normalized;
-        //        if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
-        //        {
-        //            float distToTarget = Vector3.Distance(transform.position, target.position);
-        //            if (!Physics.Raycast(transform.position, dirToTarget, distToTarget, obstacleMask))
-        //            {
-        //                // target is in view range of enemy -- can use list to store if more than one targets
-        //                //visibleTargets.Add(target);
-        //            }
-        //        }
-        //    }
-        //}
 
         public bool LookForPlayer(Transform playerTransform)
         {
@@ -90,7 +68,7 @@ namespace TankBattle.Tank.EnemyTank
             {
                 Vector3 distNormalized = distToTarget.normalized;
                 // within forward viewing angle
-                if (Vector3.Dot(distNormalized, transform.forward) > Mathf.Cos(viewAngle * 0.5f * Mathf.Deg2Rad))
+                if (transform.IsInViewingAngle(distNormalized, viewAngle))
                 {
                     //check if any obstruction
                     if (!Physics.Raycast(transform.position, distNormalized, distMagnitude, obstacleMask))
@@ -104,12 +82,12 @@ namespace TankBattle.Tank.EnemyTank
         }
     }
 
-    [CustomEditor(typeof(EnemyTankView))]
+    [CustomEditor(typeof(EnemyStateManager))]
     public class FieldOfViewEditor : Editor
     {
         private void OnSceneGUI()
         {
-            EnemyTankView enemyFOV = (EnemyTankView)target;
+            EnemyStateManager enemyFOV = (EnemyStateManager)target;
             Handles.color = Color.white;
             Vector3 viewAngleA = enemyFOV.DirFromAngle(-enemyFOV.viewAngle / 2, false);
             Vector3 viewAngleB = enemyFOV.DirFromAngle(enemyFOV.viewAngle / 2, false);

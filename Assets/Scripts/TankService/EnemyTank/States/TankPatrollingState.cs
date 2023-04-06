@@ -6,6 +6,8 @@ namespace TankBattle.Tank.EnemyTank
 {
     public class TankPatrollingState : TankState
     {
+        // BLUE
+
         [SerializeField] private float radiusRange = 10f;
 
         public override void OnEnterState()
@@ -15,8 +17,8 @@ namespace TankBattle.Tank.EnemyTank
             {
                 enemyAgent.isStopped = false;
             }
-            Debug.Log("Entering State: " + enemyTankView.GetCurrentState());
-            enemyTankView.ChangeColor(color);
+            Debug.Log("Entering State: " + enemyStateManager.GetCurrentState());
+            enemyStateManager.ChangeColor(color);
         }
 
         public override void OnExitState()
@@ -27,11 +29,11 @@ namespace TankBattle.Tank.EnemyTank
 
         private void Update()
         {
-            if(enemyTankView.LookForPlayer(playerTransform))
+            if(enemyStateManager.LookForPlayer(playerTransform))
             {
-                enemyTankView.ChangeState(enemyTankView.chasingState);
+                enemyStateManager.ChangeState(enemyStateManager.chasingState);
             }
-
+            else
             // move Randomly
             if (enemyAgent.remainingDistance <= enemyAgent.stoppingDistance)
             {

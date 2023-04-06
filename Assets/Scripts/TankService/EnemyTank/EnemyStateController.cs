@@ -5,14 +5,12 @@ namespace TankBattle.Tank.EnemyTank
     public class EnemyStateController
     {
         private TankController tankController;
-        private EnemyTankView enemyTankView;
+        private EnemyStateManager enemyStateManager;
 
-
-        //constructor
-        public EnemyStateController(TankController _tankController, EnemyTankView _enemyTankView)
+        public EnemyStateController(TankController _tankController, EnemyStateManager _enemyTankView)
         {
             tankController = _tankController;
-            enemyTankView = _enemyTankView;
+            enemyStateManager = _enemyTankView;
         }
 
         public void PerformFireFunction()
