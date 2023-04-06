@@ -63,11 +63,11 @@ namespace TankBattle.Tank
             TankModel.IsDead = true;
             TankView.InstantiateOnDeath();
 
-            if(TankModel.TankTypes == TankType.Player)
+            if (TankModel.TankTypes == TankType.Player)
             {
                 playerInstance.InvokePlayerDeathEvent();
             }
-            else if(TankModel.TankTypes == TankType.Enemy && !playerInstance.GetTankController().TankModel.IsDead)
+            else if (TankModel.TankTypes == TankType.Enemy && !playerInstance.GetTankController().TankModel.IsDead)
             {
                 EnemyService.Instance.ReduceEnemyList(this);
                 playerInstance.IncrementEnemyKilledScore();
@@ -79,13 +79,13 @@ namespace TankBattle.Tank
         {
             IsFired = true;
             Transform fireTransform = TankView.GetFireTransform();
-            if(fireTransform != null)
+            if (fireTransform != null)
             {
                 Vector3 bulletSpeed = currentLaunchForce * fireTransform.forward;
-            
+
                 ShellService.Instance.LaunchBullet(fireTransform, bulletSpeed, TankModel.TankTypes);
 
-                if(TankModel.TankTypes == TankType.Player)
+                if (TankModel.TankTypes == TankType.Player)
                 {
                     playerInstance.IncrementBulletsFiredScore();
                 }

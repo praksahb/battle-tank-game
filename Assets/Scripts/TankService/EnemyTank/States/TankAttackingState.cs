@@ -1,11 +1,10 @@
-
 using UnityEngine;
 
 namespace TankBattle.Tank.EnemyTank
 {
     public class TankAttackingState : TankState
     {
-        [SerializeField] private float fireCooldownTimer = 1f;
+        [SerializeField] private float fireCooldownTimer = 0.25f;
         private float timeElapsed = 0f;
 
         public override void OnEnterState()
@@ -24,18 +23,24 @@ namespace TankBattle.Tank.EnemyTank
         {
             timeElapsed += Time.deltaTime;
 
-            if(Input.GetKeyDown(KeyCode.Alpha2))
+            if (enemyTankView.LookForPlayer(playerTransform))
+            {
+                if (timeElapsed >= fireCooldownTimer)
+                {
+                    timeElapsed = 0f;
+                    if (playerTransform)
+                        enemyAgent.transform.LookAt(playerTransform.position);
+                    enemyStateController.PerformFireFunction();
+                }
+            }
+            else if(playerTransform != null)
             {
                 enemyTankView.ChangeState(enemyTankView.patrollingState);
+            } else
+            {
+                enemyTankView.ChangeState(enemyTankView.idleState);
             }
 
-            if(timeElapsed >= fireCooldownTimer)
-            {
-                timeElapsed = 0f;
-                if(playerTransform)
-                    enemyAgent.transform.LookAt(playerTransform.position);
-                enemyStateController.PerformFireFunction();
-            }
         }
     }
 }

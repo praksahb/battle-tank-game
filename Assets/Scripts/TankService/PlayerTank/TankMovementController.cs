@@ -21,7 +21,7 @@ namespace TankBattle.Tank.PlayerTank
         private void Start()
         {
             tankController = PlayerService.Instance.GetTankController();
-            if(tankController == null)
+            if (tankController == null)
             {
                 Debug.Log("ERROR");
             }

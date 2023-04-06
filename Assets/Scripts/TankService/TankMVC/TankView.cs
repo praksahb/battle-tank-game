@@ -1,17 +1,9 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 /*
  * Base Tank View 
  * Both player and enemy tank are using this
- * 
- * Changes To Make: Ideal Case
- * Better would be to create two TankView Scripts which would be inheriting from a base TankView to make it more modular and to increase SRP
- *  Reason to do this is more separating state logic from player tank 
- *  
- *  Realistic Case: Just separate the State logic and make it inherit TankView 
- *  that way only attach it to enemy tank
  */
 
 namespace TankBattle.Tank
@@ -35,7 +27,6 @@ namespace TankBattle.Tank
         private Rigidbody rb;
         private AudioSource explosionAudio;
         private ParticleSystem explosionParticles;
-        private float maxHealth;
 
         private TankController tankController;
 
@@ -47,7 +38,7 @@ namespace TankBattle.Tank
 
         private void Update()
         {
-            if(tankController.TankModel.TankTypes == TankType.Player)
+            if (tankController.TankModel.TankTypes == TankType.Player)
             {
                 TakeInputPress();
             }

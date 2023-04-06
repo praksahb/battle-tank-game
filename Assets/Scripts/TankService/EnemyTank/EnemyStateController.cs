@@ -1,5 +1,4 @@
-﻿using TankBattle.Tank.PlayerTank;
-using UnityEngine;
+﻿
 
 namespace TankBattle.Tank.EnemyTank
 {
@@ -14,7 +13,7 @@ namespace TankBattle.Tank.EnemyTank
         {
             tankController = _tankController;
             enemyTankView = _enemyTankView;
-        } 
+        }
 
         public void PerformFireFunction()
         {

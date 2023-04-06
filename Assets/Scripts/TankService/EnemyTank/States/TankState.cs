@@ -25,7 +25,10 @@ namespace TankBattle.Tank.EnemyTank
 
         private void Start()
         {
-            playerTransform = PlayerService.Instance.GetPlayerTransform();
+            if(PlayerService.Instance.IsAlive())
+            {
+                playerTransform = PlayerService.Instance.GetPlayerTransform();
+            }
             TankController tankController = tankView.GetTankController();
             if(tankController != null)
                 enemyStateController = new EnemyStateController(tankController, enemyTankView);

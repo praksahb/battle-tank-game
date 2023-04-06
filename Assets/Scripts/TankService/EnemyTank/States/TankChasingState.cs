@@ -1,6 +1,5 @@
 ﻿using TankBattle.Tank.PlayerTank;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace TankBattle.Tank.EnemyTank
 {
@@ -14,6 +13,7 @@ namespace TankBattle.Tank.EnemyTank
             base.OnEnterState();
             Debug.Log("Entering State: " + enemyTankView.GetCurrentState());
             enemyTankView.ChangeColor(differentColor);
+
         }
 
         public override void OnExitState()
@@ -23,18 +23,16 @@ namespace TankBattle.Tank.EnemyTank
 
         private void Update()
         {
-            if(Input.GetKeyDown(KeyCode.Alpha2))
+            if (playerTransform != null && enemyTankView.LookForPlayer(playerTransform) != false)
             {
-                enemyTankView.ChangeState(enemyTankView.patrollingState);
-            }
-            if (Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                enemyTankView.ChangeState(enemyTankView.attackingState);
-            }
-
-            if(playerTransform != null && enemyAgent.remainingDistance > enemyAgent.stoppingDistance)
-            {
-                enemyAgent.SetDestination(playerTransform.position);
+                if (enemyAgent.remainingDistance > enemyAgent.stoppingDistance)
+                {
+                    enemyAgent.SetDestination(playerTransform.position);
+                }
+                else
+                {
+                    enemyTankView.ChangeState(enemyTankView.attackingState);
+                }
             }
         }
     }
