@@ -82,18 +82,18 @@ namespace TankBattle.Tank.EnemyTank
         }
     }
 
-    [CustomEditor(typeof(EnemyStateManager))]
-    public class FieldOfViewEditor : Editor
-    {
-        private void OnSceneGUI()
-        {
-            EnemyStateManager enemyFOV = (EnemyStateManager)target;
-            Handles.color = Color.white;
-            Vector3 viewAngleA = enemyFOV.DirFromAngle(-enemyFOV.viewAngle / 2, false);
-            Vector3 viewAngleB = enemyFOV.DirFromAngle(enemyFOV.viewAngle / 2, false);
-            Handles.DrawWireArc(enemyFOV.transform.position, Vector3.up, viewAngleA, enemyFOV.viewAngle, enemyFOV.viewRadius);
-            Handles.DrawLine(enemyFOV.transform.position, enemyFOV.transform.position + viewAngleA * enemyFOV.viewRadius);
-            Handles.DrawLine(enemyFOV.transform.position, enemyFOV.transform.position + viewAngleB * enemyFOV.viewRadius);
-        }
-    }
+    //[CustomEditor(typeof(EnemyStateManager))]
+    //public class FieldOfViewEditor : Editor
+    //{
+    //    private void OnSceneGUI()
+    //    {
+    //        EnemyStateManager enemyFOV = (EnemyStateManager)target;
+    //        Handles.color = Color.white;
+    //        Vector3 viewAngleA = enemyFOV.DirFromAngle(-enemyFOV.viewAngle / 2, false);
+    //        Vector3 viewAngleB = enemyFOV.DirFromAngle(enemyFOV.viewAngle / 2, false);
+    //        Handles.DrawWireArc(enemyFOV.transform.position, Vector3.up, viewAngleA, enemyFOV.viewAngle, enemyFOV.viewRadius);
+    //        Handles.DrawLine(enemyFOV.transform.position, enemyFOV.transform.position + viewAngleA * enemyFOV.viewRadius);
+    //        Handles.DrawLine(enemyFOV.transform.position, enemyFOV.transform.position + viewAngleB * enemyFOV.viewRadius);
+    //    }
+    //}
 }
