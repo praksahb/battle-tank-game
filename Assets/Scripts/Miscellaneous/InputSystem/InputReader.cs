@@ -40,6 +40,9 @@ namespace TankBattle.Tank.PlayerTank.InputSystem
         // event creator publisher
         public event Action<Vector2> MoveEvent;
 
+        public event Action FireEventPressed;
+        public event Action FireEventReleased;
+
         public event Action JumpEvent;
         public event Action JumpCancelledEvent;
 
@@ -80,6 +83,19 @@ namespace TankBattle.Tank.PlayerTank.InputSystem
             {
                 ResumeEvent?.Invoke();
                 SetGameplay();
+            }
+        }
+
+        public void OnFire(InputAction.CallbackContext context)
+        {
+            if(context.phase == InputActionPhase.Started)
+            {
+                FireEventPressed?.Invoke();
+            }
+
+            if(context.phase == InputActionPhase.Canceled)
+            {
+                FireEventReleased?.Invoke();
             }
         }
     }

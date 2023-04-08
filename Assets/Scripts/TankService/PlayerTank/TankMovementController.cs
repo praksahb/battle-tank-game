@@ -45,6 +45,8 @@ namespace TankBattle.Tank.PlayerTank
             input.JumpEvent -= HandleJump;
             input.JumpCancelledEvent -= HandleCancelledJump;
         }
+
+
         private void FixedUpdate()
         {
             Move();

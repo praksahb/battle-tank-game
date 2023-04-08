@@ -15,7 +15,6 @@ namespace TankBattle.Tank.EnemyTank
 
         public void PerformFireFunction()
         {
-            tankController.CurrentLaunchForce = tankController.TankModel.MinLaunchForce;
             tankController.Fire();
         }
     }

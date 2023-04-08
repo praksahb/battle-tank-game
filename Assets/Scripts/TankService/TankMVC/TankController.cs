@@ -10,12 +10,6 @@ namespace TankBattle.Tank
         public TankModel TankModel { get; }
         public TankView TankView { get; }
 
-        private float currentLaunchForce;
-        public float CurrentLaunchForce { get => currentLaunchForce; set => currentLaunchForce = value; }
-
-        public float ChargeSpeed { get; }
-        public bool IsFired { get; set; }
-
 
         private PlayerService playerInstance = PlayerService.Instance;
 
@@ -24,7 +18,6 @@ namespace TankBattle.Tank
             TankModel = tankModel;
             TankView = UnityEngine.Object.Instantiate(tankPrefab, spawnPosition, Quaternion.identity);
             TankView.SetColorOnAllRenderers(TankModel.Color);
-            ChargeSpeed = (TankModel.MaxLaunchForce - TankModel.MinLaunchForce) / TankModel.MaxChargeTime;
         }
 
         // health related logic
@@ -77,11 +70,10 @@ namespace TankBattle.Tank
         // Shooting Related
         public void Fire()
         {
-            IsFired = true;
             Transform fireTransform = TankView.GetFireTransform();
             if (fireTransform != null)
             {
-                Vector3 bulletSpeed = currentLaunchForce * fireTransform.forward;
+                Vector3 bulletSpeed = TankModel.bulletLaunchForce * fireTransform.forward;
 
                 ShellService.Instance.LaunchBullet(fireTransform, bulletSpeed, TankModel.TankTypes);
 
@@ -90,7 +82,6 @@ namespace TankBattle.Tank
                     playerInstance.IncrementBulletsFiredScore();
                 }
                 TankView.PlayFiredSound();
-                currentLaunchForce = TankModel.MinLaunchForce;
             }
             else
             {

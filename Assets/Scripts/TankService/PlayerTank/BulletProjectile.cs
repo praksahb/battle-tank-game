@@ -21,19 +21,26 @@ namespace TankBattle.Services
         private float timeStep = 0.05f;
         private float checkCollisionRadius = 0.15f;
 
+        public static bool isFirePressed;
+
         private void Update()
         {
 
-            if (trajectoryLineRenderer != null)
+            if (isFirePressed && trajectoryLineRenderer != null)
             {
                 DrawTrajectory();
+            }
+            else
+            {
+                trajectoryLineRenderer.enabled = false;
             }
         }
 
         private void Start()
         {
             playerController = PlayerService.Instance.GetTankController();
-            currentLaunchForce = playerController.TankModel.MinLaunchForce;
+            currentLaunchForce = playerController.TankModel.bulletLaunchForce;
+
         }
 
         private void DrawTrajectory()
@@ -44,6 +51,7 @@ namespace TankBattle.Services
 
             trajectoryPoints.Clear();
             trajectoryPoints.Add(firePointTransform.position);
+            trajectoryLineRenderer.enabled = true;
 
             Vector3 initialVelocity = firePointTransform.forward * currentLaunchForce;
             Vector3 position = firePointTransform.position;

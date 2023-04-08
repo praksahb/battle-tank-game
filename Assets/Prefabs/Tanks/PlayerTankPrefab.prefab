@@ -524,6 +524,7 @@ GameObject:
   - component: {fileID: -1605791453666858656}
   - component: {fileID: -6217738971137512374}
   - component: {fileID: -3739429262334355263}
+  - component: {fileID: 5375608364427859287}
   m_Layer: 6
   m_Name: PlayerTankPrefab
   m_TagString: Untagged
@@ -840,6 +841,19 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!114 &5375608364427859287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7124874151064414987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a022128ce10f40e4c88725e65d2fe652, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  input: {fileID: 11400000, guid: b96280f9aa7ea8b44ae072cb75c1b577, type: 2}
 --- !u!1 &7124874151097006996
 GameObject:
   m_ObjectHideFlags: 0
