@@ -36,14 +36,6 @@ namespace TankBattle.Tank
             renderersOnTank = GetComponentsInChildren<MeshRenderer>();
         }
 
-        private void Update()
-        {
-            if (tankController.TankModel.TankTypes == TankType.Player)
-            {
-                TakeInputPress();
-            }
-        }
-
         // Getters and Setters
         public virtual void SetTankController(TankController _tankController)
         {
@@ -90,42 +82,6 @@ namespace TankBattle.Tank
         {
             tankController.TakeDamage(impactPosition, _explosionRadius, _MaxDamage);
         }
-
-        // Shooting related UI
-        // has to be implemented using the new input system
-
-        private void TakeInputPress()
-        {
-            aimSlider.value = tankController.TankModel.MinLaunchForce;
-
-            if (tankController.CurrentLaunchForce >= tankController.TankModel.MaxLaunchForce && !tankController.IsFired)
-            {
-                // at max charge, not fired yet
-                tankController.CurrentLaunchForce = tankController.TankModel.MaxLaunchForce;
-                tankController.Fire();
-            }
-            else if (Input.GetButtonDown(fireButton))
-            {
-                // when fire button is pressed for first time
-                tankController.IsFired = false;
-                tankController.CurrentLaunchForce = tankController.TankModel.MinLaunchForce;
-                //play charging sound
-                shootingAudio.clip = chargingClip;
-                shootingAudio.Play();
-            }
-            else if (Input.GetButton(fireButton) && !tankController.IsFired)
-            {
-                // holding fire button, not fired yet
-                tankController.CurrentLaunchForce += tankController.ChargeSpeed * Time.deltaTime;
-                aimSlider.value = tankController.CurrentLaunchForce;
-            }
-            else if (Input.GetButtonUp(fireButton) && !tankController.IsFired)
-            {
-                // button released, change isFired here
-                tankController.Fire();
-            }
-        }
-
         public void PlayFiredSound()
         {
             shootingAudio.clip = fireClip;
