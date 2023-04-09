@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 4908536628357681122}
   - component: {fileID: 4908536628357681120}
   - component: {fileID: 4908536628357681134}
-  - component: {fileID: 7248293040334539323}
   - component: {fileID: 2035739250329364399}
+  - component: {fileID: 5947966600707971453}
   m_Layer: 0
   m_Name: Shell
   m_TagString: Untagged
@@ -178,18 +178,6 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &7248293040334539323
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4908536628357712196}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f44930e5d3130cf41881a37e8ce5bb68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!82 &2035739250329364399
 AudioSource:
   m_ObjectHideFlags: 0
@@ -286,3 +274,15 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5947966600707971453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4908536628357712196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13491a51c95a9dc45b7ac7994baa1b40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -24,14 +24,16 @@ namespace TankBattle.Services
                     PlayerService.Instance.IncrementBallsCollectedScore();
                     Destroy(gameObject);
                 }
-            } 
+            }
             else
             {
                 // Bullet can destroy the collectible ball
-                ShellView shellView = other.gameObject.GetComponent<ShellView>();
+                BulletView shellView = other.gameObject.GetComponent<BulletView>();
                 if (shellView != null)
                 {
-                    if(shellView.GetBulletFrom() == TankType.Player)
+                    BulletController bulletC = shellView.GetBulletController();
+
+                    if(bulletC != null && bulletC.BulletModel.SentBy == TankType.Player)
                     {
                         PlayerService.Instance.IncrementBallsCollectedScore();
                         Destroy(gameObject);

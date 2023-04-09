@@ -14,6 +14,5 @@ namespace TankBattle.Tank.TankTypes
         public float jumpValue;
         public float health;
         public float bulletLaunchForce;
-        public float maxChargeTime;
     }
 }

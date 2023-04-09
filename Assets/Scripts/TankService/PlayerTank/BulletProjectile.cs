@@ -39,7 +39,7 @@ namespace TankBattle.Services
         private void Start()
         {
             playerController = PlayerService.Instance.GetTankController();
-            currentLaunchForce = playerController.TankModel.bulletLaunchForce;
+            currentLaunchForce = playerController.TankModel.BulletLaunchForce;
 
         }
 

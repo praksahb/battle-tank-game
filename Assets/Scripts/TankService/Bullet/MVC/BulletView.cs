@@ -3,37 +3,27 @@ using UnityEngine;
 namespace TankBattle.Tank.Bullets
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class ShellView : MonoBehaviour
+    public class BulletView : MonoBehaviour
     {
         private ParticleSystem explosionParticles;
 
-        private ShellController shellController;
+        private BulletController bulletController;
         private AudioSource explosionAudio;
         private Rigidbody rigidBody;
 
         private int maxTankColliders;
-        private TankType bulletFrom;
 
-        private ShellServicePool bulletPool;
+        private BulletServicePool bulletPool;
 
         private void Start()
         {
-            bulletPool = (ShellServicePool)ShellServicePool.Instance;
+            bulletPool = (BulletServicePool)BulletServicePool.Instance;
         }
 
         private void Awake()
         {
             rigidBody = GetComponent<Rigidbody>();
             explosionAudio = GetComponent<AudioSource>();
-        }
-
-        public TankType GetBulletFrom()
-        {
-            return bulletFrom;
-        }
-        public void SetBulletFromValue(TankType tankType)
-        {
-            bulletFrom = tankType;
         }
 
         public void Disable()
@@ -51,23 +41,32 @@ namespace TankBattle.Tank.Bullets
             return gameObject.activeInHierarchy;
         }
 
-        public void SetShellController(ShellController _shellController)
+        public void SetupBullet(Transform firePoint, ParticleSystem explosionParticle)
         {
-            shellController = _shellController;
+            SetExplosionParticle(explosionParticle);
+            transform.SetPositionAndRotation(firePoint.position, firePoint.rotation);
+            Vector3 bulletVelocity = bulletController.BulletModel.BulletLaunchForce * transform.forward;
+            AddVelocity(bulletVelocity);
         }
 
-        public void SetMaxTankColliders(int maxTanksBulletCanDamage)
+        public void SetBulletController(BulletController _bulletController)
         {
-            maxTankColliders = maxTanksBulletCanDamage;
+            bulletController = _bulletController;
         }
 
-        public void SetExplosionParticle(ParticleSystem _explosionParticle)
+        public BulletController GetBulletController()
+        {
+            return bulletController;
+        }
+
+        private void SetExplosionParticle(ParticleSystem _explosionParticle)
         {
             explosionParticles = _explosionParticle;
+            explosionParticles.transform.parent = transform;
             explosionParticles.transform.position = transform.position;
         }
 
-        public void AddVelocity(Vector3 velocityVector)
+        private void AddVelocity(Vector3 velocityVector)
         {
             rigidBody.velocity = velocityVector;
         }
@@ -77,11 +76,11 @@ namespace TankBattle.Tank.Bullets
         // according to its distance away from it.
         private void OnTriggerEnter(Collider other)
         {
-            // maxTankColliders get value from shellModel when instantiating bullet/shell
+            maxTankColliders = bulletController.BulletModel.HitColliders;
             Collider[] hitColliders = new Collider[maxTankColliders];
-            int numOfColliders = Physics.OverlapSphereNonAlloc(transform.position, shellController.ShellModel.ExplosionRadius, hitColliders, shellController.ShellModel.LayerMask);
+            int numOfColliders = Physics.OverlapSphereNonAlloc(transform.position, bulletController.BulletModel.ExplosionRadius, hitColliders, bulletController.BulletModel.LayerMask);
 
-            shellController.CheckHitColliders(hitColliders, numOfColliders, transform.position);
+            bulletController.CheckHitColliders(hitColliders, numOfColliders, transform.position);
             DestroyBullet();
             explosionParticles = null;
         }
@@ -91,9 +90,8 @@ namespace TankBattle.Tank.Bullets
             explosionParticles.transform.parent = null;
             explosionParticles.Play();
             explosionAudio.Play();
-            bulletPool.PushBulletBack(shellController);
+            bulletPool.PushBulletBack(bulletController);
             bulletPool.PushToParticlePool(explosionParticles);
         }
-
     }
 }

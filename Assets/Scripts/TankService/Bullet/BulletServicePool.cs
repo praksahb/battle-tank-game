@@ -5,32 +5,30 @@ using UnityEngine;
 
 namespace TankBattle.Tank.Bullets
 {
-    public class ShellServicePool : GenericMonoPool<ShellController>
+    public class BulletServicePool : GenericMonoPool<BulletController>
     {
         public int amountToPool;
         [SerializeField] private ParticleSystem explosionParticles;
-        private ShellController shellController;
+        private BulletController bulletController;
 
         private GenericPooling<ParticleSystem> poolParticleSystem;
 
-        protected override ShellController CreateItem()
+        protected override BulletController CreateItem()
         {
-            return ShellService.Instance.CreateShell();
+            return BulletService.Instance.CreateBullet();
         }
         private void Start()
         {
-            //LoadBulletsPool();
-
             poolParticleSystem = new GenericPooling<ParticleSystem>(amountToPool, explosionParticles, transform);
         }
 
-        public ShellController GetBullet()
+        public BulletController GetBullet()
         {
 
-            shellController = GetItem();
-            shellController.ShellView.Enable();
-            shellController.ShellView.transform.parent = transform;
-            return shellController;
+            bulletController = GetItem();
+            bulletController.BulletView.Enable();
+            bulletController.BulletView.transform.parent = transform;
+            return bulletController;
         }
 
         public ParticleSystem GetExplosionParticle()
@@ -38,17 +36,17 @@ namespace TankBattle.Tank.Bullets
             return poolParticleSystem.GetItem();
         }
 
-        public void PushBulletBack(ShellController shellController)
+        public void PushBulletBack(BulletController bulletController)
         {
-            shellController.ShellView.Disable();
-            shellController.ShellModel.SentBy = TankType.None;
-            ReturnItem(shellController);
+            bulletController.BulletView.Disable();
+            bulletController.BulletModel.SentBy = TankType.None;
+            ReturnItem(bulletController);
         }
 
           async public void PushToParticlePool(ParticleSystem explosionParticle)
         {
             explosionParticle.transform.parent = transform;
-            await Task.Delay((int)(explosionParticle.main.duration * 1000));
+            await Task.Delay((int)(explosionParticle.main.duration * 1000)); // time unit conversion
             poolParticleSystem.FreeItem(explosionParticle);
 
         }

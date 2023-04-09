@@ -26,8 +26,7 @@ namespace TankBattle.Tank
             }
         }
         public Color Color { get; }
-        public float bulletLaunchForce { get; }
-        public float MaxChargeTime { get; }
+        public float BulletLaunchForce { get; }
         
         // public properties
         public int BulletsFired { get; set; }
@@ -46,8 +45,7 @@ namespace TankBattle.Tank
             JumpForce = tankScriptableObject.jumpValue;
             Health = tankScriptableObject.health;
             Color = tankScriptableObject.tankColor;
-            bulletLaunchForce = tankScriptableObject.bulletLaunchForce;
-            MaxChargeTime = tankScriptableObject.maxChargeTime;
+            BulletLaunchForce = tankScriptableObject.bulletLaunchForce;
             BulletsFired = 0;
             EnemiesKilled = 0;
             BallsCollected = 0;
