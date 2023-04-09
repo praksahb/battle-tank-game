@@ -10,7 +10,6 @@ namespace TankBattle.Tank
         public TankModel TankModel { get; }
         public TankView TankView { get; }
 
-
         private PlayerService playerInstance = PlayerService.Instance;
 
         public TankController(TankModel tankModel, TankView tankPrefab, Vector3 spawnPosition)
@@ -73,19 +72,13 @@ namespace TankBattle.Tank
             Transform fireTransform = TankView.GetFireTransform();
             if (fireTransform != null)
             {
-                Vector3 bulletSpeed = TankModel.bulletLaunchForce * fireTransform.forward;
-
-                ShellService.Instance.LaunchBullet(fireTransform, bulletSpeed, TankModel.TankTypes);
+                BulletService.Instance.LaunchBullet(fireTransform, TankModel.TankTypes);
 
                 if (TankModel.TankTypes == TankType.Player)
                 {
                     playerInstance.IncrementBulletsFiredScore();
                 }
                 TankView.PlayFiredSound();
-            }
-            else
-            {
-                Debug.LogError("Fire transform is null");
             }
         }
     }

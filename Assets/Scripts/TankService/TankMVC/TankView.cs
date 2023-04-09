@@ -20,8 +20,6 @@ namespace TankBattle.Tank
         [SerializeField] private AudioClip chargingClip;
         [SerializeField] private AudioClip fireClip;
 
-        private readonly string fireButton = "Fire1";
-
         // miscellaneous
         private MeshRenderer[] renderersOnTank;
         private Rigidbody rb;

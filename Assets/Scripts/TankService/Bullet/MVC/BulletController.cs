@@ -2,15 +2,15 @@ using UnityEngine;
 
 namespace TankBattle.Tank.Bullets
 {
-    public class ShellController
+    public class BulletController
     {
-        public ShellModel ShellModel { get; }
-        public ShellView ShellView { get; }
+        public BulletModel BulletModel { get; }
+        public BulletView BulletView { get; }
 
-        public ShellController(ShellModel getShellModel, ShellView shellViewPrefab)
+        public BulletController(BulletModel getShellModel, BulletView shellViewPrefab)
         {
-            ShellModel = getShellModel;
-            ShellView = Object.Instantiate(shellViewPrefab);
+            BulletModel = getShellModel;
+            BulletView = Object.Instantiate(shellViewPrefab);
         }
 
         public void CheckHitColliders(Collider[] hitColliders, int numOfColliders, Vector3 bulletPosition)
@@ -22,11 +22,11 @@ namespace TankBattle.Tank.Bullets
                 // hit if rigidbody is present
                 if (targetRb)
                 {
-                    targetRb.AddExplosionForce(ShellModel.ExplosionForce, bulletPosition, ShellModel.ExplosionRadius);
+                    targetRb.AddExplosionForce(BulletModel.ExplosionForce, bulletPosition, BulletModel.ExplosionRadius);
                     IDamageable damageable = targetRb.gameObject.GetComponent<IDamageable>();
                     if (damageable != null)
                     {
-                        damageable.Damage(bulletPosition, ShellModel.ExplosionRadius, ShellModel.MaxDamage);
+                        damageable.Damage(bulletPosition, BulletModel.ExplosionRadius, BulletModel.MaxDamage);
                     }
                 }
             }
