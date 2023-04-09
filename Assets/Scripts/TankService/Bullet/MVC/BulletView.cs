@@ -5,10 +5,12 @@ namespace TankBattle.Tank.Bullets
     [RequireComponent(typeof(Rigidbody))]
     public class BulletView : MonoBehaviour
     {
+
+
         private ParticleSystem explosionParticles;
+        private AudioSource explosionAudio;
 
         private BulletController bulletController;
-        private AudioSource explosionAudio;
         private Rigidbody rigidBody;
 
         private int maxTankColliders;
@@ -64,6 +66,7 @@ namespace TankBattle.Tank.Bullets
             explosionParticles = _explosionParticle;
             explosionParticles.transform.parent = transform;
             explosionParticles.transform.position = transform.position;
+            explosionAudio = explosionParticles.GetComponentInChildren<AudioSource>();
         }
 
         private void AddVelocity(Vector3 velocityVector)
@@ -89,9 +92,15 @@ namespace TankBattle.Tank.Bullets
         {
             explosionParticles.transform.parent = null;
             explosionParticles.Play();
-            explosionAudio.Play();
+            PlayExplosionAudio();
             bulletPool.PushBulletBack(bulletController);
             bulletPool.PushToParticlePool(explosionParticles);
+        }
+
+        private void PlayExplosionAudio()
+        {
+            explosionAudio.enabled = true;
+            explosionAudio.Play();
         }
     }
 }

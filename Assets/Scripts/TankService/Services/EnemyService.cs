@@ -21,7 +21,7 @@ namespace TankBattle.Tank.EnemyTank
             enemiesList = new Stack<TankController>(numOfEnemies);
         }
 
-        private void Start()
+        public void CreateEnemies()
         {
             if (numOfEnemies == spawnPoint.Length)
             {
