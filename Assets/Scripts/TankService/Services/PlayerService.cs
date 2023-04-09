@@ -29,10 +29,21 @@ namespace TankBattle.Tank.PlayerTank
             isAlive = true;
         }
 
+        public void StopPlayerMoveController()
+        {
+            tankController.TankView.GetComponent<TankMovementController>().enabled = false;
+        }
+
+        public void StartPlayerMoveController()
+        {
+            tankController.TankView.GetComponent<TankMovementController>().enabled = true;
+        }
+
         public void InvokePlayerDeathEvent()
         {
             OnPlayerDeath?.Invoke();
             isAlive = false;
+            GameManager.Instance.LoadGameOver();
         }
         public void IncrementBulletsFiredScore()
         {
