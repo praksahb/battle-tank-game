@@ -11,7 +11,6 @@ namespace TankBattle.Tank.EnemyTank
 
         private int enemyTankIndex = 1;
         private TankController enemyTankController;
-        private EnemyStateController enemyStateController;
 
         private Stack<TankController> enemiesList;
 
@@ -23,7 +22,7 @@ namespace TankBattle.Tank.EnemyTank
 
         public void CreateEnemies()
         {
-            if (numOfEnemies == spawnPoint.Length)
+            if (enemiesList.Count == 0 && numOfEnemies == spawnPoint.Length)
             {
                 for (int i = 0; i < numOfEnemies; i++)
                 {
@@ -60,6 +59,11 @@ namespace TankBattle.Tank.EnemyTank
             while (temp.Count > 0)
             {
                 enemiesList.Push(temp.Pop());
+            }
+
+            if(enemiesList.Count == 0)
+            {
+                GameManager.Instance.LoadGameWon();
             }
         }
 
