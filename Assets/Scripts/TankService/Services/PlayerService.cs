@@ -17,13 +17,13 @@ namespace TankBattle.Tank.PlayerTank
         public event Action OnPlayerDeath;
 
 
-        private void Start()
+        public void CreatePlayer()
         {
-            CreateTank();
+            CreatePlayerTank();
             CameraController.Instance.AddTransformToTarget(tankController.TankView.transform);
         }
 
-        public void CreateTank()
+        private void CreatePlayerTank()
         {
             tankController = Tank.CreateTank.CreateTankService.Instance.CreateTank(spawnPoint.position, playerTankIndex);
             isAlive = true;

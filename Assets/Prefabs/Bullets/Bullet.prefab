@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 2035739250329364399}
   - component: {fileID: 5947966600707971453}
   m_Layer: 0
-  m_Name: Shell
+  m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -286,3 +286,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13491a51c95a9dc45b7ac7994baa1b40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosionAudio: {fileID: 2035739250329364399}
+  explosionAudioClip: {fileID: 8300000, guid: 3a77defcde1caaa40b6f7502547e0c4e, type: 3}
