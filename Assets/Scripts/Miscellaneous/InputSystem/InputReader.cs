@@ -37,8 +37,8 @@ namespace TankBattle.Tank.PlayerTank.InputSystem
             gameInput.UI.Enable();
         }
 
-        // event creator publisher
         public event Action<Vector2> MoveEvent;
+        public event Action<Vector2> LookEvent;
 
         public event Action FireEventPressed;
         public event Action FireEventReleased;
@@ -54,6 +54,11 @@ namespace TankBattle.Tank.PlayerTank.InputSystem
             // Sending direct vector2 value for movement displacement vector
             
             MoveEvent?.Invoke(context.ReadValue<Vector2>());
+        }
+
+        public void OnLook(InputAction.CallbackContext context)
+        {
+            LookEvent?.Invoke(context.ReadValue<Vector2>());
         }
 
         public void OnJump(InputAction.CallbackContext context)

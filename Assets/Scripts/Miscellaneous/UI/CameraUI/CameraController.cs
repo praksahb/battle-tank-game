@@ -15,7 +15,9 @@ namespace TankBattle.Services
 
         public List<Transform> targets;
 
-        private Camera mainCamera;
+        public Camera mainCamera { get; set; }
+
+
         // Reference speed for the smooth damping of the orthographic size
         private float zoomSpeed;
         // Reference velocity for the smooth damping of the position
@@ -79,6 +81,7 @@ namespace TankBattle.Services
 
             averagePos.y = transform.position.y;
             desiredPosition = averagePos;
+            
         }
 
         private void Zoom()
