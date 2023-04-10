@@ -13,7 +13,6 @@ namespace TankBattle.Tank.PlayerTank
         private TankController tankController;
 
         private Vector2 lookDirection;
-        private LineRenderer lineRenderer;
 
 
         private void Start()
@@ -30,7 +29,6 @@ namespace TankBattle.Tank.PlayerTank
             input.FireEventPressed += HandleFirePressed;
             input.FireEventReleased += HandleFireReleased;
             //input.LookEvent += HandleLook;
-            createRendererLine();
         }
 
         private void OnDisable()
@@ -43,17 +41,25 @@ namespace TankBattle.Tank.PlayerTank
 
         private void Update()
         {
-            MoveTurret();
+            MoveTurret2();
         }
 
         private void MoveTurret()
         {
             Vector3 mousePos = MousePosToWorldSpace();
-            Vector3 objPos = Camera.main.ScreenToWorldPoint(tankTurret.transform.position);
 
-            float angle = AngleBetweenTwoPoints(objPos, mousePos);
+            tankTurret.transform.LookAt(new Vector3(mousePos.x, tankTurret.transform.position.y, mousePos.z));
+        }
 
-            tankTurret.transform.localRotation = Quaternion.Euler(new Vector3(0f, angle, 0f));
+        private void MoveTurret2()
+        {
+            Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Plane p = new Plane(Vector3.up, transform.position);
+            if (p.Raycast(mouseRay, out float hitDist))
+            {
+                Vector3 hitPoint = mouseRay.GetPoint(hitDist);
+                tankTurret.transform.LookAt(new Vector3(hitPoint.x, tankTurret.transform.position.y, hitPoint.z));
+            }
         }
 
         float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
@@ -64,29 +70,8 @@ namespace TankBattle.Tank.PlayerTank
         private Vector3 MousePosToWorldSpace()
         {
             Vector3 mousePos = Input.mousePosition;
-            mousePos.z = Camera.main.nearClipPlane;
-            Vector3 Worldpos = Camera.main.ScreenToWorldPoint(mousePos);
+            Vector3 Worldpos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, transform.position.y));
             return Worldpos;
-        }
-
-        private void DrawLine(Vector3 mousePos)
-        {
-            //For drawing line in the world space, provide the x,y,z values
-            lineRenderer.SetPosition(0, new Vector3(0, 0, 0)); //x,y and z position of the starting point of the line
-            lineRenderer.SetPosition(1, mousePos); //x,y and z position of the end point of the line
-        }
-
-        private void createRendererLine()
-        {
-            //For creating line renderer object
-            lineRenderer = new GameObject("Line").AddComponent<LineRenderer>();
-            lineRenderer.startColor = Color.black;
-            lineRenderer.endColor = Color.black;
-            lineRenderer.startWidth = 0.1f;
-            lineRenderer.endWidth = 0.1f;
-            lineRenderer.positionCount = 2;
-            lineRenderer.useWorldSpace = true;
-
         }
 
         private void HandleFireReleased()
