@@ -1,6 +1,7 @@
 using System;
 using TankBattle.Services;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace TankBattle.Tank.PlayerTank
 {
@@ -15,6 +16,7 @@ namespace TankBattle.Tank.PlayerTank
         private bool isAlive;
 
         public event Action OnPlayerDeath;
+
 
 
         public void CreatePlayer()
@@ -81,5 +83,4 @@ namespace TankBattle.Tank.PlayerTank
         {
             return isAlive;
         }
-    };
-}
+    }}
