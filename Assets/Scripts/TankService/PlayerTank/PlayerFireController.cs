@@ -39,7 +39,7 @@ namespace TankBattle.Tank.PlayerTank
 
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             MoveTurretAccurate();
         }

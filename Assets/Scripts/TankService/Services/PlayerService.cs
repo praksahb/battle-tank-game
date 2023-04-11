@@ -15,9 +15,7 @@ namespace TankBattle.Tank.PlayerTank
         private TankController tankController;
         private bool isAlive;
 
-        public event Action OnPlayerDeath;
-
-
+        public Action OnPlayerDeath;
 
         public void CreatePlayer()
         {
@@ -27,7 +25,7 @@ namespace TankBattle.Tank.PlayerTank
 
         private void CreatePlayerTank()
         {
-            tankController = Tank.CreateTank.CreateTankService.Instance.CreateTank(spawnPoint.position, playerTankIndex);
+            tankController = CreateTank.CreateTankService.Instance.CreateTank(spawnPoint.position, playerTankIndex);
             isAlive = true;
         }
 
@@ -45,7 +43,6 @@ namespace TankBattle.Tank.PlayerTank
         {
             OnPlayerDeath?.Invoke();
             isAlive = false;
-            GameManager.Instance.LoadGameOver();
         }
         public void IncrementBulletsFiredScore()
         {

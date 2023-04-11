@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TankBattle.Services;
 using UnityEngine;
@@ -13,6 +14,8 @@ namespace TankBattle.Tank.EnemyTank
         private TankController enemyTankController;
 
         private Stack<TankController> enemiesList;
+
+        public Action EnemiesFinished;
 
         protected override void Awake()
         {
@@ -63,7 +66,7 @@ namespace TankBattle.Tank.EnemyTank
 
             if(enemiesList.Count == 0)
             {
-                GameManager.Instance.LoadGameWon();
+                EnemiesFinished?.Invoke();
             }
         }
 

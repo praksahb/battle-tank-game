@@ -14,7 +14,6 @@ namespace TankBattle.Services
         [SerializeField] private float minSize = 6.5f;
 
         public List<Transform> targets;
-
         private Camera mainCamera;
 
 
