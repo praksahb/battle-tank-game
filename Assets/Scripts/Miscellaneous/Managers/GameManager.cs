@@ -1,4 +1,3 @@
-using System;
 using TankBattle.Tank.EnemyTank;
 using TankBattle.Tank.PlayerTank;
 using UnityEngine;
@@ -29,12 +28,16 @@ namespace TankBattle
         {
             _input.PauseEvent += HandlePause;
             _input.ResumeEvent += HandleResume;
+            PlayerService.Instance.OnPlayerDeath += LoadGameOver;
+            EnemyService.Instance.EnemiesFinished += LoadGameWon;
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             _input.PauseEvent -= HandlePause;
             _input.ResumeEvent -= HandleResume;
+            PlayerService.Instance.OnPlayerDeath -= LoadGameOver;
+            EnemyService.Instance.EnemiesFinished -= LoadGameWon;
         }
 
         public void LoadGameOver()

@@ -14,8 +14,7 @@ namespace TankBattle.Services
         [SerializeField] private float minSize = 6.5f;
 
         public List<Transform> targets;
-
-        public Camera mainCamera { get; set; }
+        private Camera mainCamera;
 
 
         // Reference speed for the smooth damping of the orthographic size
