@@ -15,7 +15,7 @@ namespace TankBattle.Services
 
         public List<Transform> targets;
 
-        public Camera mainCamera { get; set; }
+        private Camera mainCamera;
 
 
         // Reference speed for the smooth damping of the orthographic size

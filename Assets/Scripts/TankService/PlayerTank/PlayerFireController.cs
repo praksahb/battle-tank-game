@@ -13,7 +13,7 @@ namespace TankBattle.Tank.PlayerTank
         private TankController tankController;
 
         private Vector2 lookDirection;
-
+        private float rotationSpeed = 10f;
 
         private void Start()
         {
@@ -41,17 +41,29 @@ namespace TankBattle.Tank.PlayerTank
 
         private void Update()
         {
-            MoveTurret2();
+            MoveTurretAccurate();
         }
 
-        private void MoveTurret()
+        // Working functions
+        private void MoveTurretInAccurate()
         {
-            Vector3 mousePos = MousePosToWorldSpace();
+            Vector3 mousePosWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            tankTurret.transform.LookAt(new Vector3(mousePos.x, tankTurret.transform.position.y, mousePos.z));
+            tankTurret.transform.LookAt(new Vector3(mousePosWorld.x, tankTurret.transform.position.y, mousePosWorld.z + mousePosWorld.y));
         }
 
-        private void MoveTurret2()
+        private void MoveTurretAccurate()
+        {
+            Vector3 mousePos = Input.mousePosition;
+
+            // Convert mouse position to world space using depth buffer
+            Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, Camera.main.WorldToViewportPoint(transform.position).z));
+
+            // Set turret rotation to look at world position
+            tankTurret.transform.LookAt(new Vector3(worldPos.x, tankTurret.transform.position.y, worldPos.z + worldPos.y));
+        }
+
+        private void MoveTurretUsingRaycast()
         {
             Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             Plane p = new Plane(Vector3.up, transform.position);
@@ -60,18 +72,6 @@ namespace TankBattle.Tank.PlayerTank
                 Vector3 hitPoint = mouseRay.GetPoint(hitDist);
                 tankTurret.transform.LookAt(new Vector3(hitPoint.x, tankTurret.transform.position.y, hitPoint.z));
             }
-        }
-
-        float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
-        {
-            return Mathf.Atan2(a.y - b.y, a.x - b.x) * Mathf.Rad2Deg;
-        }
-
-        private Vector3 MousePosToWorldSpace()
-        {
-            Vector3 mousePos = Input.mousePosition;
-            Vector3 Worldpos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, transform.position.y));
-            return Worldpos;
         }
 
         private void HandleFireReleased()
