@@ -64,7 +64,7 @@ namespace TankBattle.Tank.EnemyTank
                 enemiesList.Push(temp.Pop());
             }
 
-            if(enemiesList.Count == 0)
+            if (enemiesList.Count == 0)
             {
                 EnemiesFinished?.Invoke();
             }

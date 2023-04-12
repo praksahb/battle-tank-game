@@ -21,7 +21,6 @@ namespace TankBattle.Extensions
 
         public static bool IsInViewingAngle(this Transform self, Vector3 DistFromTarget, float viewAngle)
         {
-
             return Vector3.Dot(DistFromTarget, self.forward) > Mathf.Cos(viewAngle * 0.5f * Mathf.Deg2Rad);
         }
     }

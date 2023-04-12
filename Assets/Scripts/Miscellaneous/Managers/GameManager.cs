@@ -28,6 +28,11 @@ namespace TankBattle
             SubscribeEvents();
         }
 
+        private void OnDestroy()
+        {
+            UnsubscribeEvents();
+        }
+
         private void SubscribeEvents()
         {
             _input.PauseEvent += HandlePause;
@@ -36,11 +41,6 @@ namespace TankBattle
             EnemyService.Instance.EnemiesFinished += LoadGameWon;
             MainMenu.PlayStartGame += StartGame;
             MainMenu.QuitGameEvent += QuitGame;
-        }
-
-        private void OnDestroy()
-        {
-            UnsubscribeEvents();
         }
 
         private void UnsubscribeEvents()
@@ -66,6 +66,8 @@ namespace TankBattle
             addEnemies.onClick.AddListener(AddMoreEnemies);
         }
 
+
+        // on being called the second time. this function is running in incremental number of times.
         private void AddMoreEnemies()
         {
             EnemyService.Instance.CreateEnemies();
