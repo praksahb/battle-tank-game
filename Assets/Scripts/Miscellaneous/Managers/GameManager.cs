@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace TankBattle
 {
-    public class GameManager : GenericMonoSingleton<GameManager>
+    public class GameManager : MonoBehaviour
     {
         [SerializeField] private Tank.PlayerTank.InputSystem.InputReader _input;
         [SerializeField] private GameObject pauseMenu;
@@ -17,27 +17,40 @@ namespace TankBattle
         private Button restartbtn;
         private Button addEnemies;
 
-        protected override void Awake()
+        private void Awake()
         {
-            base.Awake();
             restartbtn = gameOverMenu.GetComponentInChildren<Button>();
             addEnemies = gameWonMenu.GetComponentInChildren<Button>();
         }
 
         private void Start()
         {
+            SubscribeEvents();
+        }
+
+        private void OnDestroy()
+        {
+            UnsubscribeEvents();
+        }
+
+        private void SubscribeEvents()
+        {
             _input.PauseEvent += HandlePause;
             _input.ResumeEvent += HandleResume;
             PlayerService.Instance.OnPlayerDeath += LoadGameOver;
             EnemyService.Instance.EnemiesFinished += LoadGameWon;
+            MainMenu.PlayStartGame += StartGame;
+            MainMenu.QuitGameEvent += QuitGame;
         }
 
-        private void OnDestroy()
+        private void UnsubscribeEvents()
         {
             _input.PauseEvent -= HandlePause;
             _input.ResumeEvent -= HandleResume;
             PlayerService.Instance.OnPlayerDeath -= LoadGameOver;
             EnemyService.Instance.EnemiesFinished -= LoadGameWon;
+            MainMenu.PlayStartGame -= StartGame;
+            MainMenu.QuitGameEvent -= QuitGame;
         }
 
         public void LoadGameOver()
@@ -53,6 +66,8 @@ namespace TankBattle
             addEnemies.onClick.AddListener(AddMoreEnemies);
         }
 
+
+        // on being called the second time. this function is running in incremental number of times.
         private void AddMoreEnemies()
         {
             EnemyService.Instance.CreateEnemies();

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shellView: {fileID: 5947966600707971453, guid: 10b5c859d8d947448af5ab8c67c42eec,
     type: 3}
-  explosionRadius: 5
+  explosionRadius: 5.5
   explosionForce: 1000
   layerMask:
     serializedVersion: 2

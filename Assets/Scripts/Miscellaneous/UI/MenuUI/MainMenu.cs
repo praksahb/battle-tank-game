@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,15 +11,18 @@ namespace TankBattle
         [SerializeField] private AudioSource menuAudio;
         [SerializeField] private AudioClip bgMusicClip;
 
+        public static Action PlayStartGame;
+        public static Action QuitGameEvent;
+
         private void Start()
         {
-            playButton.onClick.AddListener(playFunction);
+            playButton.onClick.AddListener(PlayFunction);
             quitButton.onClick.AddListener(QuitGame);
 
-            playAudio(bgMusicClip);
+            PlayAudio(bgMusicClip);
         }
 
-        private void playAudio(AudioClip clip2Play)
+        private void PlayAudio(AudioClip clip2Play)
         {
             menuAudio.clip = clip2Play;
             menuAudio.Play();
@@ -26,21 +30,20 @@ namespace TankBattle
 
         private void OnDestroy()
         {
-            playButton.onClick.RemoveListener(playFunction);
+            playButton.onClick.RemoveListener(PlayFunction);
             quitButton.onClick.RemoveListener(QuitGame);
         }
 
-        private void playFunction()
+        private void PlayFunction()
         {
-            Debug.Log("Click click!");
-            playAudio(null);
-            GameManager.Instance.StartGame();
+            PlayAudio(null);
+            PlayStartGame?.Invoke();
             this.gameObject.SetActive(false);
         }
 
         private void QuitGame()
         {
-            GameManager.Instance.QuitGame();
+            QuitGameEvent?.Invoke();
         }
     }
 }
